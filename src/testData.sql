@@ -163,11 +163,11 @@ INSERT INTO ranks(name) VALUES ("rank4");
 INSERT INTO ranks(name) VALUES ("rank5");
 INSERT INTO ranks(name) VALUES ("rank6");
 
-INSERT INTO people(fio, birthday, sex, comment, password, phone_number, email, status, have_access)
+INSERT INTO people(fio, birthday, gender, comment, password, phone_number, email, status, have_access)
 	VALUES ("Степул Артем Мартиросовчи", "1997-06-12", 1, "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "artem.stepul@gmail.com", "учится", 1);
-INSERT INTO people(fio, birthday, sex, comment, password, phone_number, email, status, have_access)
+INSERT INTO people(fio, birthday, gender, comment, password, phone_number, email, status, have_access)
 	VALUES ("Луценко Артем Геннадиевич", "1997-03-16", 1, "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "artem.lucenko@gmail.com", "учится", 1);
-INSERT INTO people(fio, birthday, sex, comment, password, phone_number, email, status, have_access)
+INSERT INTO people(fio, birthday, gender, comment, password, phone_number, email, status, have_access)
 	VALUES ("Иванов Иван Иванович", "1979-09-17", 1, "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "ivanov@gmail.com", "работает", 1);
 
 INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)

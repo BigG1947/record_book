@@ -49,7 +49,7 @@ const createTablePeople = `CREATE TABLE IF NOT EXISTS people(
 										id INT PRIMARY KEY AUTO_INCREMENT,
 										fio VARCHAR(256) NOT NULL,
 										birthday DATE DEFAULT NULL,
-										sex TINYINT(1) NOT NULL,
+										gender TINYINT(1) NOT NULL,
 										comment TEXT,
 										password VARCHAR(256) NOT NULL,
 										phone_number VARCHAR(64),
@@ -71,7 +71,7 @@ const createTableStudent = `CREATE TABLE IF NOT EXISTS student(
 const createTableEmployee = `CREATE TABLE IF NOT EXISTS employee(
 										id_people INT PRIMARY KEY REFERENCES people(id),
 										date_invite DATE NOT NULL,
-										id_group INT DEFAULT NULL,
+										id_group INT DEFAULT NULL UNIQUE,
 										id_cathedra INT NOT NULL,
 										id_rank INT NOT NULL,
 										FOREIGN KEY (id_rank) REFERENCES ranks(id) ON DELETE RESTRICT ON UPDATE CASCADE,
