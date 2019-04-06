@@ -23,39 +23,38 @@ type People struct {
 	SensitiveData SensitiveData `json:"sensitive_data"`
 }
 
-
-func (p *People) GetPeopleByEmail(db *db.Db, email string) error{
+func (p *People) GetPeopleByEmail(db *db.Db, email string) error {
 	if db.Status != true || db.Err != nil {
 		log.Printf("People.GetPeopleByEmail: failed connection to db\n%s\n", db.Err)
 		return db.Err
 	}
 
 	err := db.Connection.QueryRow("SELECT id, fio, birthday, gender, comment, password, phone_number, email, status, have_access FROM people WHERE email = (?)", email).Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status, &p.HaveAccess)
-	if err != nil{
+	if err != nil {
 		log.Printf("People.GetPeopleByEmail: failed selected people\n%s\n", err)
 		return err
 	}
 
 	err = p.Student.getById(db.Connection, p.Id)
-	if err != nil && err != sql.ErrNoRows{
+	if err != nil && err != sql.ErrNoRows {
 		log.Printf("People.GetPeopleByEmail: \n%s\n", err)
 		return err
 	}
 
 	err = p.Employee.getById(db.Connection, p.Id)
-	if err != nil && err != sql.ErrNoRows{
+	if err != nil && err != sql.ErrNoRows {
 		log.Printf("People.GetPeopleByEmail: \n%s\n", err)
 		return err
 	}
 
 	err = p.Accession.getById(db.Connection, p.Id)
-	if err != nil{
+	if err != nil {
 		log.Printf("People.GetPeopleByEmail: \n%s\n", err)
 		return err
 	}
 
 	err = p.SensitiveData.getById(db.Connection, p.Id)
-	if err != nil{
+	if err != nil {
 		log.Printf("People.GetPeopleByEmail: \n%s\n", err)
 		return err
 	}
@@ -115,9 +114,6 @@ func GetAllEmployee(db *db.Db) ([]People, error) {
 	log.Printf("Success GetAllEmployee!!\n")
 	return students, nil
 }
-
-
-
 
 func GetAllStudent(db *db.Db) ([]People, error) {
 	var students []People
@@ -281,6 +277,34 @@ func (p *People) InsertStudent(db *db.Db) {
 	}
 
 	log.Printf("People.InsertStudent: Success insert student\n")
+}
+
+func GetEmailPasswordMap(db *db.Db) map[string]string {
+	var result = make(map[string]string)
+	if db.Status != true || db.Err != nil {
+		log.Printf("People.GetEmailPasswordMap: failed connection to db\n%s\n", db.Err)
+		return result
+	}
+
+	rows, err := db.Connection.Query("SELECT email, password FROM people")
+	if err != nil {
+		log.Printf("People.GetEmailPasswordMap: failed select email, password\n%s\n", db.Err)
+		return result
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var email string
+		var password string
+		err := rows.Scan(&email, &password)
+		if err != nil {
+			log.Printf("People.GetEmailPasswordMap: failed select email, password\n%s\n", db.Err)
+			return result
+		}
+		result[email] = password
+	}
+
+	return result
 }
 
 func (p *People) insert(tx *sql.Tx) (int, error) {

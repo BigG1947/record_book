@@ -133,6 +133,15 @@ func addEmployee(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func printMap(w http.ResponseWriter, r *http.Request){
+	authInfo := models.GetEmailPasswordMap(&db)
+
+	fmt.Fprintf(w,"Email: Password\n")
+	for key, value := range authInfo{
+		fmt.Fprintf(w,"%s: %s\n", key, value)
+	}
+}
+
 func main() {
 	r := mux.NewRouter()
 
@@ -144,6 +153,7 @@ func main() {
 	r.HandleFunc("/getEmployee", getEmployee).Methods("GET")
 
 	r.HandleFunc("/single", getSinglePeople).Methods("GET")
+	r.HandleFunc("/printMap", printMap).Methods("GET")
 
 
 	db.ConnectionToMysqlServer(&dbPack.DefaultConfig)
