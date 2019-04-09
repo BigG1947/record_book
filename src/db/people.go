@@ -1,7 +1,6 @@
-package models
+package db
 
 import (
-	"../db"
 	"database/sql"
 	"log"
 )
@@ -14,6 +13,7 @@ type People struct {
 	Comment       string        `json:"comment"`
 	Password      string        `json:"password"`
 	PhoneNumber   string        `json:"phone_number"`
+	Img           string        `json:"img"`
 	Email         string        `json:"email"`
 	Status        string        `json:"status"`
 	HaveAccess    bool          `json:"have_access"`
@@ -23,13 +23,13 @@ type People struct {
 	SensitiveData SensitiveData `json:"sensitive_data"`
 }
 
-func (p *People) GetPeopleByEmail(db *db.Db, email string) error {
+func (p *People) GetPeopleByEmail(db *Db, email string) error {
 	if db.Status != true || db.Err != nil {
 		log.Printf("People.GetPeopleByEmail: failed connection to db\n%s\n", db.Err)
 		return db.Err
 	}
 
-	err := db.Connection.QueryRow("SELECT id, fio, birthday, gender, comment, password, phone_number, email, status, have_access FROM people WHERE email = (?)", email).Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status, &p.HaveAccess)
+	err := db.Connection.QueryRow("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, status, have_access FROM people WHERE email = (?)", email).Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status, &p.HaveAccess)
 	if err != nil {
 		log.Printf("People.GetPeopleByEmail: failed selected people\n%s\n", err)
 		return err
@@ -61,7 +61,7 @@ func (p *People) GetPeopleByEmail(db *db.Db, email string) error {
 	return nil
 }
 
-func GetAllEmployee(db *db.Db) ([]People, error) {
+func GetAllEmployee(db *Db) ([]People, error) {
 	var students []People
 
 	if db.Status != true || db.Err != nil {
@@ -69,7 +69,7 @@ func GetAllEmployee(db *db.Db) ([]People, error) {
 		return students, db.Err
 	}
 
-	rows, err := db.Connection.Query("SELECT id, fio, birthday, gender, comment, password, phone_number, email, status, have_access FROM people WHERE people.id IN (SELECT id_people FROM employee)")
+	rows, err := db.Connection.Query("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, status, have_access FROM people WHERE people.id IN (SELECT id_people FROM employee)")
 	if err != nil {
 		log.Printf("People.GetAllEmployee: failed selected people\n%s\n", err)
 		return students, err
@@ -78,7 +78,7 @@ func GetAllEmployee(db *db.Db) ([]People, error) {
 
 	for rows.Next() {
 		var p People
-		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status, &p.HaveAccess)
+		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status, &p.HaveAccess)
 		if err != nil {
 			log.Printf("People.GetAllEmployee: \n%s\n", err)
 			return students, err
@@ -115,7 +115,7 @@ func GetAllEmployee(db *db.Db) ([]People, error) {
 	return students, nil
 }
 
-func GetAllStudent(db *db.Db) ([]People, error) {
+func GetAllStudent(db *Db) ([]People, error) {
 	var students []People
 
 	if db.Status != true || db.Err != nil {
@@ -123,7 +123,7 @@ func GetAllStudent(db *db.Db) ([]People, error) {
 		return students, db.Err
 	}
 
-	rows, err := db.Connection.Query("SELECT id, fio, birthday, gender, comment, password, phone_number, email, status, have_access FROM people WHERE people.id IN (SELECT id_people FROM student)")
+	rows, err := db.Connection.Query("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, status, have_access FROM people WHERE people.id IN (SELECT id_people FROM student)")
 	if err != nil {
 		log.Printf("People.GetAllStudent: failed selected people\n%s\n", db.Err)
 		return students, err
@@ -132,7 +132,7 @@ func GetAllStudent(db *db.Db) ([]People, error) {
 
 	for rows.Next() {
 		var p People
-		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status, &p.HaveAccess)
+		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status, &p.HaveAccess)
 		if err != nil {
 			log.Printf("People.GetAllStudent: \n%s\n", err)
 			return students, err
@@ -169,7 +169,7 @@ func GetAllStudent(db *db.Db) ([]People, error) {
 	return students, nil
 }
 
-func (p *People) InsertEmployee(db *db.Db) {
+func (p *People) InsertEmployee(db *Db) {
 	if db.Status != true || db.Err != nil {
 		log.Printf("People.InsertEmployee: failed connection to db\n%s\n", db.Err)
 		return
@@ -224,7 +224,7 @@ func (p *People) InsertEmployee(db *db.Db) {
 	log.Printf("People.InsertEmployee: Success insert employee\n")
 }
 
-func (p *People) InsertStudent(db *db.Db) {
+func (p *People) InsertStudent(db *Db) {
 	if db.Status != true || db.Err != nil {
 		log.Printf("People.InsertStudent: failed connection to db\n%s\n", db.Err)
 		return
@@ -279,7 +279,7 @@ func (p *People) InsertStudent(db *db.Db) {
 	log.Printf("People.InsertStudent: Success insert student\n")
 }
 
-func GetEmailPasswordMap(db *db.Db) map[string]string {
+func GetEmailPasswordMap(db *Db) map[string]string {
 	var result = make(map[string]string)
 	if db.Status != true || db.Err != nil {
 		log.Printf("People.GetEmailPasswordMap: failed connection to db\n%s\n", db.Err)
@@ -308,7 +308,7 @@ func GetEmailPasswordMap(db *db.Db) map[string]string {
 }
 
 func (p *People) insert(tx *sql.Tx) (int, error) {
-	res, err := tx.Exec("INSERT INTO people(fio, birthday, gender, comment, password, phone_number, email, status, have_access) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", p.Fio, p.Birthday, p.Gender, p.Comment, p.Password, p.PhoneNumber, p.Email, p.Status, p.HaveAccess)
+	res, err := tx.Exec("INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, status, have_access) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", p.Fio, p.Birthday, p.Gender, p.Img, p.Comment, p.Password, p.PhoneNumber, p.Email, p.Status, p.HaveAccess)
 	if err != nil {
 		return 0, err
 	}

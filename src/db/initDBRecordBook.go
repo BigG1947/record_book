@@ -36,8 +36,8 @@ const createTableSpeciality = `CREATE TABLE IF NOT EXISTS speciality(
 const createTableGroups = `CREATE TABLE IF NOT EXISTS groups(
 										id INT PRIMARY KEY AUTO_INCREMENT,
 										name VARCHAR(64) NOT NULL,
-										id_speciality INT,
-										FOREIGN KEY (id_speciality) REFERENCES speciality(id) ON DELETE RESTRICT ON UPDATE CASCADE
+										id_direction INT,
+										FOREIGN KEY (id_direction) REFERENCES direction(id) ON DELETE RESTRICT ON UPDATE CASCADE
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
 const createTableRanks = `CREATE TABLE IF NOT EXISTS ranks(
@@ -50,6 +50,7 @@ const createTablePeople = `CREATE TABLE IF NOT EXISTS people(
 										fio VARCHAR(256) NOT NULL,
 										birthday DATE DEFAULT NULL,
 										gender TINYINT(1) NOT NULL,
+										img VARCHAR(256),
 										comment TEXT,
 										password VARCHAR(256) NOT NULL,
 										phone_number VARCHAR(64),

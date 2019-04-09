@@ -1,6 +1,18 @@
-package models
+package db
 
 import "database/sql"
+
+const (
+	SET_ACCESS      string = "edit_access"
+	SET_SKIP        string = "set_absence"
+	GET_SKIP        string = "get_absence"
+	SET_MARK        string = "set_mark"
+	SET_EVENT       string = "set_event"
+	GET_SENSITIVE   string = "get_sensitive"
+	SET_SENSITIVE   string = "set_sensitive"
+	GET_YELLOW_LIST string = "get_yellow_list"
+	MANAGE          string = "menage_academ"
+)
 
 type Accession struct {
 	IdPeople     int  `json:"id_people"`
