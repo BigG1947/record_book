@@ -33,13 +33,6 @@ const createTableSpeciality = `CREATE TABLE IF NOT EXISTS speciality(
 										FOREIGN KEY	(id_direction) REFERENCES direction(id) ON DELETE RESTRICT
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
-const createTableGroups = `CREATE TABLE IF NOT EXISTS groups(
-										id INT PRIMARY KEY AUTO_INCREMENT,
-										name VARCHAR(64) NOT NULL,
-										id_direction INT,
-										FOREIGN KEY (id_direction) REFERENCES direction(id) ON DELETE RESTRICT ON UPDATE CASCADE
-								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
-
 const createTableRanks = `CREATE TABLE IF NOT EXISTS ranks(
 										id INT PRIMARY KEY AUTO_INCREMENT,
 										name VARCHAR(64) NOT NULL
@@ -65,6 +58,24 @@ const createTablePeople = `CREATE TABLE IF NOT EXISTS people(
 										FOREIGN KEY (id_status) REFERENCES status (id) ON DELETE RESTRICT ON UPDATE CASCADE
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
+const createTableEmployee = `CREATE TABLE IF NOT EXISTS employee(
+										id_people INT PRIMARY KEY REFERENCES people(id),
+										date_invite DATE NOT NULL,
+										id_cathedra INT NOT NULL,
+										id_rank INT NOT NULL,
+										FOREIGN KEY (id_rank) REFERENCES ranks(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+										FOREIGN KEY (id_cathedra) REFERENCES cathedra(id) ON DELETE RESTRICT ON UPDATE CASCADE
+								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
+
+const createTableGroups = `CREATE TABLE IF NOT EXISTS groups(
+										id INT PRIMARY KEY AUTO_INCREMENT,
+										id_employee INT,
+										name VARCHAR(64) NOT NULL,
+										id_direction INT,
+										FOREIGN KEY (id_employee) REFERENCES employee(id_people) ON DELETE RESTRICT ON UPDATE CASCADE,
+										FOREIGN KEY (id_direction) REFERENCES direction(id) ON DELETE RESTRICT ON UPDATE CASCADE
+								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
+
 const createTableStudent = `CREATE TABLE IF NOT EXISTS student(
 										id_people INT PRIMARY KEY REFERENCES people(id),
 										date_admission DATE NOT NULL,
@@ -73,17 +84,6 @@ const createTableStudent = `CREATE TABLE IF NOT EXISTS student(
 										semester INT NOT NULL DEFAULT 1,
 										id_group INT,
 										FOREIGN KEY (id_group) REFERENCES groups(id) ON DELETE RESTRICT ON UPDATE CASCADE
-								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
-
-const createTableEmployee = `CREATE TABLE IF NOT EXISTS employee(
-										id_people INT PRIMARY KEY REFERENCES people(id),
-										date_invite DATE NOT NULL,
-										id_group INT DEFAULT NULL UNIQUE,
-										id_cathedra INT NOT NULL,
-										id_rank INT NOT NULL,
-										FOREIGN KEY (id_rank) REFERENCES ranks(id) ON DELETE RESTRICT ON UPDATE CASCADE,
-										FOREIGN KEY (id_group) REFERENCES groups(id) ON DELETE RESTRICT ON UPDATE CASCADE,
-										FOREIGN KEY (id_cathedra) REFERENCES cathedra(id) ON DELETE RESTRICT ON UPDATE CASCADE
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
 const createTableAccession = `CREATE TABLE IF NOT EXISTS accession(
@@ -114,11 +114,11 @@ var queriesForInitDb = [...]string{
 	createTableDirection,
 	createTableSpeciality,
 	createTableRanks,
-	createTableGroups,
 	createTableStatus,
 	createTablePeople,
-	createTableStudent,
 	createTableEmployee,
+	createTableGroups,
+	createTableStudent,
 	createTableAccession,
 	createTableSensitiveData,
 }

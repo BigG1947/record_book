@@ -93,39 +93,6 @@ INSERT INTO speciality(name, id_direction) VALUES ("speciality30", 15);
 INSERT INTO speciality(name, id_direction) VALUES ("speciality31", 16);
 INSERT INTO speciality(name, id_direction) VALUES ("speciality32", 16);
 
-INSERT INTO groups(name, id_direction) VALUES ("group1", 1);
-INSERT INTO groups(name, id_direction) VALUES ("group2", 1);
-INSERT INTO groups(name, id_direction) VALUES ("group3", 2);
-INSERT INTO groups(name, id_direction) VALUES ("group4", 2);
-INSERT INTO groups(name, id_direction) VALUES ("group5", 3);
-INSERT INTO groups(name, id_direction) VALUES ("group6", 3);
-INSERT INTO groups(name, id_direction) VALUES ("group7", 4);
-INSERT INTO groups(name, id_direction) VALUES ("group8", 4);
-INSERT INTO groups(name, id_direction) VALUES ("group9", 5);
-INSERT INTO groups(name, id_direction) VALUES ("group10", 5);
-INSERT INTO groups(name, id_direction) VALUES ("group11", 6);
-INSERT INTO groups(name, id_direction) VALUES ("group12", 6);
-INSERT INTO groups(name, id_direction) VALUES ("group13", 7);
-INSERT INTO groups(name, id_direction) VALUES ("group14", 7);
-INSERT INTO groups(name, id_direction) VALUES ("group15", 8);
-INSERT INTO groups(name, id_direction) VALUES ("group16", 8);
-INSERT INTO groups(name, id_direction) VALUES ("group17", 9);
-INSERT INTO groups(name, id_direction) VALUES ("group18", 9);
-INSERT INTO groups(name, id_direction) VALUES ("group19", 10);
-INSERT INTO groups(name, id_direction) VALUES ("group20", 10);
-INSERT INTO groups(name, id_direction) VALUES ("group21", 11);
-INSERT INTO groups(name, id_direction) VALUES ("group22", 11);
-INSERT INTO groups(name, id_direction) VALUES ("group23", 12);
-INSERT INTO groups(name, id_direction) VALUES ("group24", 12);
-INSERT INTO groups(name, id_direction) VALUES ("group25", 13);
-INSERT INTO groups(name, id_direction) VALUES ("group26", 13);
-INSERT INTO groups(name, id_direction) VALUES ("group27", 14);
-INSERT INTO groups(name, id_direction) VALUES ("group28", 14);
-INSERT INTO groups(name, id_direction) VALUES ("group29", 15);
-INSERT INTO groups(name, id_direction) VALUES ("group30", 15);
-INSERT INTO groups(name, id_direction) VALUES ("group31", 16);
-INSERT INTO groups(name, id_direction) VALUES ("group32", 16);
-
 INSERT INTO ranks(name) VALUES ("rank1");
 INSERT INTO ranks(name) VALUES ("rank2");
 INSERT INTO ranks(name) VALUES ("rank3");
@@ -146,13 +113,46 @@ VALUES ("Луценко Артем Геннадиевич", "1997-03-16", 1, "/s
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
 VALUES ("Иванов Иван Иванович", "1979-09-17", 1, "/static/img/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "admin@admin.com", 1, 1);
 
+INSERT INTO employee(id_people, date_invite, id_cathedra, id_rank)
+VALUES (3, "2007-07-22", 1, 1);
+
+INSERT INTO groups(id_employee, name, id_direction) VALUES (3, "group1", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group2", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group3", 2);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group4", 2);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group5", 3);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group6", 3);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group7", 4);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group8", 4);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group9", 5);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group10", 5);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group11", 6);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group12", 6);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group13", 7);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group14", 7);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group15", 8);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group16", 8);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group17", 9);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group18", 9);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (3, "group19", 10);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group20", 10);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group21", 11);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group22", 11);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group23", 12);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group24", 12);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group25", 13);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group26", 13);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group27", 14);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group28", 14);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group29", 15);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group30", 15);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group31", 16);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group32", 16);
+
 INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
 VALUES (1, "2017-09-01", 1, 1, 4, 1);
 INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
 VALUES (2, "2017-09-01", 1, 1, 4, 1);
-
-INSERT INTO employee(id_people, date_invite, id_group, id_cathedra, id_rank)
-VALUES (3, "2007-07-22", NULL, 1, 1);
 
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
 VALUES (1, 0, 0, 0, 0, 0, 0, 0, 0, 0);

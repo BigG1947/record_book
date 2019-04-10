@@ -3,23 +3,45 @@ package db
 import "database/sql"
 
 type Group struct {
-	Id   int
-	Name string
-	IdDirection int
+	Id          int    `json:"id"`
+	IdEmployee  int    `json:"id_employee"`
+	Name        string `json:"name"`
+	IdDirection int    `json:"id_direction"`
 }
 
 func (g *Group) GetGroupById(db *sql.DB, id int) error {
-	err := db.QueryRow("SELECT id, name, id_direction FROM groups WHERE id = ?;", id).Scan(&g.Id, &g.Name, &g.IdDirection)
+	var idEmployee sql.NullInt64
+	err := db.QueryRow("SELECT id, id_employee, name, id_direction FROM groups WHERE id = ?;", id).Scan(&g.Id, &idEmployee, &g.Name, &g.IdDirection)
+	g.IdEmployee = int(idEmployee.Int64)
 	return err
 }
 
-func (g *Group) Insert(db *sql.DB) (int, error){
-	res, err := db.Exec("INSERT INTO groups(name, id_direction) VALUES (?, ?);", g.Name, &g.IdDirection)
-	if err != nil{
+func GetGroupByIdEmployee(db *sql.DB, id int) ([]Group, error) {
+	var groups []Group
+	rows, err := db.Query("SELECT id, id_employee, name, id_direction FROM groups WHERE id_employee = ?;", id)
+	if err != nil {
+		return groups, err
+	}
+	for rows.Next() {
+		var g Group
+		var idEmployee sql.NullInt64
+		err = rows.Scan(&g.Id, &idEmployee, &g.Name, &g.IdDirection)
+		if err != nil && err != sql.ErrNoRows {
+			return groups, err
+		}
+		groups = append(groups, g)
+		g.IdEmployee = int(idEmployee.Int64)
+	}
+	return groups, nil
+}
+
+func (g *Group) Insert(db *sql.DB) (int, error) {
+	res, err := db.Exec("INSERT INTO groups(id_mployee, name, id_direction) VALUES (? ,?, ?);", checkForeignKey(g.IdEmployee), g.Name, &g.IdDirection)
+	if err != nil {
 		return 0, err
 	}
 	id, err := res.LastInsertId()
-	if err != nil{
+	if err != nil {
 		return 0, err
 	}
 	return int(id), err
@@ -27,7 +49,7 @@ func (g *Group) Insert(db *sql.DB) (int, error){
 
 func GetAllGroup(db *sql.DB) ([]Group, error) {
 	var groups []Group
-	rows, err := db.Query("SELECT id, name, id_direction FROM groups")
+	rows, err := db.Query("SELECT id, id_employee, name, id_direction FROM groups")
 	if err != nil {
 		return groups, err
 	}
@@ -35,7 +57,9 @@ func GetAllGroup(db *sql.DB) ([]Group, error) {
 
 	for rows.Next() {
 		var g Group
-		err := rows.Scan(&g.Id, &g.Name, &g.IdDirection)
+		var idEmployee sql.NullInt64
+		err := rows.Scan(&g.Id, &idEmployee, &g.Name, &g.IdDirection)
+		g.IdEmployee = int(idEmployee.Int64)
 		if err != nil {
 			return groups, err
 		}
