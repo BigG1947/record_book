@@ -18,7 +18,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 }
 
 func getStudent(w http.ResponseWriter, r *http.Request) {
-	students, err := dbPack.GetAllStudent(&db)
+	students, err := dbPack.GetAllStudent(db.Connection)
 
 	if err != nil {
 		fmt.Fprintf(w, "Error: \n%s\n", err)
@@ -37,7 +37,7 @@ func getStudent(w http.ResponseWriter, r *http.Request) {
 }
 
 func getEmployee(w http.ResponseWriter, r *http.Request) {
-	employees, err := dbPack.GetAllEmployee(&db)
+	employees, err := dbPack.GetAllEmployee(db.Connection)
 	if err != nil {
 		fmt.Fprintf(w, "Error: \n%s\n", err)
 		return
@@ -150,7 +150,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 
 func printMap(w http.ResponseWriter, r *http.Request) {
 	authInfo, err := dbPack.GetEmailPasswordMap(db.Connection)
-	if err != nil{
+	if err != nil {
 		fmt.Fprintf(w, "Err: %s", err.Error())
 		return
 	}
@@ -168,29 +168,27 @@ func angularJs(w http.ResponseWriter, r *http.Request) {
 
 func getGroups(w http.ResponseWriter, r *http.Request) {
 	groups, err := dbPack.GetAllGroup(db.Connection)
-	if err != nil{
+	if err != nil {
 		fmt.Fprintf(w, "Err: %s\n", err.Error())
 		return
 	}
-	for _, group := range groups{
+	for _, group := range groups {
 		fmt.Fprintf(w, "--------- %s --------\nid: %d\nname: %s\nid_direction: %d\n\n", group.Name, group.Id, group.Name, group.IdDirection)
 	}
 	return
 }
 
-func getRanks(w http.ResponseWriter, r *http.Request)  {
+func getRanks(w http.ResponseWriter, r *http.Request) {
 	ranks, err := dbPack.GetAllRanks(db.Connection)
-	if err != nil{
+	if err != nil {
 		fmt.Fprintf(w, "Err: %s\n", err.Error())
 		return
 	}
-	for _, rank := range ranks{
+	for _, rank := range ranks {
 		fmt.Fprintf(w, "--------- %s --------\nid: %d\nname: %s\n\n", rank.Name, rank.Id, rank.Name)
 	}
 	return
 }
-
-
 
 func main() {
 	r := mux.NewRouter()
@@ -212,7 +210,6 @@ func main() {
 	r.HandleFunc("/getGroups", getGroups).Methods("GET")
 
 	r.HandleFunc("/getRanks", getRanks).Methods("GET")
-
 
 	r.HandleFunc("/single", getSinglePeople).Methods("GET")
 	r.HandleFunc("/printMap", printMap).Methods("GET")
