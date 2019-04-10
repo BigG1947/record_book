@@ -45,6 +45,11 @@ const createTableRanks = `CREATE TABLE IF NOT EXISTS ranks(
 										name VARCHAR(64) NOT NULL
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
+const createTableStatus = `CREATE TABLE IF NOT EXISTS status(
+										id INT PRIMARY KEY AUTO_INCREMENT,
+										name VARCHAR(64) NOT NULL
+							) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
+
 const createTablePeople = `CREATE TABLE IF NOT EXISTS people(
 										id INT PRIMARY KEY AUTO_INCREMENT,
 										fio VARCHAR(256) NOT NULL,
@@ -55,8 +60,9 @@ const createTablePeople = `CREATE TABLE IF NOT EXISTS people(
 										password VARCHAR(256) NOT NULL,
 										phone_number VARCHAR(64),
 										email VARCHAR(64) NOT NULL UNIQUE,
-										status VARCHAR(256) NOT NULL,
-										have_access TINYINT(1) NOT NULL DEFAULT 1
+										id_status INT NOT NULL,
+										have_access TINYINT(1) NOT NULL DEFAULT 1,
+										FOREIGN KEY (id_status) REFERENCES status (id) ON DELETE RESTRICT ON UPDATE CASCADE
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
 const createTableStudent = `CREATE TABLE IF NOT EXISTS student(
@@ -109,6 +115,7 @@ var queriesForInitDb = [...]string{
 	createTableSpeciality,
 	createTableRanks,
 	createTableGroups,
+	createTableStatus,
 	createTablePeople,
 	createTableStudent,
 	createTableEmployee,

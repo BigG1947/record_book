@@ -22,6 +22,8 @@ DELETE FROM ranks;
 ALTER TABLE ranks AUTO_INCREMENT=0;
 DELETE FROM groups;
 ALTER TABLE groups AUTO_INCREMENT=0;
+DELETE FROM status;
+ALTER TABLE status AUTO_INCREMENT=0;
 
 
 INSERT INTO institute(name) VALUES ("institute1");
@@ -131,12 +133,18 @@ INSERT INTO ranks(name) VALUES ("rank4");
 INSERT INTO ranks(name) VALUES ("rank5");
 INSERT INTO ranks(name) VALUES ("rank6");
 
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, status, have_access)
-VALUES ("Степул Артем Мартиросовчи", "1997-06-12", 1, "/static/img/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "artem.stepul@gmail.com", "учится", 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, status, have_access)
-VALUES ("Луценко Артем Геннадиевич", "1997-03-16", 1, "/static/img/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "artem.lucenko@gmail.com", "учится", 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, status, have_access)
-VALUES ("Иванов Иван Иванович", "1979-09-17", 1, "/static/img/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "ivanov@gmail.com", "работает", 1);
+INSERT INTO status(name) VALUES ("status1");
+INSERT INTO status(name) VALUES ("status2");
+INSERT INTO status(name) VALUES ("status3");
+INSERT INTO status(name) VALUES ("status4");
+INSERT INTO status(name) VALUES ("status5");
+
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
+VALUES ("Степул Артем Мартиросовчи", "1997-06-12", 1, "/static/img/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "artem.stepul@gmail.com", 2, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
+VALUES ("Луценко Артем Геннадиевич", "1997-03-16", 1, "/static/img/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "artem.lucenko@gmail.com", 2, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
+VALUES ("Иванов Иван Иванович", "1979-09-17", 1, "/static/img/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "admin@admin.com", 1, 1);
 
 INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
 VALUES (1, "2017-09-01", 1, 1, 4, 1);

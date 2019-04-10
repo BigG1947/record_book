@@ -26,14 +26,10 @@ func getStudent(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, student := range students {
-		var g dbPack.Group
-
-		err := g.GetGroupById(db.Connection, student.Student.IdGroup)
-		if err != nil{fmt.Printf("Err: %s\n", err.Error())}
-
 		fmt.Fprintf(w, "--------- %s --------\nid: %d\nfio: %s\nbirthday: %s\ngender: %d\nimg: %s\ncomment: %s\npassword: %s\nphone_number: %s\nemail: %s\nstatus: %s\nhave_access: %v\n\n", student.Fio, student.Id, student.Fio, student.Birthday, student.Gender, student.Img, student.Comment, student.Password, student.PhoneNumber, student.Email, student.Status, student.HaveAccess)
-		fmt.Fprintf(w, "Student Info:\nid_people: %d\ndate_addmission: %s\nis_full_time: %v\nis_cut: %v\nid_group: %d\nsemester: %d\n\n", student.Student.IdPeople, student.Student.DateAdmission, student.Student.IsFullTime, student.Student.IsCut, student.Student.IdGroup, student.Student.Semester)
-		fmt.Fprintf(w, "Group Info:\nid_group: %d\nname: %s\nid_direction: %d\n\n", g.Id, g.Name, g.IdDirection)
+		fmt.Fprintf(w, "Status info:\nid: %d\nname:%s\n\n", student.Status.Id, student.Status.Name)
+		fmt.Fprintf(w, "Student Info:\nid_people: %d\ndate_addmission: %s\nis_full_time: %v\nis_cut: %v\nid_group: %d\nsemester: %d\n\n", student.Student.IdPeople, student.Student.DateAdmission, student.Student.IsFullTime, student.Student.IsCut, student.Student.Group.Id, student.Student.Semester)
+		fmt.Fprintf(w, "Group Info:\nid_group: %d\nname: %s\nid_direction: %d\n\n", student.Student.Group.Id, student.Student.Group.Name, student.Student.Group.IdDirection)
 		fmt.Fprintf(w, "Accession:\nid_people: %d\nedit_access: %v\nset_absence: %v\nget_absence: %v\nset_mark: %v\nset_envent: %v\nget_sesnsitive: %v\nset_sensitive: %v\nget_ylist: %v\nmanage_academ: %v\n\n", student.Accession.IdPeople, student.Accession.EditAccess, student.Accession.SetAbsence, student.Accession.GetAbsence, student.Accession.SetMark, student.Accession.SetEvent, student.Accession.GetSensitive, student.Accession.SetSensitive, student.Accession.GetYlist, student.Accession.ManageAcadem)
 		fmt.Fprintf(w, "Sensitive Data:\nid_people: %d\npassport_code: %s\nrntrs: %s\nreg_address: %s\nmillitary_id: %s\n\n", student.SensitiveData.IdPeople, student.SensitiveData.PassportCode, student.SensitiveData.Rntrs, student.SensitiveData.RegAddress, student.SensitiveData.MilitaryId)
 	}
@@ -48,14 +44,12 @@ func getEmployee(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, employee := range employees {
-		var g dbPack.Group
-		if employee.Employee.IdGroup != 0{
-			err := g.GetGroupById(db.Connection, employee.Employee.IdGroup)
-			if err != nil{fmt.Printf("Err: %s\n", err.Error())}
-		}
 		fmt.Fprintf(w, "--------- %s --------\nid: %d\nfio: %s\nbirthday: %s\ngender: %d\nimg: %s\ncomment: %s\npassword: %s\nphone_number: %s\nemail: %s\nstatus: %s\nhave_access: %v\n\n", employee.Fio, employee.Id, employee.Fio, employee.Birthday, employee.Gender, employee.Img, employee.Comment, employee.Password, employee.PhoneNumber, employee.Email, employee.Status, employee.HaveAccess)
-		fmt.Fprintf(w, "Employee Info:\nid_people: %d\ndate_invite: %s\nid_rank: %d\nid_group: %d\nid_cathedra: %d\n\n", employee.Employee.IdPeople, employee.Employee.DateInvite, employee.Employee.IdRank, employee.Employee.IdGroup, employee.Employee.IdCathedra)
-		fmt.Fprintf(w, "Group Info:\nid_group: %d\nname: %s\nid_direction: %d\n\n", g.Id, g.Name, g.IdDirection)
+		fmt.Fprintf(w, "Status info:\nid: %d\nname:%s\n\n", employee.Status.Id, employee.Status.Name)
+		fmt.Fprintf(w, "Employee Info:\nid_people: %d\ndate_invite: %s\nid_rank: %d\nid_group: %d\nid_cathedra: %d\n\n", employee.Employee.IdPeople, employee.Employee.DateInvite, employee.Employee.Rank.Id, employee.Employee.Group.Id, employee.Employee.Cathedra.Id)
+		fmt.Fprintf(w, "Group Info:\nid_group: %d\nname: %s\nid_direction: %d\n\n", employee.Employee.Group.Id, employee.Employee.Group.Name, employee.Employee.Group.IdDirection)
+		fmt.Fprintf(w, "Rank info:\nid: %d\nname:%s\n\n", employee.Employee.Rank.Id, employee.Employee.Rank.Name)
+		fmt.Fprintf(w, "Cathedra info:\nid: %d\nname:%s\n\n", employee.Employee.Cathedra.Id, employee.Employee.Cathedra.Name)
 		fmt.Fprintf(w, "Accession:\nid_people: %d\nedit_access: %v\nset_absence: %v\nget_absence: %v\nset_mark: %v\nset_envent: %v\nget_sesnsitive: %v\nset_sensitive: %v\nget_ylist: %v\nmanage_academ: %v\n\n", employee.Accession.IdPeople, employee.Accession.EditAccess, employee.Accession.SetAbsence, employee.Accession.GetAbsence, employee.Accession.SetMark, employee.Accession.SetEvent, employee.Accession.GetSensitive, employee.Accession.SetSensitive, employee.Accession.GetYlist, employee.Accession.ManageAcadem)
 		fmt.Fprintf(w, "Sensitive Data:\nid_people: %d\npassport_code: %s\nrntrs: %s\nreg_address: %s\nmillitary_id: %s\n\n", employee.SensitiveData.IdPeople, employee.SensitiveData.PassportCode, employee.SensitiveData.Rntrs, employee.SensitiveData.RegAddress, employee.SensitiveData.MilitaryId)
 	}
@@ -65,11 +59,11 @@ func getEmployee(w http.ResponseWriter, r *http.Request) {
 func getSinglePeople(w http.ResponseWriter, r *http.Request) {
 	var p dbPack.People
 
-	p.GetPeopleByEmail(&db, "ivanov@gmail.com")
+	p.GetPeopleByEmail(db.Connection, "admin@admin.com")
 
 	fmt.Fprintf(w, "--------- %s --------\nid: %d\nfio: %s\nbirthday: %s\ngender: %d\nimg: %s\ncomment: %s\npassword: %s\nphone_number: %s\nemail: %s\nstatus: %s\nhave_access: %v\n\n", p.Fio, p.Id, p.Fio, p.Birthday, p.Img, p.Gender, p.Comment, p.Password, p.PhoneNumber, p.Email, p.Status, p.HaveAccess)
-	fmt.Fprintf(w, "Student Info:\nid_people: %d\ndate_addmission: %s\nis_full_time: %v\nis_cut: %v\nid_group: %d\nsemester: %d\n\n", p.Student.IdPeople, p.Student.DateAdmission, p.Student.IsFullTime, p.Student.IsCut, p.Student.IdGroup, p.Student.Semester)
-	fmt.Fprintf(w, "Employee Info:\nid_people: %d\ndate_invite: %s\nid_rank: %d\nid_group: %d\nid_cathedra: %d\n\n", p.Employee.IdPeople, p.Employee.DateInvite, p.Employee.IdRank, p.Employee.IdGroup, p.Employee.IdCathedra)
+	fmt.Fprintf(w, "Student Info:\nid_people: %d\ndate_addmission: %s\nis_full_time: %v\nis_cut: %v\nid_group: %d\nsemester: %d\n\n", p.Student.IdPeople, p.Student.DateAdmission, p.Student.IsFullTime, p.Student.IsCut, p.Student.Group.Id, p.Student.Semester)
+	fmt.Fprintf(w, "Employee Info:\nid_people: %d\ndate_invite: %s\nid_rank: %d\nid_group: %d\nid_cathedra: %d\n\n", p.Employee.IdPeople, p.Employee.DateInvite, p.Employee.Rank.Id, p.Employee.Group.Id, p.Employee.Cathedra.Id)
 	fmt.Fprintf(w, "Accession:\nid_people: %d\nedit_access: %v\nset_absence: %v\nget_absence: %v\nset_mark: %v\nset_envent: %v\nget_sesnsitive: %v\nset_sensitive: %v\nget_ylist: %v\nmanage_academ: %v\n\n", p.Accession.IdPeople, p.Accession.EditAccess, p.Accession.SetAbsence, p.Accession.GetAbsence, p.Accession.SetMark, p.Accession.SetEvent, p.Accession.GetSensitive, p.Accession.SetSensitive, p.Accession.GetYlist, p.Accession.ManageAcadem)
 	fmt.Fprintf(w, "Sensitive Data:\nid_people: %d\npassport_code: %s\nrntrs: %s\nreg_address: %s\nmillitary_id: %s\n\n", p.SensitiveData.IdPeople, p.SensitiveData.PassportCode, p.SensitiveData.Rntrs, p.SensitiveData.RegAddress, p.SensitiveData.MilitaryId)
 
@@ -88,7 +82,7 @@ func addStudent(w http.ResponseWriter, r *http.Request) {
 	p.Gender = 1
 	p.Img = "/static/img/default.png"
 	p.Comment = ""
-	p.Status = "student"
+	p.Status.Id = 1
 	p.HaveAccess = true
 	p.Birthday = "2006-01-01"
 
@@ -96,7 +90,7 @@ func addStudent(w http.ResponseWriter, r *http.Request) {
 	st.Semester = 1
 	st.IsFullTime = true
 	st.IsCut = false
-	st.IdGroup = 2
+	st.Group.Id = 2
 
 	ac.GetAbsence = true
 
@@ -109,7 +103,7 @@ func addStudent(w http.ResponseWriter, r *http.Request) {
 	p.Student = st
 	p.Accession = ac
 
-	p.InsertStudent(&db)
+	p.InsertStudent(db.Connection)
 }
 
 func addEmployee(w http.ResponseWriter, r *http.Request) {
@@ -125,13 +119,13 @@ func addEmployee(w http.ResponseWriter, r *http.Request) {
 	p.Gender = 1
 	p.Img = "/static/img/default.png"
 	p.Comment = ""
-	p.Status = "employee"
+	p.Status.Id = 1
 	p.HaveAccess = true
 	p.Birthday = "1986-01-01"
 
-	empl.IdCathedra = 1
-	empl.IdRank = 2
-	empl.IdGroup, _ = strconv.Atoi(r.URL.Query().Get("id_group"))
+	empl.Cathedra.Id = 1
+	empl.Rank.Id = 2
+	empl.Group.Id, _ = strconv.Atoi(r.URL.Query().Get("id_group"))
 	empl.DateInvite = "2006-09-01"
 
 	ac.GetAbsence = true
@@ -145,7 +139,7 @@ func addEmployee(w http.ResponseWriter, r *http.Request) {
 	p.Employee = empl
 	p.Accession = ac
 
-	p.InsertEmployee(&db)
+	p.InsertEmployee(db.Connection)
 
 }
 
@@ -155,8 +149,11 @@ func login(w http.ResponseWriter, r *http.Request) {
 }
 
 func printMap(w http.ResponseWriter, r *http.Request) {
-	authInfo := dbPack.GetEmailPasswordMap(&db)
-
+	authInfo, err := dbPack.GetEmailPasswordMap(db.Connection)
+	if err != nil{
+		fmt.Fprintf(w, "Err: %s", err.Error())
+		return
+	}
 	fmt.Fprintf(w, "Email: Password\n")
 	for key, value := range authInfo {
 		fmt.Fprintf(w, "%s: %s\n", key, value)
@@ -220,12 +217,12 @@ func main() {
 	r.HandleFunc("/single", getSinglePeople).Methods("GET")
 	r.HandleFunc("/printMap", printMap).Methods("GET")
 
-	db.ConnectionToMysqlServer(&dbPack.DefaultConfig)
-	db.DropDb(&dbPack.DefaultConfig)
-	db.CreateDB(dbPack.DefaultConfig.DbName)
-	db.ConnectionToDB(&dbPack.DefaultConfig)
+	db.ConnectionToMysqlServer(&dbPack.DefaultConfigLaptop)
+	db.DropDb(&dbPack.DefaultConfigLaptop)
+	db.CreateDB(dbPack.DefaultConfigLaptop.DbName)
+	db.ConnectionToDB(&dbPack.DefaultConfigLaptop)
 	db.InitDB()
 	db.FillDBTestData()
 
-	log.Fatal(http.ListenAndServe(":8080", r))
+	log.Fatal(http.ListenAndServe(":8000", r))
 }
