@@ -206,7 +206,7 @@ func GetAllStudent(db *sql.DB) ([]People, error) {
 	return students, nil
 }
 
-func GetAllStudentFromGroup(db *sql.DB, id int) ([]People, error) {
+func GetStudentFromGroup(db *sql.DB, id int) ([]People, error) {
 	var students []People
 
 	rows, err := db.Query("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access FROM people WHERE id IN (SELECT id_people FROM student WHERE id_group = ?)", id)
