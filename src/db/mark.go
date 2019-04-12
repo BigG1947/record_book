@@ -60,3 +60,13 @@ func GetMarksByStudentEmail(db *sql.DB, email string) ([]Mark, error) {
 	}
 	return marks, nil
 }
+
+func (m *Mark) Update(db *sql.DB) error {
+	_, err := db.Exec("UPDATE marks SET id_student = (?), id_discipline = (?), id_employee = (?), value = (?), national_value = (?), semester = (?), date = (?) WHERE id = (?)", m.IdStudent, m.IdDiscipline, m.IdEmployee, m.Value, m.NationalValue, m.Semester, m.Date, m.Id)
+	return err
+}
+
+func (m *Mark) Delete(db *sql.DB) error {
+	_, err := db.Exec("DELETE FROM marks WHERE id = ?", m.Id)
+	return err
+}

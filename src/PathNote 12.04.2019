@@ -22,6 +22,8 @@
             Date string
       methods:
             Insert(*sql.DB) (error)
+            Update(*sql.DB) (error)
+            Delete(*sql.DB) (error)
       functions:
             GetAllLoadsForEmployee(*sql.DB, id_employee int) ([]Load, error)
             GetMarkByStudentId(*sql.DB, id_student int) ([]Mark, error)
