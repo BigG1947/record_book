@@ -68,3 +68,25 @@ func GetAllGroup(db *sql.DB) ([]Group, error) {
 
 	return groups, nil
 }
+
+func GetAllGroupByEmployeeAndDiscipline(db *sql.DB, id_employee int, id_discipline int) ([]Group, error) {
+	var groups []Group
+	rows, err := db.Query("SELECT id, id_employee, name, id_direction FROM groups WHERE id IN (SELECT G.id FROM groups G, loads L, WHERE L.id_employee = ? AND L.id_discipline = ?)", id_employee, id_discipline)
+	if err != nil {
+		return []Group{}, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var g Group
+		var idEmployee sql.NullInt64
+		err := rows.Scan(&g.Id, &idEmployee, &g.Name, &g.IdDirection)
+		g.IdEmployee = int(idEmployee.Int64)
+		if err != nil {
+			return []Group{}, err
+		}
+		groups = append(groups, g)
+	}
+
+	return groups, nil
+}

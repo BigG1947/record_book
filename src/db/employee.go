@@ -3,11 +3,12 @@ package db
 import "database/sql"
 
 type Employee struct {
-	IdPeople   int      `json:"id_people"`
-	DateInvite string   `json:"date_invite"`
-	Rank       Rank     `json:"rank"`
-	Group      []Group  `json:"group"`
-	Cathedra   Cathedra `json:"cathedra"`
+	IdPeople    int          `json:"id_people"`
+	DateInvite  string       `json:"date_invite"`
+	Rank        Rank         `json:"rank"`
+	Group       []Group      `json:"group"`
+	Cathedra    Cathedra     `json:"cathedra"`
+	Disciplines []Discipline `json:"disciplines"`
 }
 
 func (empl *Employee) insert(tx *sql.Tx) error {
@@ -30,6 +31,10 @@ func (empl *Employee) getById(db *sql.DB, id int) error {
 	}
 	empl.Group, err = GetGroupByIdEmployee(db, empl.IdPeople)
 	if err != nil && err != sql.ErrNoRows {
+		return err
+	}
+	empl.Disciplines, err = GetAllDisciplineForEmployee(db, empl.IdPeople)
+	if err != nil {
 		return err
 	}
 	return nil

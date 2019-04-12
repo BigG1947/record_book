@@ -29,6 +29,10 @@ func getStudent(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Status info:\nid: %d\nname:%s\n\n", student.Status.Id, student.Status.Name)
 		fmt.Fprintf(w, "Student Info:\nid_people: %d\ndate_addmission: %s\nis_full_time: %v\nis_cut: %v\nid_group: %d\nsemester: %d\n\n", student.Student.IdPeople, student.Student.DateAdmission, student.Student.IsFullTime, student.Student.IsCut, student.Student.Group.Id, student.Student.Semester)
 		fmt.Fprintf(w, "Group Info:\nid_group: %d\nname: %s\nid_direction: %d\n\n", student.Student.Group.Id, student.Student.Group.Name, student.Student.Group.IdDirection)
+		fmt.Fprintf(w, "Student Mark:\n")
+		for _, mark := range student.Student.Marks {
+			fmt.Fprintf(w, "id_disciplie: %d\nid_employee: %d\nvalue: %d\nnational_value: %s\nis_exam: %v\nsemester: %d\ndate: %s\n\n", mark.IdDiscipline, mark.IdEmployee, mark.Value, mark.NationalValue, mark.IsExam, mark.Semester, mark.Date)
+		}
 		fmt.Fprintf(w, "Accession:\nid_people: %d\nedit_access: %v\nset_absence: %v\nget_absence: %v\nset_mark: %v\nset_envent: %v\nget_sesnsitive: %v\nset_sensitive: %v\nget_ylist: %v\nmanage_academ: %v\n\n", student.Accession.IdPeople, student.Accession.EditAccess, student.Accession.SetAbsence, student.Accession.GetAbsence, student.Accession.SetMark, student.Accession.SetEvent, student.Accession.GetSensitive, student.Accession.SetSensitive, student.Accession.GetYlist, student.Accession.ManageAcadem)
 		fmt.Fprintf(w, "Sensitive Data:\nid_people: %d\npassport_code: %s\nrntrs: %s\nreg_address: %s\nmillitary_id: %s\n\n", student.SensitiveData.IdPeople, student.SensitiveData.PassportCode, student.SensitiveData.Rntrs, student.SensitiveData.RegAddress, student.SensitiveData.MilitaryId)
 	}
@@ -46,8 +50,13 @@ func getEmployee(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "--------- %s --------\nid: %d\nfio: %s\nbirthday: %s\ngender: %d\nimg: %s\ncomment: %s\npassword: %s\nphone_number: %s\nemail: %s\nstatus: %s\nhave_access: %v\n\n", employee.Fio, employee.Id, employee.Fio, employee.Birthday, employee.Gender, employee.Img, employee.Comment, employee.Password, employee.PhoneNumber, employee.Email, employee.Status, employee.HaveAccess)
 		fmt.Fprintf(w, "Status info:\nid: %d\nname:%s\n\n", employee.Status.Id, employee.Status.Name)
 		fmt.Fprintf(w, "Employee Info:\nid_people: %d\ndate_invite: %s\nid_rank: %d\nid_group: %d\nid_cathedra: %d\n\n", employee.Employee.IdPeople, employee.Employee.DateInvite, employee.Employee.Rank.Id, len(employee.Employee.Group), employee.Employee.Cathedra.Id)
+		fmt.Fprintf(w, "Group Info:\n")
 		for _, g := range employee.Employee.Group {
-			fmt.Fprintf(w, "Group Info:\nid_group: %d\nname: %s\nid_direction: %d\n\n", g.Id, g.Name, g.IdDirection)
+			fmt.Fprintf(w, "id_group: %d\nname: %s\nid_direction: %d\n\n", g.Id, g.Name, g.IdDirection)
+		}
+		fmt.Fprintf(w, "Employee Discipline:\n")
+		for _, d := range employee.Employee.Disciplines {
+			fmt.Fprintf(w, "name: %s\n\n", d.Name)
 		}
 		fmt.Fprintf(w, "Rank info:\nid: %d\nname:%s\n\n", employee.Employee.Rank.Id, employee.Employee.Rank.Name)
 		fmt.Fprintf(w, "Cathedra info:\nid: %d\nname:%s\n\n", employee.Employee.Cathedra.Id, employee.Employee.Cathedra.Name)

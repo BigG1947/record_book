@@ -107,6 +107,37 @@ const createTableSensitiveData = `CREATE TABLE IF NOT EXISTS sensitive_data(
 										military_id VARCHAR(512) DEFAULT NULL
 									) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
+const createTableLoads = `CREATE TABLE IF NOT EXISTS loads(
+										id INT PRIMARY KEY AUTO_INCREMENT,
+										id_discipline INT NOT NULL,
+										id_employee INT NOT NULL,
+										id_group INT NOT NULL,
+										semester INT NOT NULL,
+										FOREIGN KEY (id_discipline) REFERENCES discipline(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+										FOREIGN KEY (id_employee) REFERENCES employee(id_people) ON DELETE RESTRICT ON UPDATE CASCADE,
+										FOREIGN KEY (id_group) REFERENCES groups(id) ON DELETE RESTRICT ON UPDATE CASCADE
+						) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
+
+const createTableDiscipline = `CREATE TABLE IF NOT EXISTS discipline(
+										id INT PRIMARY KEY AUTO_INCREMENT,
+										name VARCHAR(128)
+								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
+
+const createTableMark = `CREATE TABLE IF NOT EXISTS marks(
+										id INT PRIMARY KEY AUTO_INCREMENT,
+										id_student INT NOT NULL,
+										id_discipline INT NOT NULL,
+										id_employee INT NOT NULL,
+										value INT NOT NULL,
+										national_value VARCHAR(64) NOT NULL,
+										semester INT NOT NULL,
+										is_exam TINYINT(1) NOT NULL DEFAULT 0,
+										date DATE DEFAULT NOW(),
+										FOREIGN KEY (id_discipline) REFERENCES discipline(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+										FOREIGN KEY (id_student) REFERENCES student(id_people) ON DELETE RESTRICT ON UPDATE CASCADE,
+										FOREIGN KEY (id_employee) REFERENCES employee(id_people) ON DELETE RESTRICT ON UPDATE CASCADE
+								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
+
 var queriesForInitDb = [...]string{
 	createTableInstitute,
 	createTableFaculty,
@@ -121,4 +152,7 @@ var queriesForInitDb = [...]string{
 	createTableStudent,
 	createTableAccession,
 	createTableSensitiveData,
+	createTableDiscipline,
+	createTableLoads,
+	createTableMark,
 }

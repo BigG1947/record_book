@@ -7,8 +7,9 @@ type Student struct {
 	DateAdmission string `json:"date_admission"`
 	IsFullTime    bool   `json:"is_full_time"`
 	IsCut         bool   `json:"is_cut"`
-	Group       Group    `json:"group"`
+	Group         Group  `json:"group"`
 	Semester      int    `json:"semester"`
+	Marks         []Mark `json:"marks"`
 }
 
 func (st *Student) insert(tx *sql.Tx) error {
@@ -23,6 +24,12 @@ func (st *Student) getById(db *sql.DB, id int) error {
 	}
 
 	err = st.Group.GetGroupById(db, st.Group.Id)
-	return err
+	if err != nil {
+		return err
+	}
+	st.Marks, err = GetMarksByStudentId(db, st.IdPeople)
+	if err != nil {
+		return err
+	}
+	return nil
 }
-
