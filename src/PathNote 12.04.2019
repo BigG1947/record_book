@@ -1,4 +1,4 @@
-1. add type 'Discipline' with next fields, methods and methods:
+1. add type 'Discipline' with next fields, methods and function:
       fields:
             Id int,
             Name string,
