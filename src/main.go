@@ -241,5 +241,15 @@ func main() {
 	for _, g := range groups {
 		fmt.Printf("id: %d\nname: %s\nid_employee: %d\nid_direction: %d\n\n", g.Id, g.Name, g.IdEmployee, g.IdDirection)
 	}
+
+	disciplines, err := dbPack.GetAllDisciplineForEmployee(db.Connection, 6)
+	if err != nil {
+		fmt.Printf("%v", err)
+		return
+	}
+	for _, d := range disciplines {
+		fmt.Printf("id: %d\nname: %s\n\n", d.Id, d.Name)
+	}
+
 	log.Fatal(http.ListenAndServe(":8000", r))
 }

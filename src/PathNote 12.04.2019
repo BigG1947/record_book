@@ -25,9 +25,9 @@
             Update(*sql.DB) (error)
             Delete(*sql.DB) (error)
       functions:
-            GetAllLoadsForEmployee(*sql.DB, id_employee int) ([]Load, error)
             GetMarkByStudentId(*sql.DB, id_student int) ([]Mark, error)
-            GetMarkByStudentEmail(*sql.DB, emil string) ([]Mark, error)
+            GetMarkByStudentEmail(*sql.DB, email string) ([]Mark, error)
+            GetStudentMarkByDiscipline(*sql.DB, id_student int, id_discipline int) ([]Mark, error)
 
 3. add type 'Load' with next fiels, methods and function:
       fiels:

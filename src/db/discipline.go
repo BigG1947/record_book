@@ -34,7 +34,7 @@ func GetAllDiscipline(db *sql.DB) ([]Discipline, error) {
 func GetAllDisciplineForEmployee(db *sql.DB, id int) ([]Discipline, error) {
 	var disciplines []Discipline
 
-	rows, err := db.Query("SELECT D.id, D.name FROM discipline D WHERE D.id IN (SELECT id FROM loads WHERE id_employee = ?)", id)
+	rows, err := db.Query("SELECT D.id, D.name FROM discipline D WHERE D.id IN (SELECT id_discipline FROM loads WHERE id_employee = ?)", id)
 	if err != nil {
 		return []Discipline{}, err
 	}
