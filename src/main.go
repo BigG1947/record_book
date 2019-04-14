@@ -233,5 +233,13 @@ func main() {
 	db.InitDB()
 	db.FillDBTestData()
 
+	groups, err := dbPack.GetAllGroupByEmployeeAndDiscipline(db.Connection, 3, 1)
+	if err != nil {
+		fmt.Printf("%v", err)
+		return
+	}
+	for _, g := range groups {
+		fmt.Printf("id: %d\nname: %s\nid_employee: %d\nid_direction: %d\n\n", g.Id, g.Name, g.IdEmployee, g.IdDirection)
+	}
 	log.Fatal(http.ListenAndServe(":8000", r))
 }

@@ -41,8 +41,8 @@
       functions:
             GetAllLoadsForEmployee(*sql.DB, id_employee int) ([]Load, error)
 
-  4. Change struct Student. Add field Marks type []Mark - it includes all marks for current student.
-  5. Change struct Employee. Add field Disciplines type []Discipline - it includes all discipline for current employee.
+4. Change struct Student. Add field Marks type []Mark - it includes all marks for current student.
+5. Change struct Employee. Add field Disciplines type []Discipline - it includes all discipline for current employee.
 
-  Student.Marks automacli fills when called next methods or functions: GetAllStudent, GetStudentFromGroup, GetPeopleById, GetPeopleByEmail, Student.GetById
-  Employee.Marks automacli fills using methods GetAllEmployee, GetPeopleByEmail, GetPeopleById, Employee.GetById
+Student.Marks automatically fills when called next methods or functions: GetAllStudent, GetStudentFromGroup, GetPeopleById, GetPeopleByEmail, Student.GetById
+Employee.Marks automatically fills using methods GetAllEmployee, GetPeopleByEmail, GetPeopleById, Employee.GetById

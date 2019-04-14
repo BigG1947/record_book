@@ -70,3 +70,41 @@ func (m *Mark) Delete(db *sql.DB) error {
 	_, err := db.Exec("DELETE FROM marks WHERE id = ?", m.Id)
 	return err
 }
+
+func GetMarksByDiscipline(db *sql.DB, idDiscipline int) ([]Mark, error) {
+	var marks []Mark
+	rows, err := db.Query("SELECT id, id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date FROM marks WHERE id_discipline = ?", idDiscipline)
+	if err != nil {
+		return []Mark{}, err
+	}
+
+	for rows.Next() {
+		var m Mark
+		err = rows.Scan(&m.Id, &m.IdStudent, &m.IdDiscipline, &m.IdEmployee, &m.Value, &m.NationalValue, &m.IsExam, &m.Semester, &m.Date)
+		if err != nil {
+			return []Mark{}, err
+		}
+
+		marks = append(marks, m)
+	}
+	return marks, nil
+}
+
+func GetStudentMarksByDiscipline(db *sql.DB, idStudent int, idDiscipline int) ([]Mark, error) {
+	var marks []Mark
+	rows, err := db.Query("SELECT id, id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date FROM marks WHERE id_student = ? AND id_discipline = ?", idStudent, idDiscipline)
+	if err != nil {
+		return []Mark{}, err
+	}
+
+	for rows.Next() {
+		var m Mark
+		err = rows.Scan(&m.Id, &m.IdStudent, &m.IdDiscipline, &m.IdEmployee, &m.Value, &m.NationalValue, &m.IsExam, &m.Semester, &m.Date)
+		if err != nil {
+			return []Mark{}, err
+		}
+
+		marks = append(marks, m)
+	}
+	return marks, nil
+}

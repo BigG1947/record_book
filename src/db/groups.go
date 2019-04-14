@@ -71,7 +71,7 @@ func GetAllGroup(db *sql.DB) ([]Group, error) {
 
 func GetAllGroupByEmployeeAndDiscipline(db *sql.DB, id_employee int, id_discipline int) ([]Group, error) {
 	var groups []Group
-	rows, err := db.Query("SELECT id, id_employee, name, id_direction FROM groups WHERE id IN (SELECT G.id FROM groups G, loads L, WHERE L.id_employee = ? AND L.id_discipline = ?)", id_employee, id_discipline)
+	rows, err := db.Query("SELECT id, id_employee, name, id_direction FROM groups WHERE id IN (SELECT G.id FROM groups G, loads L WHERE L.id_employee = ? AND L.id_discipline = ? AND G.id = L.id_group)", id_employee, id_discipline)
 	if err != nil {
 		return []Group{}, err
 	}
