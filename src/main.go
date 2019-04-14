@@ -251,5 +251,21 @@ func main() {
 		fmt.Printf("id: %d\nname: %s\n\n", d.Id, d.Name)
 	}
 
+	m := dbPack.Mark{
+		Id:            0,
+		IdStudent:     1,
+		IdDiscipline:  1,
+		IdEmployee:    3,
+		Value:         99,
+		NationalValue: "A",
+		IsExam:        true,
+		Semester:      4,
+		Date:          "2019-04-14",
+	}
+
+	_, err = m.Insert(db.Connection)
+
+	fmt.Printf("%s", err)
+
 	log.Fatal(http.ListenAndServe(":8000", r))
 }

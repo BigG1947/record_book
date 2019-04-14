@@ -5,7 +5,6 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"io/ioutil"
-	"log"
 	"strings"
 )
 
@@ -20,28 +19,23 @@ func (db *Db) ConnectionToMysqlServer(dbc *Config) {
 	db.Connection, _ = sql.Open("mysql", connectionString)
 	db.Err = db.Connection.Ping()
 	if db.Err != nil {
-		log.Printf("error connection to mysql server: \n%s\n", db.Err)
 		db.Status = false
 		return
 	}
-	log.Printf("Success connection to MySQL server\n")
 	db.Status = true
 	db.Err = nil
 }
 
-func (db *Db) CreateDB(name string) bool {
+func (db *Db) CreateDB(name string) (bool, error) {
 	if db.Status == false && db.Err != nil {
-		log.Printf("Err, not connected to MySQL server\n")
-		return false
+		return db.Status, db.Err
 	}
 	query := fmt.Sprintf("CREATE DATABASE IF NOT EXISTS %s", name)
 	_, err := db.Connection.Exec(query)
 	if err != nil {
-		log.Printf("error creating database \"%s\": \n%s\n", name, err)
-		return false
+		return false, err
 	}
-	log.Printf("Success create DB: '%s'\n", name)
-	return true
+	return true, nil
 }
 
 func (db *Db) ConnectionToDB(dbc *Config) {
@@ -49,55 +43,45 @@ func (db *Db) ConnectionToDB(dbc *Config) {
 	db.Connection, _ = sql.Open("mysql", connectionString)
 	db.Err = db.Connection.Ping()
 	if db.Err != nil {
-		log.Printf("error connection to database: \n%s\n", db.Err)
 		db.Status = false
 		return
 	}
-	log.Printf("Success connect to '%s' database\n", dbc.DbName)
 	db.Status = true
 	db.Err = nil
 }
 
-func (db *Db) InitDB() bool {
+func (db *Db) InitDB() (bool, error) {
 	if db.Status == false && db.Err != nil {
-		log.Printf("Err, not connected to DB server")
-		return false
+		return db.Status, db.Err
 	}
 	tx, err := db.Connection.Begin()
 
 	if err != nil {
-		log.Printf("InitDB: err in begin transaction\n%s\n", err)
-		return false
+		return false, err
 	}
 
 	for _, query := range queriesForInitDb {
 		_, err := tx.Exec(query)
 		if err != nil {
 			tx.Rollback()
-			log.Printf("InitDB: err in transaction\n%s\n", err)
-			return false
+			return false, err
 		}
 	}
 
 	if tx.Commit() != nil {
-		log.Printf("InitDB: err in commit transaction\n%s\n", err)
-		return false
+		return false, err
 	}
-	log.Printf("Success init DB\n")
-	return true
+	return true, err
 }
 
-
-func (db *Db) FillDBTestData() bool{
+func (db *Db) FillDBTestData() (bool, error) {
 	if db.Status == false && db.Err != nil {
-		log.Printf("Err, not connected to DB server")
-		return false
+		return db.Status, db.Err
 	}
 
 	file, err := ioutil.ReadFile("./testData.sql")
 	if err != nil {
-		log.Printf("Err in script file: \n%s\n", err)
-		return false
+		return false, err
 	}
 
 	queries := strings.SplitAfter(string(file), ";")
@@ -105,37 +89,30 @@ func (db *Db) FillDBTestData() bool{
 	tx, err := db.Connection.Begin()
 
 	if err != nil {
-		log.Printf("FillDbTestData: err in begin transaction\n%s\n", err)
-		return false
+		return false, err
 	}
 
 	for _, query := range queries[:len(queries)-1] {
 		_, err := tx.Exec(query)
 		if err != nil {
 			tx.Rollback()
-			log.Printf("FillDbTestData: err in transaction\n%s\n", err)
-			return false
+			return false, err
 		}
 	}
 
 	if tx.Commit() != nil {
-		log.Printf("FillDbTestData: err in commit transaction\n%s\n", err)
-		return false
+		return false, err
 	}
-	log.Printf("Success fill test data in test db\n")
-	return true
+	return true, err
 }
 
 func (db *Db) DropDb(config *Config) {
 	if db.Status == false && db.Err != nil {
-		log.Printf("Err, not connected to DB")
 		return
 	}
 	query := fmt.Sprintf("DROP DATABASE %s", config.DbName)
 	_, err := db.Connection.Exec(query)
-	if err != nil{
-		log.Printf("Err in drop database '%s'\n%s\n ", config.DbName, err)
+	if err != nil {
 		return
 	}
-	log.Printf("Success drop table '%s'\n", config.DbName)
 }

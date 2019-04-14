@@ -15,7 +15,7 @@ type Mark struct {
 }
 
 func (m *Mark) Insert(db *sql.DB) (int, error) {
-	res, err := db.Exec("INSERT INTO marks(id_student, id_discipline, id_employee, value, natioonal_value, is_exam, semester, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", m.IdStudent, m.IdDiscipline, m.IdEmployee, m.Value, m.NationalValue, m.IsExam, m.Semester, m.Date)
+	res, err := db.Exec("INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", m.IdStudent, m.IdDiscipline, m.IdEmployee, m.Value, m.NationalValue, m.IsExam, m.Semester, m.Date)
 	if err != nil {
 		return 0, err
 	}
