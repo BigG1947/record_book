@@ -227,11 +227,33 @@ func main() {
 	r.HandleFunc("/printMap", printMap).Methods("GET")
 
 	db.ConnectionToMysqlServer(&dbPack.DefaultConfigLaptop)
-	db.DropDb(&dbPack.DefaultConfigLaptop)
-	db.CreateDB(dbPack.DefaultConfigLaptop.DbName)
+	if db.Err != nil {
+		fmt.Printf("%v\n", db.Err)
+	}
+	_, err := db.DropDb(&dbPack.DefaultConfigLaptop)
+	if err != nil {
+		fmt.Printf("%v\n", err)
+	}
+	_, err = db.CreateDB(dbPack.DefaultConfigLaptop.DbName)
+	if err != nil {
+		fmt.Printf("%v\n", err)
+	}
 	db.ConnectionToDB(&dbPack.DefaultConfigLaptop)
-	db.InitDB()
-	db.FillDBTestData()
+	if db.Err != nil {
+		fmt.Printf("%v\n", db.Err)
+	}
+	_, err = db.InitDB()
+	if err != nil {
+		fmt.Printf("%v\n", err)
+	}
+	_, err = db.FillFirstData()
+	if err != nil {
+		fmt.Printf("%v\n", err)
+	}
+	_, err = db.FillDBTestData()
+	if err != nil {
+		fmt.Printf("FillDBTestData: %v\n", err)
+	}
 
 	groups, err := dbPack.GetAllGroupByEmployeeAndDiscipline(db.Connection, 3, 1)
 	if err != nil {

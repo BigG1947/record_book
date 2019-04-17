@@ -74,6 +74,30 @@ func (db *Db) InitDB() (bool, error) {
 	return true, err
 }
 
+func (db *Db) FillFirstData() (bool, error) {
+	if db.Status == false && db.Err != nil {
+		return db.Status, db.Err
+	}
+	tx, err := db.Connection.Begin()
+
+	if err != nil {
+		return false, err
+	}
+
+	for _, query := range FillDataQueries {
+		_, err := tx.Exec(query)
+		if err != nil {
+			tx.Rollback()
+			return false, err
+		}
+	}
+
+	if tx.Commit() != nil {
+		return false, err
+	}
+	return true, err
+}
+
 func (db *Db) FillDBTestData() (bool, error) {
 	if db.Status == false && db.Err != nil {
 		return db.Status, db.Err
@@ -103,16 +127,18 @@ func (db *Db) FillDBTestData() (bool, error) {
 	if tx.Commit() != nil {
 		return false, err
 	}
+
 	return true, err
 }
 
-func (db *Db) DropDb(config *Config) {
+func (db *Db) DropDb(config *Config) (bool, error) {
 	if db.Status == false && db.Err != nil {
-		return
+		return false, db.Err
 	}
 	query := fmt.Sprintf("DROP DATABASE %s", config.DbName)
 	_, err := db.Connection.Exec(query)
 	if err != nil {
-		return
+		return false, err
 	}
+	return true, nil
 }

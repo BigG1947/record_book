@@ -24,12 +24,12 @@ DELETE FROM faculty;
 ALTER TABLE faculty AUTO_INCREMENT=0;
 DELETE FROM institute;
 ALTER TABLE institute AUTO_INCREMENT=0;
-DELETE FROM ranks;
-ALTER TABLE ranks AUTO_INCREMENT=0;
+-- DELETE FROM ranks;
+-- ALTER TABLE ranks AUTO_INCREMENT=0;
 DELETE FROM groups;
 ALTER TABLE groups AUTO_INCREMENT=0;
-DELETE FROM status;
-ALTER TABLE status AUTO_INCREMENT=0;
+-- DELETE FROM status;
+-- ALTER TABLE status AUTO_INCREMENT=0;
 
 
 INSERT INTO institute(name) VALUES ("institute1");
@@ -99,18 +99,18 @@ INSERT INTO speciality(name, id_direction) VALUES ("speciality30", 15);
 INSERT INTO speciality(name, id_direction) VALUES ("speciality31", 16);
 INSERT INTO speciality(name, id_direction) VALUES ("speciality32", 16);
 
-INSERT INTO ranks(name) VALUES ("rank1");
-INSERT INTO ranks(name) VALUES ("rank2");
-INSERT INTO ranks(name) VALUES ("rank3");
-INSERT INTO ranks(name) VALUES ("rank4");
-INSERT INTO ranks(name) VALUES ("rank5");
-INSERT INTO ranks(name) VALUES ("rank6");
-
-INSERT INTO status(name) VALUES ("status1");
-INSERT INTO status(name) VALUES ("status2");
-INSERT INTO status(name) VALUES ("status3");
-INSERT INTO status(name) VALUES ("status4");
-INSERT INTO status(name) VALUES ("status5");
+-- INSERT INTO ranks(name) VALUES ("rank1");
+-- INSERT INTO ranks(name) VALUES ("rank2");
+-- INSERT INTO ranks(name) VALUES ("rank3");
+-- INSERT INTO ranks(name) VALUES ("rank4");
+-- INSERT INTO ranks(name) VALUES ("rank5");
+-- INSERT INTO ranks(name) VALUES ("rank6");
+--
+-- INSERT INTO status(name) VALUES ("status1");
+-- INSERT INTO status(name) VALUES ("status2");
+-- INSERT INTO status(name) VALUES ("status3");
+-- INSERT INTO status(name) VALUES ("status4");
+-- INSERT INTO status(name) VALUES ("status5");
 
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
 VALUES ("Степул Артем Мартиросовчи", "1997-06-12", 1, "/static/img/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "artem.stepul@gmail.com", 2, 1);
@@ -211,31 +211,31 @@ VALUES (14, "2017-09-01", 1, 1, 4, 2);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
 VALUES (1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (2, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+VALUES (2, 1, 0, 1, 0, 0, 1, 1, 0, 1);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
 VALUES (3, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (4, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+VALUES (4, 1, 0, 1, 0, 1, 0, 1, 0, 1);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (5, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+VALUES (5, 0, 1, 0, 1, 0, 1, 0, 1, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
 VALUES (6, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (7, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+VALUES (7, 0, 1, 0, 1, 0, 1, 0, 1, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (8, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+VALUES (8, 0, 0, 0, 0, 0, 1, 1, 1, 1);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
 VALUES (9, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (10, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+VALUES (10, 1, 1, 1, 1, 0, 0, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (11, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+VALUES (11, 0, 0, 1, 1, 1, 1, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
 VALUES (12, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (13, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+VALUES (13, 0, 0, 1, 1, 1, 0, 0, 1, 1);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (14, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+VALUES (14, 0, 1, 1, 0, 1, 0, 1, 0, 1);
 
 INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
 VALUES (1, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
