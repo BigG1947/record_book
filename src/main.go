@@ -228,27 +228,27 @@ func main() {
 
 	db.ConnectionToMysqlServer(&dbPack.DefaultConfigLaptop)
 	if db.Err != nil {
-		fmt.Printf("%v\n", db.Err)
+		fmt.Printf("Connection to MYSQL server: %v\n", db.Err)
 	}
 	_, err := db.DropDb(&dbPack.DefaultConfigLaptop)
 	if err != nil {
-		fmt.Printf("%v\n", err)
+		fmt.Printf("Drop DB: %v\n", err)
 	}
 	_, err = db.CreateDB(dbPack.DefaultConfigLaptop.DbName)
 	if err != nil {
-		fmt.Printf("%v\n", err)
+		fmt.Printf("Create DB: %v\n", err)
 	}
 	db.ConnectionToDB(&dbPack.DefaultConfigLaptop)
 	if db.Err != nil {
-		fmt.Printf("%v\n", db.Err)
+		fmt.Printf("Connection to DB: %v\n", db.Err)
 	}
 	_, err = db.InitDB()
 	if err != nil {
-		fmt.Printf("%v\n", err)
+		fmt.Printf("Init DB: %v\n", err)
 	}
 	_, err = db.FillFirstData()
 	if err != nil {
-		fmt.Printf("%v\n", err)
+		fmt.Printf("FillFirstData: %v\n", err)
 	}
 	_, err = db.FillDBTestData()
 	if err != nil {
@@ -286,6 +286,12 @@ func main() {
 	}
 
 	_, err = m.Insert(db.Connection)
+
+	loads, err := dbPack.GetAllLoadsByIdGroup(db.Connection, 1)
+
+	for _, l := range loads {
+		fmt.Printf("id: %d\ndiscipline: %s\nsemester: %d\nemployee: %s\nassistant: %s\n\n", l.Id, l.Discipline.Name, l.Semester, l.Employee.Fio, l.Assistant.Fio)
+	}
 
 	fmt.Printf("%s", err)
 

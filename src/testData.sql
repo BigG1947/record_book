@@ -270,10 +270,10 @@ INSERT INTO discipline(name) VALUES ("discipline1");
 INSERT INTO discipline(name) VALUES ("discipline2");
 INSERT INTO discipline(name) VALUES ("discipline3");
 
-INSERT INTO loads(id_discipline, id_employee, id_group, semester) VALUES (1, 3, 1, 4);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester) VALUES (2, 3, 1, 4);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester) VALUES (1, 6, 2, 4);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester) VALUES (2, 6, 2, 4);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (1, 3, 1, 4, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (2, 3, 1, 4, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (1, 6, 2, 4, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (2, 6, 2, 4, 6);
 
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
 VALUES (1, 1, 3, 59, "неуд", 1, 4);

@@ -112,10 +112,12 @@ const createTableLoads = `CREATE TABLE IF NOT EXISTS loads(
 										id_discipline INT NOT NULL,
 										id_employee INT NOT NULL,
 										id_group INT NOT NULL,
+										id_assistant INT, 
 										semester INT NOT NULL,
 										FOREIGN KEY (id_discipline) REFERENCES discipline(id) ON DELETE RESTRICT ON UPDATE CASCADE,
 										FOREIGN KEY (id_employee) REFERENCES employee(id_people) ON DELETE RESTRICT ON UPDATE CASCADE,
-										FOREIGN KEY (id_group) REFERENCES groups(id) ON DELETE RESTRICT ON UPDATE CASCADE
+										FOREIGN KEY (id_group) REFERENCES groups(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+										FOREIGN KEY (id_assistant) REFERENCES employee(id_people) ON DELETE RESTRICT ON UPDATE CASCADE
 						) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
 const createTableDiscipline = `CREATE TABLE IF NOT EXISTS discipline(
