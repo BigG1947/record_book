@@ -61,3 +61,41 @@ func (d *Discipline) Insert(db *sql.DB) (int, error) {
 	}
 	return int(lastId), nil
 }
+
+func GetStudentDisceplines(db *sql.DB, idGroup int) ([]Discipline, error) {
+	var disciplines []Discipline
+
+	rows, err := db.Query("SELECT id, name FROM discipline WHERE id IN (SELECT id_discipline FROM loads WHERE id_group = ?)", idGroup)
+	if err != nil {
+		return []Discipline{}, err
+	}
+
+	for rows.Next() {
+		var d Discipline
+		err = rows.Scan(&d.Id, &d.Name)
+		if err != nil {
+			return []Discipline{}, err
+		}
+		disciplines = append(disciplines, d)
+	}
+	return disciplines, nil
+}
+
+func GetStudentDisceplinesBySemester(db *sql.DB, idGroup int, semester int) ([]Discipline, error) {
+	var disciplines []Discipline
+
+	rows, err := db.Query("SELECT id, name FROM discipline WHERE id IN (SELECT id_discipline FROM loads WHERE id_group = ? AND semester = ?)", idGroup, semester)
+	if err != nil {
+		return []Discipline{}, err
+	}
+
+	for rows.Next() {
+		var d Discipline
+		err = rows.Scan(&d.Id, &d.Name)
+		if err != nil {
+			return []Discipline{}, err
+		}
+		disciplines = append(disciplines, d)
+	}
+	return disciplines, nil
+}
