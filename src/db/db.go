@@ -14,6 +14,38 @@ type Db struct {
 	Err        error
 }
 
+func (db *Db) TestConnection(dbc *Config) error {
+	db.ConnectionToMysqlServer(dbc)
+	if db.Err != nil {
+		return db.Err
+	}
+	_, err := db.DropDb(dbc)
+	if err != nil {
+		return err
+	}
+	_, err = db.CreateDB(dbc.DbName)
+	if err != nil {
+		return err
+	}
+	db.ConnectionToDB(dbc)
+	if db.Err != nil {
+		return db.Err
+	}
+	_, err = db.InitDB()
+	if err != nil {
+		return err
+	}
+	_, err = db.FillFirstData()
+	if err != nil {
+		return err
+	}
+	_, err = db.FillDBTestData()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (db *Db) ConnectionToMysqlServer(dbc *Config) {
 	connectionString := fmt.Sprintf("%s:%s@%s(%s:%d)/", dbc.User, dbc.Password, dbc.Protocol, dbc.Host, dbc.Port)
 	db.Connection, _ = sql.Open("mysql", connectionString)

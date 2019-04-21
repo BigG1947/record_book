@@ -226,33 +226,9 @@ func main() {
 	r.HandleFunc("/single", getSinglePeople).Methods("GET")
 	r.HandleFunc("/printMap", printMap).Methods("GET")
 
-	db.ConnectionToMysqlServer(&dbPack.DefaultConfigLaptop)
-	if db.Err != nil {
-		fmt.Printf("Connection to MYSQL server: %v\n", db.Err)
-	}
-	_, err := db.DropDb(&dbPack.DefaultConfigLaptop)
+	err := db.TestConnection(&dbPack.DefaultConfig)
 	if err != nil {
-		fmt.Printf("Drop DB: %v\n", err)
-	}
-	_, err = db.CreateDB(dbPack.DefaultConfigLaptop.DbName)
-	if err != nil {
-		fmt.Printf("Create DB: %v\n", err)
-	}
-	db.ConnectionToDB(&dbPack.DefaultConfigLaptop)
-	if db.Err != nil {
-		fmt.Printf("Connection to DB: %v\n", db.Err)
-	}
-	_, err = db.InitDB()
-	if err != nil {
-		fmt.Printf("Init DB: %v\n", err)
-	}
-	_, err = db.FillFirstData()
-	if err != nil {
-		fmt.Printf("FillFirstData: %v\n", err)
-	}
-	_, err = db.FillDBTestData()
-	if err != nil {
-		fmt.Printf("FillDBTestData: %v\n", err)
+		fmt.Printf("Error in test connection: %s\n", err)
 	}
 
 	groups, err := dbPack.GetAllGroupByEmployeeAndDiscipline(db.Connection, 3, 1)

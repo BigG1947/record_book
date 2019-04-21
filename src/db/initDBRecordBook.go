@@ -140,6 +140,18 @@ const createTableMark = `CREATE TABLE IF NOT EXISTS marks(
 										FOREIGN KEY (id_employee) REFERENCES employee(id_people) ON DELETE RESTRICT ON UPDATE CASCADE
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
+const createTableFeedback = `CREATE TABLE IF NOT EXISTS marks(
+										hash VARCHAR(256) PRIMARY KEY,
+										id_employee INT NOT NULL,
+										mark INT NOT NULL,
+										date INT NOT NULL,
+										nonce INT NOT NULL,
+										text TEXT NOT NULL,
+										prev_hash VARCHAR(256),
+										FOREIGN KEY (id_employee) REFERENCES employee(id_people) ON DELETE RESTRICT ON UPDATE CASCADE
+								) ENGINE=InnoDB DEFAULT CHARSET="utf8";
+`
+
 var queriesForInitDb = [...]string{
 	createTableInstitute,
 	createTableFaculty,
@@ -157,4 +169,5 @@ var queriesForInitDb = [...]string{
 	createTableDiscipline,
 	createTableLoads,
 	createTableMark,
+	createTableFeedback,
 }

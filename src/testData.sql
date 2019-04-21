@@ -269,8 +269,28 @@ VALUES (14, "214124124", "122fasf2", "ул. Пушкина, дом Колату�
 INSERT INTO discipline(name) VALUES ("discipline1");
 INSERT INTO discipline(name) VALUES ("discipline2");
 INSERT INTO discipline(name) VALUES ("discipline3");
+INSERT INTO discipline(name) VALUES ("discipline4");
+INSERT INTO discipline(name) VALUES ("discipline5");
+INSERT INTO discipline(name) VALUES ("discipline6");
+INSERT INTO discipline(name) VALUES ("discipline7");
+INSERT INTO discipline(name) VALUES ("discipline8");
+INSERT INTO discipline(name) VALUES ("discipline9");
+INSERT INTO discipline(name) VALUES ("discipline10");
+INSERT INTO discipline(name) VALUES ("discipline11");
 
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (1, 3, 1, 4, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (1, 3, 1, 1, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (2, 6, 1, 2, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (3, 9, 1, 3, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (4, 12, 1, 4, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (5, 3, 1, 5, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (6, 6, 1, 6, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (7, 6, 1, 7, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (8, 9, 1, 8, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (9, 12, 1, 9, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (10, 3, 1, 10, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (11, 6, 1, 11, 6);
+
+
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (2, 3, 1, 4, 6);
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (1, 6, 2, 4, 6);
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (2, 6, 2, 4, 6);
