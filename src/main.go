@@ -51,7 +51,6 @@ func addFeedback(w http.ResponseWriter, r *http.Request) {
 	feedback := r.FormValue("text")
 	bc.AddFeedBack(feedback, id_employee, mark)
 	fmt.Fprintf(w, "Ваш отзыв принят в обработку\n")
-	fmt.Fprintf(w, "tip: %x\n", bc.Tip)
 }
 
 func getFeedback(w http.ResponseWriter, r *http.Request) {

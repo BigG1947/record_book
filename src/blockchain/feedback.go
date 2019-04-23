@@ -1,7 +1,6 @@
 package blockchain
 
 import (
-	"database/sql"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -27,25 +26,6 @@ func NewFeedBack(data string, idEmployee int, mark int, prevFeedBackHash []byte)
 	feedback.Nonce = nonce
 
 	return feedback
-}
-
-func GetAllFeedBacks(db *sql.DB) ([]FeedBack, error) {
-	var feedbacks []FeedBack
-
-	rows, err := db.Query("SELECT hash, prev_hash, mark, nonce, id_employee, data, timestamp FROM feedbacks ORDER BY timestamp DESC")
-	if err != nil {
-		return []FeedBack{}, err
-	}
-
-	for rows.Next() {
-		var f FeedBack
-		err = rows.Scan(&f.Hash, &f.PrevFeedBackHash, &f.Mark, &f.Nonce, &f.EmployeeId, &f.Data, &f.TimeStamp)
-		if err != nil {
-			return []FeedBack{}, err
-		}
-		feedbacks = append(feedbacks, f)
-	}
-	return feedbacks, nil
 }
 
 func (feedback *FeedBack) printFeedBack(w *http.ResponseWriter) {
