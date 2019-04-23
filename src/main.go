@@ -1,6 +1,7 @@
 package main
 
 import (
+	"./blockchain"
 	dbPack "./db"
 	"encoding/json"
 	"fmt"
@@ -8,12 +9,62 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 var db dbPack.Db
+var bc *blockchain.BlockChain
 
 func index(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("C:\\Users\\artem\\Desktop\\record_book\\src\\templates\\feedbackForm.html")
+	if err != nil {
+		fmt.Fprintf(w, "Err in templating: %s", err)
+		return
+	}
+	empl, err := dbPack.GetAllEmployee(db.Connection)
+	if err != nil {
+		fmt.Fprintf(w, "Err: %s", err)
+		return
+	}
+	tmpl.Execute(w, empl)
+	return
+}
 
+func printBC(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(200)
+	bci := bc.Iterator()
+	bc.PrintBlockChain(bci, &w)
+	return
+}
+
+func addFeedback(w http.ResponseWriter, r *http.Request) {
+	id_employee, err := strconv.Atoi(r.FormValue("id_employee"))
+	if err != nil {
+		fmt.Fprintf(w, "Ошибка в указании пользователя\n<a href=\"/\">Назад<//>")
+		return
+	}
+	mark, err := strconv.Atoi(r.FormValue("mark"))
+	if err != nil {
+		fmt.Fprintf(w, "Ошибка в указании оценки\n<a href=\"/\">Назад<//>")
+		return
+	}
+	feedback := r.FormValue("text")
+	bc.AddFeedBack(feedback, id_employee, mark)
+	fmt.Fprintf(w, "Ваш отзыв принят в обработку\n")
+	fmt.Fprintf(w, "tip: %x\n", bc.Tip)
+}
+
+func getFeedback(w http.ResponseWriter, r *http.Request) {
+	feedbacks, err := blockchain.GetAllFeedBacks(db.Connection)
+	if err != nil {
+		fmt.Fprintf(w, "Error при запросе отзывов: %s\n", err)
+		return
+	}
+	for _, f := range feedbacks {
+		var p dbPack.People
+		p.GetPeopleById(db.Connection, f.EmployeeId)
+		fmt.Fprintf(w, "Employee: %s\nFeedback: %s\nMark: %d\n\n", p.Fio, f.Data, f.Mark)
+	}
 }
 
 func getStudent(w http.ResponseWriter, r *http.Request) {
@@ -173,7 +224,7 @@ func printMap(w http.ResponseWriter, r *http.Request) {
 }
 
 func angularJs(w http.ResponseWriter, r *http.Request) {
-	tmpl, _ := template.ParseFiles("templates/index.html")
+	tmpl, _ := template.ParseFiles("/templates/index.html")
 	tmpl.Execute(w, nil)
 	return
 }
@@ -212,6 +263,9 @@ func main() {
 	r.HandleFunc("/angular", angularJs)
 
 	r.HandleFunc("/", index)
+	r.HandleFunc("/addFeedBack", addFeedback).Methods("POST")
+	r.HandleFunc("/getFeedBack", getFeedback)
+	r.HandleFunc("/printBC", printBC)
 
 	r.HandleFunc("/addStudent", addStudent).Methods("GET")
 	r.HandleFunc("/getStudent", getStudent).Methods("GET")
@@ -231,45 +285,10 @@ func main() {
 		fmt.Printf("Error in test connection: %s\n", err)
 	}
 
-	groups, err := dbPack.GetAllGroupByEmployeeAndDiscipline(db.Connection, 3, 1)
+	bc, err = blockchain.InitBlockChain(db.Connection)
 	if err != nil {
-		fmt.Printf("%v", err)
-		return
+		fmt.Printf("Error in init BlockChain: %s\n", err)
 	}
-	for _, g := range groups {
-		fmt.Printf("id: %d\nname: %s\nid_employee: %d\nid_direction: %d\n\n", g.Id, g.Name, g.IdEmployee, g.IdDirection)
-	}
-
-	disciplines, err := dbPack.GetAllDisciplineForEmployee(db.Connection, 6)
-	if err != nil {
-		fmt.Printf("%v", err)
-		return
-	}
-	for _, d := range disciplines {
-		fmt.Printf("id: %d\nname: %s\n\n", d.Id, d.Name)
-	}
-
-	m := dbPack.Mark{
-		Id:            0,
-		IdStudent:     1,
-		IdDiscipline:  1,
-		IdEmployee:    3,
-		Value:         99,
-		NationalValue: "A",
-		IsExam:        true,
-		Semester:      4,
-		Date:          "2019-04-14",
-	}
-
-	_, err = m.Insert(db.Connection)
-
-	loads, err := dbPack.GetAllLoadsByIdGroup(db.Connection, 1)
-
-	for _, l := range loads {
-		fmt.Printf("id: %d\ndiscipline: %s\nsemester: %d\nemployee: %s\nassistant: %s\n\n", l.Id, l.Discipline.Name, l.Semester, l.Employee.Fio, l.Assistant.Fio)
-	}
-
-	fmt.Printf("%s", err)
 
 	log.Fatal(http.ListenAndServe(":8000", r))
 }

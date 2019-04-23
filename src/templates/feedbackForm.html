@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AddFeedback</title>
+</head>
+<body>
+<form action="/addFeedBack" method="POST">
+    <label for="feedback">Отзыв: </label><br>
+    <textarea name="text" id="feedback" cols="60" rows="10"></textarea><br>
+    <label for="employee">Выберите преподователя</label><br>
+    <select name="id_employee" id="employee">
+
+    {{ range . }}
+        <option value="{{ .Id }}">{{ .Fio }}</option>
+    {{ end }}
+    </select><br>
+    <label for="mark">Поставьте оценку</label><br>
+    <input type="number" id="mark" name="mark" max="100" min="1" value="1"><br>
+    <button type="submit">Отправить</button>
+
+</form>
+</body>
+</html>
