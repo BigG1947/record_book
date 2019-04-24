@@ -54,7 +54,7 @@ func addFeedback(w http.ResponseWriter, r *http.Request) {
 }
 
 func getFeedback(w http.ResponseWriter, r *http.Request) {
-	feedbacks, err := blockchain.GetAllFeedBacks(db.Connection)
+	feedbacks, err := dbPack.GetAllFeedBacks(db.Connection)
 	if err != nil {
 		fmt.Fprintf(w, "Error при запросе отзывов: %s\n", err)
 		return
@@ -287,6 +287,24 @@ func main() {
 	bc, err = blockchain.InitBlockChain(db.Connection)
 	if err != nil {
 		fmt.Printf("Error in init BlockChain: %s\n", err)
+	}
+
+	employees, err := dbPack.GetLoadEmployees(db.Connection)
+	if err != nil {
+		fmt.Printf("%s\n", err)
+		return
+	}
+	for _, e := range employees {
+		fmt.Printf("%d: %s\n", e.Id, e.Fio)
+	}
+
+	feedbacks, err := dbPack.GetFeedBackByEmployeeId(db.Connection, 3)
+	if err != nil {
+		fmt.Printf("%s\n", err)
+		return
+	}
+	for _, f := range feedbacks {
+		fmt.Printf("%d: %s\n", f.Hash, f.Data)
 	}
 
 	log.Fatal(http.ListenAndServe(":8000", r))
