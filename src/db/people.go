@@ -98,7 +98,7 @@ func GetAllEmployee(db *sql.DB) ([]People, error) {
 
 	rows, err := db.Query("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access FROM people WHERE people.id IN (SELECT id_people FROM employee)")
 	if err != nil {
-		return employees, err
+		return []People{}, err
 	}
 	defer rows.Close()
 

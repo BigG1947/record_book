@@ -132,6 +132,25 @@ func getSinglePeople(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func getAvg(w http.ResponseWriter, r *http.Request) {
+	var avgfeedback []dbPack.AvgFeedback
+	var err error
+	idGroup, err := strconv.Atoi(r.URL.Query().Get("group"))
+	if err != nil {
+		avgfeedback, err = dbPack.GetAllFeedBackWithAVG(db.Connection)
+	} else {
+		avgfeedback, err = dbPack.GetAllFeedBackWithAVGByStudent(db.Connection, idGroup)
+	}
+
+	if err != nil {
+		fmt.Fprintf(w, "err in avg: %s\n", err)
+		return
+	}
+	for _, af := range avgfeedback {
+		fmt.Fprintf(w, "id_employee: %d\nname: %s\navg_mark: %d\n\n", af.IdEmployee, af.NameEmployee, af.AvgMark)
+	}
+}
+
 func addStudent(w http.ResponseWriter, r *http.Request) {
 	var p dbPack.People
 	var st dbPack.Student
@@ -265,6 +284,7 @@ func main() {
 	r.HandleFunc("/addFeedBack", addFeedback).Methods("POST")
 	r.HandleFunc("/getFeedBack", getFeedback)
 	r.HandleFunc("/printBC", printBC)
+	r.HandleFunc("/getAvg", getAvg)
 
 	r.HandleFunc("/addStudent", addStudent).Methods("GET")
 	r.HandleFunc("/getStudent", getStudent).Methods("GET")

@@ -14,26 +14,36 @@ func checkForeignKey(fk int) sql.NullInt64 {
 	}
 }
 
+func GetSimpleRow(db *sql.DB, sql string, params ...interface{}) *sql.Row {
+	row := db.QueryRow(sql, params...)
+	return row
+}
+
+func GetMuchData(db *sql.DB, sql string, params ...interface{}) (*sql.Rows, error) {
+	rows, err := db.Query(sql, params...)
+	return rows, err
+}
+
 func getCashData(db *sql.DB) (emailPeople map[string]People, emailPassword map[string]string, emailSensetiveData map[string]SensitiveData, err error) {
 	var allUsers []People
 
 	students, err := GetAllStudent(db)
-	if err != nil{
+	if err != nil {
 		return
 	}
 	employees, err := GetAllEmployee(db)
-	if err != nil{
+	if err != nil {
 		return
 	}
 	allUsers = append(allUsers, students...)
 	allUsers = append(allUsers, employees...)
 
-	for _, people := range allUsers{
+	for _, people := range allUsers {
 		emailPeople[people.Email] = people
 		emailSensetiveData[people.Email] = people.SensitiveData
-		}
+	}
 	emailPassword, err = GetEmailPasswordMap(db)
-	if err != nil{
+	if err != nil {
 		return
 	}
 

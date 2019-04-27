@@ -54,7 +54,7 @@ func (ac *Accession) getAccession() (result map[string]bool) {
 	return
 }
 
-func (ac *Accession) setAccession(acm map[string]bool) (error) {
+func (ac *Accession) setAccession(acm map[string]bool) error {
 	err := errors.New("not found value in map")
 	if b, ok := acm[GET_SENSITIVE]; ok {
 		ac.GetSensitive = b
