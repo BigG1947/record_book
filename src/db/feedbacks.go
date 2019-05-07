@@ -11,38 +11,38 @@ type AvgFeedback struct {
 	AvgMark      int    `json:"avg_mark"`
 }
 
-func GetAllFeedBacks(db *sql.DB) ([]blockchain.FeedBack, error) {
-	var feedbacks []blockchain.FeedBack
+func GetAllFeedBacks(db *sql.DB) ([]blockchain.Block, error) {
+	var feedbacks []blockchain.Block
 
 	rows, err := db.Query("SELECT hash, prev_hash, mark, nonce, id_employee, data, timestamp FROM feedbacks ORDER BY timestamp DESC")
 	if err != nil {
-		return []blockchain.FeedBack{}, err
+		return []blockchain.Block{}, err
 	}
 
 	for rows.Next() {
-		var f blockchain.FeedBack
+		var f blockchain.Block
 		err = rows.Scan(&f.Hash, &f.PrevFeedBackHash, &f.Mark, &f.Nonce, &f.EmployeeId, &f.Data, &f.TimeStamp)
 		if err != nil {
-			return []blockchain.FeedBack{}, err
+			return []blockchain.Block{}, err
 		}
 		feedbacks = append(feedbacks, f)
 	}
 	return feedbacks, nil
 }
 
-func GetFeedBackByEmployeeId(db *sql.DB, idEmployee int) ([]blockchain.FeedBack, error) {
-	var feedbacks []blockchain.FeedBack
+func GetFeedBackByEmployeeId(db *sql.DB, idEmployee int) ([]blockchain.Block, error) {
+	var feedbacks []blockchain.Block
 
 	rows, err := db.Query("SELECT hash, prev_hash, mark, nonce, id_employee, data, timestamp FROM feedbacks WHERE id_employee = ? ORDER BY timestamp DESC", idEmployee)
 	if err != nil {
-		return []blockchain.FeedBack{}, err
+		return []blockchain.Block{}, err
 	}
 
 	for rows.Next() {
-		var f blockchain.FeedBack
+		var f blockchain.Block
 		err = rows.Scan(&f.Hash, &f.PrevFeedBackHash, &f.Mark, &f.Nonce, &f.EmployeeId, &f.Data, &f.TimeStamp)
 		if err != nil {
-			return []blockchain.FeedBack{}, err
+			return []blockchain.Block{}, err
 		}
 		feedbacks = append(feedbacks, f)
 	}

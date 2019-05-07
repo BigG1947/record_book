@@ -13,11 +13,11 @@ const targetBits = 0
 const maxNonce = math.MaxInt64
 
 type ProofOfWork struct {
-	feedback *FeedBack
+	feedback *Block
 	target   *big.Int
 }
 
-func NewProofOfWork(fb *FeedBack) *ProofOfWork {
+func NewProofOfWork(fb *Block) *ProofOfWork {
 	target := big.NewInt(1)
 	target.Lsh(target, uint(256-targetBits))
 

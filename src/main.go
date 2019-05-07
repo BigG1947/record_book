@@ -49,7 +49,7 @@ func addFeedback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	feedback := r.FormValue("text")
-	bc.AddFeedBack(feedback, id_employee, mark)
+	bc.AddBlock(feedback, id_employee, mark)
 	fmt.Fprintf(w, "Ваш отзыв принят в обработку\n")
 }
 

@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-type FeedBack struct {
+type Block struct {
 	TimeStamp        int64
 	Data             []byte
 	EmployeeId       int
@@ -17,8 +17,8 @@ type FeedBack struct {
 	Mark             int
 }
 
-func NewFeedBack(data string, idEmployee int, mark int, prevFeedBackHash []byte) *FeedBack {
-	feedback := &FeedBack{time.Now().Unix(), []byte(data), idEmployee, prevFeedBackHash, []byte{}, 0, mark}
+func NewBlock(data string, idEmployee int, mark int, prevFeedBackHash []byte) *Block {
+	feedback := &Block{time.Now().Unix(), []byte(data), idEmployee, prevFeedBackHash, []byte{}, 0, mark}
 	pow := NewProofOfWork(feedback)
 	nonce, hash := pow.Run()
 
@@ -28,7 +28,7 @@ func NewFeedBack(data string, idEmployee int, mark int, prevFeedBackHash []byte)
 	return feedback
 }
 
-func (feedback *FeedBack) printFeedBack(w *http.ResponseWriter) {
+func (feedback *Block) printFeedBack(w *http.ResponseWriter) {
 	fmt.Fprintf(*w, "timestamp: %v\n", time.Unix(feedback.TimeStamp, 0))
 	fmt.Fprintf(*w, "data: %s\n", feedback.Data)
 	fmt.Fprintf(*w, "employeeId: %d\n", feedback.EmployeeId)
