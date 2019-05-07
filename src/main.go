@@ -327,5 +327,21 @@ func main() {
 		fmt.Printf("%d: %s\n", f.Hash, f.Data)
 	}
 
+	studentCards, err := dbPack.GetStudentCards(db.Connection)
+	if err != nil {
+		fmt.Printf("GetStudentCards: %s\n", err)
+		return
+	}
+	fmt.Printf("%v\n", studentCards)
+
+	groups, err := dbPack.GetAllGroupByEmployeeAndDiscipline(db.Connection, 3, 1)
+	if err != nil {
+		fmt.Printf("GetAllGroupByEmployeeAndDiscipline: %s\n", err)
+		return
+	}
+	for _, g := range groups {
+		fmt.Printf("%v\n", g)
+	}
+
 	log.Fatal(http.ListenAndServe(":8000", r))
 }

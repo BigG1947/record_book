@@ -1,0 +1,41 @@
+add functions:
+    getFacultiesByInstitute(db *sql.DB, idInstitute int) ([]Faculty, error)
+
+    GetCathedraByFaculty(db *sql.DB, idFaculty int) ([]Cathedra, error)
+    GetCathedraByInstitute(db *sql.DB, idInstitute int) ([]Cathedra, error)
+
+    GetAllDirectionByCathedra(db *sql.DB, idCathedra int) ([]Direction, error)
+    GetAllDirectionByFaculty(db *sql.DB, idFaculty int) ([]Direction, error)
+    GetAllDirectionByInstitute(db *sql.DB, idInstitute int) ([]Direction, error)
+
+    GetAllGroupByDirection(db *sql.DB, idDirection int) ([]Group, error)
+    GetAllGroupByCathedra(db *sql.DB, idCathedra int) ([]Group, error)
+    GetAllGroupByFaculty(db *sql.DB, idFaculty int) ([]Group, error)
+    GetAllGroupByInstitute(db *sql.DB, idInstitute int) ([]Group, error)
+
+    GetAllSpecialityByDirection(db *sql.DB, idDirection int) ([]Group, error)
+    GetAllSpecialityByCathedra(db *sql.DB, idCathedra int) ([]Group, error)
+    GetAllSpecialityByFaculty(db *sql.DB, idFaculty int) ([]Group, error)
+    GetAllSpecialityByInstitute(db *sql.DB, idInstitute int) ([]Group, error)
+
+    GetStudentCards(db *sql.DB) ([]StudentCard, error)
+
+edit functions:
+    GetAllGroupByEmployeeAndDiscipline(db *sql.DB, idEmployee int, idDiscipline int) ([]Group, error) - теперь возвращает только группы с студентами которые учаться в данный момент
+
+    ------------- Обе функции теперь сортируют результат по средней оценки преподователя от большей к меньшей -----------------
+    GetAllFeedBackWithAVG(db *sql.DB) ([]AvgFeedback, error)
+    GetAllFeedBackWithAVGByStudent(db *sql.DB, idGroup int) ([]AvgFeedback, error)
+
+
+Инфа для одного студента(карточки)
+People.id
+People.fio
+People.gender
+People.photo
+People.have_access
+Student.group_id
+Group.id_direction
+Direction.id_cathedra
+Cathedra.id_faculty
+Faculty.id_institute

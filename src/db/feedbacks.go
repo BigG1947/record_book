@@ -52,7 +52,7 @@ func GetFeedBackByEmployeeId(db *sql.DB, idEmployee int) ([]blockchain.Block, er
 func GetAllFeedBackWithAVG(db *sql.DB) ([]AvgFeedback, error) {
 	var avgfeedback []AvgFeedback
 
-	rows, err := db.Query("SELECT P.fio, F.id_employee, AVG(F.mark) FROM feedbacks F, people P WHERE P.id = F.id_employee GROUP BY F.id_employee ORDER BY P.fio ASC")
+	rows, err := db.Query("SELECT P.fio, F.id_employee, AVG(F.mark) AS avg_mark FROM feedbacks F, people P WHERE P.id = F.id_employee GROUP BY F.id_employee ORDER BY avg_mark DESC, P.fio ASC;")
 	if err != nil {
 		return []AvgFeedback{}, err
 	}
@@ -73,7 +73,7 @@ func GetAllFeedBackWithAVG(db *sql.DB) ([]AvgFeedback, error) {
 func GetAllFeedBackWithAVGByStudent(db *sql.DB, idGroup int) ([]AvgFeedback, error) {
 	var avgfeedback []AvgFeedback
 
-	rows, err := db.Query("SELECT P.fio, F.id_employee, AVG(F.mark) FROM feedbacks F, people P WHERE P.id = F.id_employee AND F.id_employee IN (SELECT id_employee FROM loads WHERE id_group = ?) GROUP BY F.id_employee ORDER BY P.fio ASC", idGroup)
+	rows, err := db.Query("SELECT P.fio, F.id_employee, AVG(F.mark) as avg_mark FROM feedbacks F, people P WHERE P.id = F.id_employee AND F.id_employee IN (SELECT id_employee FROM loads WHERE id_group = ?) GROUP BY F.id_employee ORDER BY avg_mark DESC, P.fio ASC", idGroup)
 	if err != nil {
 		return []AvgFeedback{}, err
 	}

@@ -2,7 +2,6 @@ package blockchain
 
 import (
 	"database/sql"
-	_ "github.com/mattn/go-sqlite3"
 	"net/http"
 )
 

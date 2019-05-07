@@ -13,17 +13,53 @@ func (c *Cathedra) GetCathedraById(db *sql.DB, id int) error {
 	return err
 }
 
-func GetAllCathedra(db *sql.DB) ([]Cathedra, error){
+func GetAllCathedra(db *sql.DB) ([]Cathedra, error) {
 	var cathedra []Cathedra
 	rows, err := db.Query("SELECT id, name, id_faculty FROM cathedra")
-	if err != nil{
+	if err != nil {
 		return []Cathedra{}, err
 	}
 
-	for rows.Next(){
+	for rows.Next() {
 		var c Cathedra
 		err = rows.Scan(&c.Id, &c.Name, &c.IdFaculty)
-		if err != nil{
+		if err != nil {
+			return []Cathedra{}, nil
+		}
+		cathedra = append(cathedra, c)
+	}
+	return cathedra, nil
+}
+func GetCathedraByFaculty(db *sql.DB, idFaculty int) ([]Cathedra, error) {
+	var cathedra []Cathedra
+	rows, err := db.Query("SELECT id, name FROM cathedra WHERE id_faculty = ?", idFaculty)
+	if err != nil {
+		return []Cathedra{}, err
+	}
+
+	for rows.Next() {
+		var c Cathedra
+		err = rows.Scan(&c.Id, &c.Name)
+		c.IdFaculty = idFaculty
+		if err != nil {
+			return []Cathedra{}, nil
+		}
+		cathedra = append(cathedra, c)
+	}
+	return cathedra, nil
+}
+
+func GetCathedraByInstitute(db *sql.DB, idInstitute int) ([]Cathedra, error) {
+	var cathedra []Cathedra
+	rows, err := db.Query("SELECT cathedra.id, cathedra.name, cathedra.id_faculty FROM cathedra, faculty WHERE faculty.id_institute = ? AND cathedra.id_faculty = faculty.id", idInstitute)
+	if err != nil {
+		return []Cathedra{}, err
+	}
+
+	for rows.Next() {
+		var c Cathedra
+		err = rows.Scan(&c.Id, &c.Name, &c.IdFaculty)
+		if err != nil {
 			return []Cathedra{}, nil
 		}
 		cathedra = append(cathedra, c)

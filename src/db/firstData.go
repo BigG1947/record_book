@@ -5,7 +5,8 @@ const fillStatus = `INSERT INTO status(name) VALUES ("Навчається"),
 													("Працює"), 
 													("Академічна відпустка"), 
 													("Відпустка"), 
-													("Дикретна відпустка");`
+													("Дикретна відпустка"),
+													("Закінчив навчання");`
 
 const fillRanks = `INSERT INTO ranks(name) VALUES ("Асистент"), 
 													("Викладач"), 

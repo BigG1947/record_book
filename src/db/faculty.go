@@ -13,17 +13,36 @@ func (f *Faculty) GetFacultyById(db *sql.DB, id int) error {
 	return err
 }
 
-func GetAllFaculty(db *sql.DB) ([]Faculty, error){
+func GetAllFaculty(db *sql.DB) ([]Faculty, error) {
 	var faculty []Faculty
 	rows, err := db.Query("SELECT id, name, id_institute FROM faculty")
-	if err != nil{
+	if err != nil {
 		return []Faculty{}, err
 	}
 
-	for rows.Next(){
+	for rows.Next() {
 		var f Faculty
 		err = rows.Scan(&f.Id, &f.Name, &f.IdInstitute)
-		if err != nil{
+		if err != nil {
+			return []Faculty{}, nil
+		}
+		faculty = append(faculty, f)
+	}
+	return faculty, nil
+}
+
+func getFacultiesByInstitute(db *sql.DB, idInstitute int) ([]Faculty, error) {
+	var faculty []Faculty
+	rows, err := db.Query("SELECT id, name FROM faculty WHERE id_institute = ?", idInstitute)
+	if err != nil {
+		return []Faculty{}, err
+	}
+
+	for rows.Next() {
+		var f Faculty
+		err = rows.Scan(&f.Id, &f.Name)
+		f.IdInstitute = idInstitute
+		if err != nil {
 			return []Faculty{}, nil
 		}
 		faculty = append(faculty, f)
