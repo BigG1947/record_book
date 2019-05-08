@@ -327,7 +327,7 @@ func main() {
 		fmt.Printf("%d: %s\n", f.Hash, f.Data)
 	}
 
-	studentCards, err := dbPack.GetStudentCards(db.Connection)
+	studentCards, err := dbPack.GetEmployeeCards(db.Connection)
 	if err != nil {
 		fmt.Printf("GetStudentCards: %s\n", err)
 		return
