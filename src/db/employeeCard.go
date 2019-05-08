@@ -8,6 +8,8 @@ type EmployeeCard struct {
 	Gender      int    `json:"gender"`
 	Photo       string `json:"photo"`
 	HaveAccess  bool   `json:"have_access"`
+	IdStatus    int    `json:"id_status"`
+	StatusName  string `json:"status_name"`
 	IdRank      int    `json:"id_rank"`
 	RankName    string `json:"group_name"`
 	IdCathedra  int    `json:"id_cathedra"`
@@ -17,7 +19,7 @@ type EmployeeCard struct {
 
 func GetEmployeeCards(db *sql.DB) ([]EmployeeCard, error) {
 	var employeeCards []EmployeeCard
-	rows, err := db.Query("SELECT people.id, people.fio, people.gender, people.img, people.have_access, employee.id_rank, employee.id_cathedra, ranks.name, cathedra.id_faculty, faculty.id_institute FROM people, employee, ranks, cathedra, faculty WHERE people.id = employee.id_people AND ranks.id = employee.id_rank AND cathedra.id = employee.id_cathedra AND faculty.id = cathedra.id_faculty ORDER BY have_access DESC")
+	rows, err := db.Query("SELECT people.id, people.fio, people.gender, people.img, people.have_access, people.id_status, status.name, employee.id_rank, ranks.name, cathedra.id_faculty, faculty.id_institute FROM people, employee, ranks, cathedra, faculty, status WHERE people.id = employee.id_people AND status.id = people.id_status AND ranks.id = employee.id_rank AND cathedra.id = employee.id_cathedra AND faculty.id = cathedra.id_faculty ORDER BY have_access DESC, id_status ASC, id_rank ASC")
 	if err != nil {
 		return []EmployeeCard{}, err
 	}
@@ -25,7 +27,7 @@ func GetEmployeeCards(db *sql.DB) ([]EmployeeCard, error) {
 
 	for rows.Next() {
 		var card EmployeeCard
-		err := rows.Scan(&card.Id, &card.Fio, &card.Gender, &card.Photo, &card.HaveAccess, &card.IdRank, &card.IdCathedra, &card.RankName, &card.IdFaculty, &card.IdInstitute)
+		err := rows.Scan(&card.Id, &card.Fio, &card.Gender, &card.Photo, &card.HaveAccess, &card.IdStatus, &card.StatusName, &card.IdRank, &card.IdCathedra, &card.RankName, &card.IdFaculty, &card.IdInstitute)
 		if err != nil {
 			return []EmployeeCard{}, err
 		}
