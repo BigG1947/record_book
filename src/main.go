@@ -268,7 +268,7 @@ func main() {
 
 	r.HandleFunc("/", index)
 	r.HandleFunc("/addFeedBack", addFeedback).Methods("POST")
-	r.HandleFunc("/getFeedBack", getFeedback)
+	r.HandleFunc("/getFeedBack    ", getFeedback)
 	r.HandleFunc("/printBC", printBC)
 	r.HandleFunc("/getAvg", getAvg)
 
@@ -294,7 +294,7 @@ func main() {
 	if err != nil {
 		fmt.Printf("Error in init BlockChain: %s\n", err)
 	}
-
+	bc.FillTestFeedBack()
 	employees, err := dbPack.GetLoadEmployees(db.Connection)
 	if err != nil {
 		fmt.Printf("%s\n", err)
@@ -310,7 +310,7 @@ func main() {
 		return
 	}
 	for _, f := range feedbacks {
-		fmt.Printf("%d: %s\n", f.Hash, f.Data)
+		fmt.Printf("%x: %s\n", f.Hash, f.Data)
 	}
 
 	studentCards, err := dbPack.GetEmployeeCards(db.Connection)

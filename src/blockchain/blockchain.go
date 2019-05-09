@@ -82,6 +82,16 @@ func InitBlockChain(db *sql.DB) (*BlockChain, error) {
 	return &BlockChain{tip, db, length, false, GetNodeList()}, nil
 }
 
+func (bc *BlockChain) FillTestFeedBack() {
+	bc.AddBlock("Первый", 3, 100, 0)
+	bc.AddBlock("Второй", 3, 87, 0)
+	bc.AddBlock("Третий", 6, 100, 0)
+	bc.AddBlock("Четвертый", 6, 34, 0)
+	bc.AddBlock("Пятый", 9, 100, 0)
+	bc.AddBlock("Шестой", 9, 56, 0)
+	bc.AddBlock("Седьмой", 12, 12, 0)
+}
+
 func (bc *BlockChain) PrintBlockChain(bci *Iterator, w *http.ResponseWriter) {
 	for {
 		fb, err := bci.Next()
