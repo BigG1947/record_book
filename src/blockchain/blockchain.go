@@ -1,14 +1,21 @@
 package blockchain
 
 import (
+	"bytes"
 	"database/sql"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"log"
 	"net/http"
 )
 
 type BlockChain struct {
-	Tip    []byte
-	db     *sql.DB
-	length int
+	Tip      []byte
+	db       *sql.DB
+	length   int
+	Status   bool
+	listNode *[]Node
 }
 
 type Iterator struct {
@@ -16,15 +23,26 @@ type Iterator struct {
 	db          *sql.DB
 }
 
-var listNode *[]Node
-
-func (bc *BlockChain) AddBlock(data string, employeeId int, mark int) {
+func (bc *BlockChain) AddBlock(data string, employeeId int, mark int, timestamp int64) {
 	prevFeedBackHash := bc.Tip
-	newFeedBack := NewBlock(data, employeeId, mark, prevFeedBackHash)
-	bc.db.Exec("INSERT INTO feedbacks(hash, prev_hash, nonce, timestamp, data, id_employee, mark) VALUES (?,?,?,?,?,?,?)", newFeedBack.Hash, newFeedBack.PrevFeedBackHash, newFeedBack.Nonce, newFeedBack.TimeStamp, newFeedBack.Data, newFeedBack.EmployeeId, newFeedBack.Mark)
+	newFeedBack := NewBlock(data, employeeId, mark, prevFeedBackHash, timestamp)
+
+	_, err := bc.db.Exec("INSERT INTO feedbacks(hash, prev_hash, nonce, timestamp, data, id_employee, mark) VALUES (?,?,?,?,?,?,?)", newFeedBack.Hash, newFeedBack.PrevFeedBackHash, newFeedBack.Nonce, newFeedBack.TimeStamp, newFeedBack.Data, newFeedBack.EmployeeId, newFeedBack.Mark)
+	if err != nil {
+		log.Printf("Error in add block to blockchain: %s", err)
+	}
 	bc.Tip = newFeedBack.Hash
 	bc.length++
+}
 
+func (bc *BlockChain) AddBlockWithOutSum(block *Block) error {
+	_, err := bc.db.Exec("INSERT INTO feedbacks(hash, prev_hash, nonce, timestamp, data, id_employee, mark) VALUES (?,?,?,?,?,?,?)", block.Hash, block.PrevFeedBackHash, block.Nonce, block.TimeStamp, block.Data, block.EmployeeId, block.Mark)
+	if err != nil {
+		return err
+	}
+	bc.Tip = block.Hash
+	bc.length++
+	return nil
 }
 
 func (bc *BlockChain) Iterator() *Iterator {
@@ -47,9 +65,12 @@ func InitBlockChain(db *sql.DB) (*BlockChain, error) {
 		return &BlockChain{}, err
 	}
 
-	db.QueryRow("SELECT hash, COUNT(hash) FROM feedbacks WHERE timestamp = (SELECT max(timestamp) FROM feedbacks);").Scan(&tip, &length)
+	err = db.QueryRow("SELECT hash, COUNT(hash) FROM feedbacks WHERE timestamp = (SELECT max(timestamp) FROM feedbacks);").Scan(&tip, &length)
+	if err != nil {
+		log.Printf("Error in initialization blockchain: %s", err)
+	}
 	if len(tip) == 0 {
-		genesis := NewBlock("Genesis", -1, 0, []byte{})
+		genesis := NewBlock("Genesis", -1, 0, []byte{}, 0)
 		_, err := db.Exec("INSERT INTO feedbacks(hash, prev_hash, nonce, timestamp, data, id_employee, mark) VALUES (?,?,?,?,?,?,?)", genesis.Hash, genesis.PrevFeedBackHash, genesis.Nonce, genesis.TimeStamp, genesis.Data, genesis.EmployeeId, genesis.Mark)
 		if err != nil {
 			return &BlockChain{}, err
@@ -58,7 +79,7 @@ func InitBlockChain(db *sql.DB) (*BlockChain, error) {
 		length = 1
 	}
 
-	return &BlockChain{tip, db, length}, nil
+	return &BlockChain{tip, db, length, false, GetNodeList()}, nil
 }
 
 func (bc *BlockChain) PrintBlockChain(bci *Iterator, w *http.ResponseWriter) {
@@ -69,6 +90,54 @@ func (bc *BlockChain) PrintBlockChain(bci *Iterator, w *http.ResponseWriter) {
 		}
 		fb.printFeedBack(w)
 	}
+}
+
+func (bc *BlockChain) GetLength() int {
+	return bc.length
+}
+
+func (bc *BlockChain) compareBlockWithOtherNodes(idEmployee int, mark int, text string, timestamp int64, hash []byte) (bool, error) {
+	client := http.Client{}
+	var applyNode int
+	var data = struct {
+		IdEmployee int    `json:"id_employee"`
+		Mark       int    `json:"mark"`
+		Text       string `json:"text"`
+		TimeStamp  int64  `json:"time"`
+	}{
+		IdEmployee: idEmployee,
+		Mark:       mark,
+		Text:       text,
+		TimeStamp:  timestamp,
+	}
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		return false, err
+	}
+
+	for _, node := range *bc.listNode {
+		stringURL := fmt.Sprintf("http://%s:%d/blockchain/sumBlock", node.ip, node.port)
+		req, err := http.NewRequest("POST", stringURL, bytes.NewBuffer(jsonData))
+		if err != nil {
+			return false, err
+		}
+		resp, err := client.Do(req)
+		if err != nil {
+			continue
+		}
+		if resp.StatusCode == http.StatusBadRequest {
+			continue
+		}
+		if body, _ := ioutil.ReadAll(resp.Body); bytes.Equal(body, hash) {
+			applyNode++
+			continue
+		}
+	}
+	return false, nil
+}
+
+func (bc *BlockChain) sendBlockToOtherNodes() (bool, error) {
+	return false, nil
 }
 
 func (bc *BlockChain) CheckBlockChain(bci *Iterator) (bool, error) {

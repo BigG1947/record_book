@@ -16,7 +16,7 @@ var db dbPack.Db
 var bc *blockchain.BlockChain
 
 func index(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("C:\\Users\\artem\\Desktop\\record_book\\src\\templates\\feedbackForm.html")
+	tmpl, err := template.ParseFiles("templates/feedbackForm.html")
 	if err != nil {
 		fmt.Fprintf(w, "Err in templating: %s", err)
 		return
@@ -35,22 +35,6 @@ func printBC(w http.ResponseWriter, r *http.Request) {
 	bci := bc.Iterator()
 	bc.PrintBlockChain(bci, &w)
 	return
-}
-
-func addFeedback(w http.ResponseWriter, r *http.Request) {
-	id_employee, err := strconv.Atoi(r.FormValue("id_employee"))
-	if err != nil {
-		fmt.Fprintf(w, "Ошибка в указании пользователя\n<a href=\"/\">Назад<//>")
-		return
-	}
-	mark, err := strconv.Atoi(r.FormValue("mark"))
-	if err != nil {
-		fmt.Fprintf(w, "Ошибка в указании оценки\n<a href=\"/\">Назад<//>")
-		return
-	}
-	feedback := r.FormValue("text")
-	bc.AddBlock(feedback, id_employee, mark)
-	fmt.Fprintf(w, "Ваш отзыв принят в обработку\n")
 }
 
 func getFeedback(w http.ResponseWriter, r *http.Request) {
@@ -277,6 +261,8 @@ func main() {
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	r.PathPrefix("/templates/").Handler(http.StripPrefix("/templates/", http.FileServer(http.Dir("templates"))))
 
+	r.HandleFunc("/blockchain/checkActivity", checkActivity).Methods("GET")
+
 	r.HandleFunc("/login", login).Methods("POST")
 	r.HandleFunc("/angular", angularJs)
 
@@ -343,5 +329,6 @@ func main() {
 		fmt.Printf("%v\n", g)
 	}
 
-	log.Fatal(http.ListenAndServe(":8000", r))
+	log.Printf("Starting server...\n")
+	log.Fatal(http.ListenAndServe(":8080", r))
 }

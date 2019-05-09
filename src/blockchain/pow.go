@@ -3,7 +3,6 @@ package blockchain
 import (
 	"bytes"
 	"crypto/sha256"
-	"fmt"
 	"math"
 	"math/big"
 	"strconv"
@@ -49,7 +48,6 @@ func (pow *ProofOfWork) Run() (int, []byte) {
 			nonce++
 		}
 	}
-	fmt.Print("\n\n")
 	return nonce, hash[:]
 }
 

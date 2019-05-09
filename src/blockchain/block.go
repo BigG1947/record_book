@@ -17,8 +17,11 @@ type Block struct {
 	Mark             int
 }
 
-func NewBlock(data string, idEmployee int, mark int, prevFeedBackHash []byte) *Block {
-	feedback := &Block{time.Now().Unix(), []byte(data), idEmployee, prevFeedBackHash, []byte{}, 0, mark}
+func NewBlock(data string, idEmployee int, mark int, prevFeedBackHash []byte, timestamp int64) *Block {
+	if timestamp == 0 {
+		timestamp = time.Now().Unix()
+	}
+	feedback := &Block{timestamp, []byte(data), idEmployee, prevFeedBackHash, []byte{}, 0, mark}
 	pow := NewProofOfWork(feedback)
 	nonce, hash := pow.Run()
 

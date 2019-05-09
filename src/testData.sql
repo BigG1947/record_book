@@ -308,44 +308,44 @@ INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) 
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (1, 6, 2, 4, 6);
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (2, 6, 2, 4, 6);
 
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (1, 1, 3, 59, "неуд", 1, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (2, 1, 3, 59, "неуд", 1, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (4, 1, 3, 59, "неуд", 1, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (5, 1, 3, 59, "неуд", 1, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (7, 1, 3, 59, "неуд", 1, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (8, 1, 3, 59, "неуд", 1, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (1, 2, 3, 59, "неуд", 0, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (2, 2, 3, 59, "неуд", 0, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (4, 2, 3, 59, "неуд", 0, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (5, 2, 3, 59, "неуд", 0, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (7, 2, 3, 59, "неуд", 0, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (8, 2, 3, 59, "неуд", 0, 4);
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (1, 1, 3, 59, "неуд", 1, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (2, 1, 3, 59, "неуд", 1, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (4, 1, 3, 59, "неуд", 1, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (5, 1, 3, 59, "неуд", 1, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (7, 1, 3, 59, "неуд", 1, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (8, 1, 3, 59, "неуд", 1, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (1, 2, 3, 59, "неуд", 0, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (2, 2, 3, 59, "неуд", 0, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (4, 2, 3, 59, "неуд", 0, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (5, 2, 3, 59, "неуд", 0, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (7, 2, 3, 59, "неуд", 0, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (8, 2, 3, 59, "неуд", 0, 4, "2018-09-05");
 
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (10, 1, 6, 59, "неуд", 1, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (11, 1, 6, 59, "неуд", 1, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (13, 1, 6, 59, "неуд", 1, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (14, 1, 6, 59, "неуд", 1, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (10, 2, 6, 59, "неуд", 0, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (11, 2, 6, 59, "неуд", 0, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (13, 2, 6, 59, "неуд", 0, 4);
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester)
-VALUES (14, 2, 6, 59, "неуд", 0, 4);
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (10, 1, 6, 59, "неуд", 1, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (11, 1, 6, 59, "неуд", 1, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (13, 1, 6, 59, "неуд", 1, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (14, 1, 6, 59, "неуд", 1, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (10, 2, 6, 59, "неуд", 0, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (11, 2, 6, 59, "неуд", 0, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (13, 2, 6, 59, "неуд", 0, 4, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (14, 2, 6, 59, "неуд", 0, 4, "2018-09-05");

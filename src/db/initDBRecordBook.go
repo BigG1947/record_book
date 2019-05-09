@@ -134,7 +134,7 @@ const createTableMark = `CREATE TABLE IF NOT EXISTS marks(
 										national_value VARCHAR(64) NOT NULL,
 										semester INT NOT NULL,
 										is_exam TINYINT(1) NOT NULL DEFAULT 0,
-										date DATE DEFAULT NOW(),
+										date DATE,
 										FOREIGN KEY (id_discipline) REFERENCES discipline(id) ON DELETE RESTRICT ON UPDATE CASCADE,
 										FOREIGN KEY (id_student) REFERENCES student(id_people) ON DELETE RESTRICT ON UPDATE CASCADE,
 										FOREIGN KEY (id_employee) REFERENCES employee(id_people) ON DELETE RESTRICT ON UPDATE CASCADE

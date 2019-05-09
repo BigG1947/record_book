@@ -35,3 +35,12 @@ var TestConfig = Config{
 	Port:     3306,
 	DbName:   "test_record_book",
 }
+
+var AlienServerConfig = Config{
+	User:     "root",
+	Password: "root",
+	Protocol: "tcp",
+	Host:     "127.0.0.1",
+	Port:     3306,
+	DbName:   "record_book",
+}
