@@ -28,7 +28,7 @@ func (st *Student) getById(db *sql.DB, id int) error {
 		return err
 	}
 	st.Marks, err = GetMarksByStudentId(db, st.IdPeople)
-	if err != nil {
+	if err != nil && err != sql.ErrNoRows {
 		return err
 	}
 	return nil

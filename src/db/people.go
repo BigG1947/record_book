@@ -106,30 +106,30 @@ func GetAllEmployee(db *sql.DB) ([]People, error) {
 		var p People
 		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status.Id, &p.HaveAccess)
 		if err != nil {
-			return employees, err
+			return []People{}, err
 		}
 
 		var empl Employee
 		err = empl.getById(db, p.Id)
 		if err != nil {
-			return employees, err
+			return []People{}, err
 		}
 
 		var ac Accession
 		err = ac.getById(db, p.Id)
 		if err != nil {
-			return employees, err
+			return []People{}, err
 		}
 
 		var sd SensitiveData
 		err = sd.getById(db, p.Id)
 		if err != nil {
-			return employees, err
+			return []People{}, err
 		}
 
 		err = p.Status.getStatusById(db, p.Status.Id)
 		if err != nil {
-			return employees, err
+			return []People{}, err
 		}
 
 		p.Employee = empl
@@ -146,7 +146,7 @@ func GetAllStudent(db *sql.DB) ([]People, error) {
 
 	rows, err := db.Query("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access FROM people WHERE people.id IN (SELECT id_people FROM student)")
 	if err != nil {
-		return students, err
+		return []People{}, err
 	}
 	defer rows.Close()
 
@@ -154,30 +154,30 @@ func GetAllStudent(db *sql.DB) ([]People, error) {
 		var p People
 		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status.Id, &p.HaveAccess)
 		if err != nil {
-			return students, err
+			return []People{}, err
 		}
 
 		var st Student
 		err = st.getById(db, p.Id)
 		if err != nil {
-			return students, err
+			return []People{}, err
 		}
 
 		var ac Accession
 		err = ac.getById(db, p.Id)
 		if err != nil {
-			return students, err
+			return []People{}, err
 		}
 
 		var sd SensitiveData
 		err = sd.getById(db, p.Id)
 		if err != nil {
-			return students, err
+			return []People{}, err
 		}
 
 		err = p.Status.getStatusById(db, p.Status.Id)
 		if err != nil {
-			return students, err
+			return []People{}, err
 		}
 
 		p.Student = st

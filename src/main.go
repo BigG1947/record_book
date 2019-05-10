@@ -295,38 +295,13 @@ func main() {
 		fmt.Printf("Error in init BlockChain: %s\n", err)
 	}
 	bc.FillTestFeedBack()
-	employees, err := dbPack.GetLoadEmployees(db.Connection)
-	if err != nil {
-		fmt.Printf("%s\n", err)
-		return
-	}
-	for _, e := range employees {
-		fmt.Printf("%d: %s\n", e.Id, e.Fio)
-	}
 
-	feedbacks, err := dbPack.GetFeedBackByEmployeeId(db.Connection, 3)
+	students, err := dbPack.GetAllStudent(db.Connection)
 	if err != nil {
-		fmt.Printf("%s\n", err)
-		return
+		fmt.Printf("Students, err: %s\n", err)
 	}
-	for _, f := range feedbacks {
-		fmt.Printf("%x: %s\n", f.Hash, f.Data)
-	}
-
-	studentCards, err := dbPack.GetEmployeeCards(db.Connection)
-	if err != nil {
-		fmt.Printf("GetStudentCards: %s\n", err)
-		return
-	}
-	fmt.Printf("%v\n", studentCards)
-
-	groups, err := dbPack.GetAllGroupByEmployeeAndDiscipline(db.Connection, 3, 1)
-	if err != nil {
-		fmt.Printf("GetAllGroupByEmployeeAndDiscipline: %s\n", err)
-		return
-	}
-	for _, g := range groups {
-		fmt.Printf("%v\n", g)
+	for _, s := range students {
+		fmt.Printf("%v\n", s)
 	}
 
 	log.Printf("Starting server...\n")

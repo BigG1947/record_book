@@ -247,6 +247,13 @@ INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark
 VALUES (13, 0, 0, 1, 1, 1, 0, 0, 1, 1);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
 VALUES (14, 0, 1, 1, 0, 1, 0, 1, 0, 1);
+INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
+VALUES (15, 0, 1, 1, 0, 1, 0, 1, 0, 1);
+INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
+VALUES (16, 0, 1, 1, 0, 1, 0, 1, 0, 1);
+INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
+VALUES (17, 0, 1, 1, 0, 1, 0, 1, 0, 1);
+
 
 INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
 VALUES (1, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
@@ -278,6 +285,11 @@ INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, militar
 VALUES (14, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
 INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
 VALUES (15, "фыафыафыа", "122fаыфафыаasf2", "ул. фыафыа, дом Колатушафыафыакина, кварафыафыатира 12", "ыфафааыфафыаы251512");
+INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+VALUES (16, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
+INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+VALUES (17, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
+
 
 INSERT INTO discipline(name) VALUES ("discipline1");
 INSERT INTO discipline(name) VALUES ("discipline2");
