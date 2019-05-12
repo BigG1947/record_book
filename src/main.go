@@ -268,7 +268,7 @@ func main() {
 
 	r.HandleFunc("/", index)
 	r.HandleFunc("/addFeedBack", addFeedback).Methods("POST")
-	r.HandleFunc("/getFeedBack    ", getFeedback)
+	r.HandleFunc("/getFeedBack", getFeedback)
 	r.HandleFunc("/printBC", printBC)
 	r.HandleFunc("/getAvg", getAvg)
 
@@ -296,12 +296,47 @@ func main() {
 	}
 	bc.FillTestFeedBack()
 
-	students, err := dbPack.GetAllStudent(db.Connection)
+	err = dbPack.BlockPeopleById(db.Connection, 10)
 	if err != nil {
-		fmt.Printf("Students, err: %s\n", err)
+		log.Printf("Error: %v\n", err)
 	}
-	for _, s := range students {
-		fmt.Printf("%v\n", s)
+
+	students, err := dbPack.GetAllStudentsV2(db.Connection)
+	if err != nil {
+		log.Printf("Error: %v\n", err)
+	}
+	for _, student := range students {
+		fmt.Printf("%v\n", student)
+	}
+
+	employees, err := dbPack.GetAllEmployeesV2(db.Connection)
+	if err != nil {
+		log.Printf("Error: %v\n", err)
+	}
+	for _, employee := range employees {
+		fmt.Printf("%v\n", employee)
+	}
+
+	err = dbPack.UnblockPeopleById(db.Connection, 10)
+	if err != nil {
+		log.Printf("Error: %v\n", err)
+	}
+
+	updateData := make(map[string]string)
+	updateData["table"] = dbPack.TableStudent
+	updateData[dbPack.FieldFIO] = "Новое имя, отличное имя"
+	updateData[dbPack.FieldIdGroup] = "28"
+	updateData[dbPack.FieldPassword] = "Как же я заебался"
+	err = dbPack.UpdatePeopleData(db.Connection, 10, updateData)
+	if err != nil {
+		log.Printf("Err: %s\n", err)
+	}
+	students, err = dbPack.GetStudentFromGroupV2(db.Connection, 2)
+	if err != nil {
+		log.Printf("Error: %v\n", err)
+	}
+	for _, student := range students {
+		fmt.Printf("%v\n", student)
 	}
 
 	log.Printf("Starting server...\n")

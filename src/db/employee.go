@@ -87,3 +87,19 @@ func (empl *Employee) getById(db *sql.DB, id int) error {
 	}
 	return nil
 }
+
+func (empl *Employee) Update(db *sql.DB) error {
+	_, err := db.Exec(updateEmployeeDataScript, empl.DateInvite, empl.Rank.Id, empl.Cathedra.Id, empl.IdPeople)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateEmployeeData(db *sql.DB, empl *Employee) error {
+	_, err := db.Exec(updateEmployeeDataScript, empl.DateInvite, empl.Rank.Id, empl.Cathedra.Id, empl.IdPeople)
+	if err != nil {
+		return err
+	}
+	return nil
+}

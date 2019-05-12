@@ -40,6 +40,22 @@ func (ac *Accession) getById(db *sql.DB, id int) error {
 	return err
 }
 
+func (ac *Accession) Update(db *sql.DB) error {
+	_, err := db.Exec(updateAccessionDataScript, ac.EditAccess, ac.SetAbsence, ac.GetAbsence, ac.SetMark, ac.SetEvent, ac.GetSensitive, ac.SetSensitive, ac.GetYlist, ac.ManageAcadem)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateAccession(db *sql.DB, ac *Accession) error {
+	_, err := db.Exec(updateAccessionDataScript, ac.EditAccess, ac.SetAbsence, ac.GetAbsence, ac.SetMark, ac.SetEvent, ac.GetSensitive, ac.SetSensitive, ac.GetYlist, ac.ManageAcadem)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (ac *Accession) getAccession() (result map[string]bool) {
 	result = make(map[string]bool)
 	result[GET_SENSITIVE] = ac.GetSensitive

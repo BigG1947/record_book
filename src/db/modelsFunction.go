@@ -14,39 +14,24 @@ func checkForeignKey(fk int) sql.NullInt64 {
 	}
 }
 
-func GetSimpleRow(db *sql.DB, sql string, params ...interface{}) *sql.Row {
-	row := db.QueryRow(sql, params...)
-	return row
-}
+func GetEmailPasswordMap(db *sql.DB) (map[string]string, error) {
+	var result = make(map[string]string)
 
-func GetMuchData(db *sql.DB, sql string, params ...interface{}) (*sql.Rows, error) {
-	rows, err := db.Query(sql, params...)
-	return rows, err
-}
-
-func getCashData(db *sql.DB) (emailPeople map[string]People, emailPassword map[string]string, emailSensetiveData map[string]SensitiveData, err error) {
-	var allUsers []People
-
-	students, err := GetAllStudent(db)
+	rows, err := db.Query("SELECT email, password FROM people")
 	if err != nil {
-		return
+		return result, err
 	}
-	employees, err := GetAllEmployee(db)
-	if err != nil {
-		return
-	}
-	allUsers = append(allUsers, students...)
-	allUsers = append(allUsers, employees...)
+	defer rows.Close()
 
-	for _, people := range allUsers {
-		emailPeople[people.Email] = people
-		emailSensetiveData[people.Email] = people.SensitiveData
-	}
-	emailPassword, err = GetEmailPasswordMap(db)
-	if err != nil {
-		return
+	for rows.Next() {
+		var email string
+		var password string
+		err := rows.Scan(&email, &password)
+		if err != nil {
+			return result, err
+		}
+		result[email] = password
 	}
 
-	err = nil
-	return
+	return result, err
 }

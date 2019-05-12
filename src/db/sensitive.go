@@ -10,12 +10,28 @@ type SensitiveData struct {
 	MilitaryId   string `json:"military_id"`
 }
 
-func (sd *SensitiveData) insert(tx *sql.Tx) error  {
+func (sd *SensitiveData) insert(tx *sql.Tx) error {
 	_, err := tx.Exec("INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id) VALUES (?, ?, ?, ?, ?)", sd.IdPeople, sd.PassportCode, sd.Rntrs, sd.RegAddress, sd.MilitaryId)
 	return err
 }
 
-func (sd *SensitiveData) getById(db *sql.DB, id int) error{
+func (sd *SensitiveData) getById(db *sql.DB, id int) error {
 	err := db.QueryRow("SELECT id_people, passport_code, rntrs, reg_address, military_id FROM sensitive_data WHERE id_people = (?)", id).Scan(&sd.IdPeople, &sd.PassportCode, &sd.Rntrs, &sd.RegAddress, &sd.MilitaryId)
 	return err
+}
+
+func (sd *SensitiveData) Update(db *sql.DB) error {
+	_, err := db.Exec(updateSensitiveDataScript, sd.PassportCode, sd.Rntrs, sd.RegAddress, sd.MilitaryId, sd.IdPeople)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func UpdateSensitive(db *sql.DB, sd *SensitiveData) error {
+	_, err := db.Exec(updateSensitiveDataScript, sd.PassportCode, sd.Rntrs, sd.RegAddress, sd.MilitaryId, sd.IdPeople)
+	if err != nil {
+		return err
+	}
+	return nil
 }
