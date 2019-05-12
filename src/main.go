@@ -331,7 +331,7 @@ func main() {
 	if err != nil {
 		log.Printf("Err: %s\n", err)
 	}
-	students, err = dbPack.GetStudentFromGroupV2(db.Connection, 2)
+	students, err = dbPack.GetStudentFromGroupV2(db.Connection, 28)
 	if err != nil {
 		log.Printf("Error: %v\n", err)
 	}

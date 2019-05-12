@@ -648,15 +648,19 @@ func UpdatePeopleData(db *sql.DB, idPeople int, updateData map[string]string) er
 	}
 	delete(updateData, "table")
 	lenData := len(updateData)
-	values := make([]string, lenData)
 	sqlScript := fmt.Sprintf("UPDATE people, %s SET", tableName)
+	var i int
 	for key, value := range updateData {
-		sqlScript += fmt.Sprintf(" %s = ?, ", key)
-		values = append(values, value)
+		if i < lenData-1 {
+			sqlScript += fmt.Sprintf(" %s = '%s',", key, value)
+		} else if i == lenData-1 {
+			sqlScript += fmt.Sprintf(" %s = '%s'", key, value)
+		}
+		i++
 	}
-	sqlScript += fmt.Sprintf("WHERE people.id = ? AND %s.id_people = people.id;", tableName)
+	sqlScript += fmt.Sprintf(" WHERE people.id = ? AND %s.id_people = people.id;", tableName)
 	fmt.Printf(sqlScript + "\n")
-	_, err := db.Exec(sqlScript, values[0:lenData], idPeople)
+	_, err := db.Exec(sqlScript, idPeople)
 	if err != nil {
 		return err
 	}
