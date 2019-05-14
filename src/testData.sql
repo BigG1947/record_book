@@ -4,8 +4,8 @@ DELETE FROM loads;
 ALTER TABLE loads AUTO_INCREMENT=0;
 DELETE FROM discipline;
 ALTER TABLE discipline AUTO_INCREMENT=0;
-DELETE FROM sensitive_data;
-ALTER TABLE sensitive_data AUTO_INCREMENT=0;
+# DELETE FROM sensitive_data;
+# ALTER TABLE sensitive_data AUTO_INCREMENT=0;
 DELETE FROM student;
 ALTER TABLE student AUTO_INCREMENT=0;
 DELETE FROM employee;
@@ -112,40 +112,40 @@ INSERT INTO speciality(name, id_direction) VALUES ("speciality32", 16);
 -- INSERT INTO status(name) VALUES ("status4");
 -- INSERT INTO status(name) VALUES ("status5");
 
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("Степул Артем Мартиросовчи", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "artem.stepul@gmail.com", 1, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("Луценко Артем Геннадиевич", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "artem.lucenko@gmail.com", 1, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("Иванов Иван Иванович", "1979-09-17", 1, "/photo/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "admin@admin.com", 3, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("st3", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "st3@gmail.com", 1, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("st4", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st4@gmail.com", 1, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("empl2", "1979-09-17", 1, "/photo/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "empl2@admin.com", 3, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("st5", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "st5@gmail.com", 1, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("st6", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st6@gmail.com", 1, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("empl3", "1979-09-17", 1, "/photo/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "empl3@admin.com", 3, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("st7", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "st7@gmail.com", 1, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("st8", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st8@gmail.com", 1, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("empl4", "1979-09-17", 1, "/photo/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "empl4@admin.com", 3, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("st9", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "st9@gmail.com", 1, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("st10", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st10@gmail.com", 1, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("old student", "1970-01-01", "1", "/photo/default.png", "Старый студент", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "нету у него телефона", "st15@gmail.com", 7, 0);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("old student2", "1970-01-01", "1", "/photo/default.png", "Старый студент", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "нету у него телефона", "st16@gmail.com", 7, 0);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access)
-VALUES ("old student3", "1970-01-01", "1", "/photo/default.png", "Старый студент", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "нету у него телефона", "st17@gmail.com", 2, 0);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("Степул Артем Мартиросовчи", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "artem.stepul@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("Луценко Артем Геннадиевич", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "artem.lucenko@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("Иванов Иван Иванович", "1979-09-17", 1, "/photo/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "admin@admin.com", "TestSensitiveData, I don`t think what this!", 3, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("st3", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "st3@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("st4", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st4@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("empl2", "1979-09-17", 1, "/photo/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "empl2@admin.com", "TestSensitiveData, I don`t think what this!", 3, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("st5", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "st5@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("st6", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st6@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("empl3", "1979-09-17", 1, "/photo/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "empl3@admin.com", "TestSensitiveData, I don`t think what this!", 3, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("st7", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "st7@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("st8", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st8@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("empl4", "1979-09-17", 1, "/photo/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "empl4@admin.com", "TestSensitiveData, I don`t think what this!", 3, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("st9", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "st9@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("st10", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st10@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("old student", "1970-01-01", "1", "/photo/default.png", "Старый студент", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "нету у него телефона", "st15@gmail.com", "TestSensitiveData, I don`t think what this!", 7, 0);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("old student2", "1970-01-01", "1", "/photo/default.png", "Старый студент", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "нету у него телефона", "st16@gmail.com", "TestSensitiveData, I don`t think what this!", 7, 0);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
+VALUES ("old student3", "1970-01-01", "1", "/photo/default.png", "Старый студент", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "нету у него телефона", "st17@gmail.com", "TestSensitiveData, I don`t think what this!", 2, 0);
 
 INSERT INTO employee(id_people, date_invite, id_cathedra, id_rank)
 VALUES (3, "2007-07-22", 1, 1);
@@ -255,40 +255,40 @@ INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark
 VALUES (17, 0, 1, 1, 0, 1, 0, 1, 0, 1);
 
 
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (1, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (2, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (3, "цйкйкf2", "2141фафыафыа", "ул. Пушкина, дом Колатушкина, квартира 36", "пддждхзз215251аыф");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (4, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (5, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (6, "цйкйкf2", "2141фафыафыа", "ул. Пушкина, дом Колатушкина, квартира 36", "пддждхзз215251аыф");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (7, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (8, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (9, "цйкйкf2", "2141фафыафыа", "ул. Пушкина, дом Колатушкина, квартира 36", "пддждхзз215251аыф");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (10, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (11, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (12, "цйкйкf2", "2141фафыафыа", "ул. Пушкина, дом Колатушкина, квартира 36", "пддждхзз215251аыф");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (13, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (14, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (15, "фыафыафыа", "122fаыфафыаasf2", "ул. фыафыа, дом Колатушафыафыакина, кварафыафыатира 12", "ыфафааыфафыаы251512");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (16, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
-INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
-VALUES (17, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (1, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (2, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (3, "цйкйкf2", "2141фафыафыа", "ул. Пушкина, дом Колатушкина, квартира 36", "пддждхзз215251аыф");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (4, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (5, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (6, "цйкйкf2", "2141фафыафыа", "ул. Пушкина, дом Колатушкина, квартира 36", "пддждхзз215251аыф");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (7, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (8, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (9, "цйкйкf2", "2141фафыафыа", "ул. Пушкина, дом Колатушкина, квартира 36", "пддждхзз215251аыф");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (10, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (11, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (12, "цйкйкf2", "2141фафыафыа", "ул. Пушкина, дом Колатушкина, квартира 36", "пддждхзз215251аыф");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (13, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (14, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (15, "фыафыафыа", "122fаыфафыаasf2", "ул. фыафыа, дом Колатушафыафыакина, кварафыафыатира 12", "ыфафааыфафыаы251512");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (16, "122fasf2", "214124124", "ул. Пушкина, дом Колатушкина, квартира 25", "ком214124");
+# INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
+# VALUES (17, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
 
 
 INSERT INTO discipline(name) VALUES ("discipline1");

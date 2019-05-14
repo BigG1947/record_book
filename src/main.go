@@ -68,7 +68,7 @@ func getStudent(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w, "id_disciplie: %d\nid_employee: %d\nvalue: %d\nnational_value: %s\nis_exam: %v\nsemester: %d\ndate: %s\n\n", mark.IdDiscipline, mark.IdEmployee, mark.Value, mark.NationalValue, mark.IsExam, mark.Semester, mark.Date)
 		}
 		fmt.Fprintf(w, "Accession:\nid_people: %d\nedit_access: %v\nset_absence: %v\nget_absence: %v\nset_mark: %v\nset_envent: %v\nget_sesnsitive: %v\nset_sensitive: %v\nget_ylist: %v\nmanage_academ: %v\n\n", student.Accession.IdPeople, student.Accession.EditAccess, student.Accession.SetAbsence, student.Accession.GetAbsence, student.Accession.SetMark, student.Accession.SetEvent, student.Accession.GetSensitive, student.Accession.SetSensitive, student.Accession.GetYlist, student.Accession.ManageAcadem)
-		fmt.Fprintf(w, "Sensitive Data:\nid_people: %d\npassport_code: %s\nrntrs: %s\nreg_address: %s\nmillitary_id: %s\n\n", student.SensitiveData.IdPeople, student.SensitiveData.PassportCode, student.SensitiveData.Rntrs, student.SensitiveData.RegAddress, student.SensitiveData.MilitaryId)
+		//fmt.Fprintf(w, "Sensitive Data:\nid_people: %d\npassport_code: %s\nrntrs: %s\nreg_address: %s\nmillitary_id: %s\n\n", student.SensitiveData.IdPeople, student.SensitiveData.PassportCode, student.SensitiveData.Rntrs, student.SensitiveData.RegAddress, student.SensitiveData.MilitaryId)
 	}
 	return
 }
@@ -95,7 +95,7 @@ func getEmployee(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Rank info:\nid: %d\nname:%s\n\n", employee.Employee.Rank.Id, employee.Employee.Rank.Name)
 		fmt.Fprintf(w, "Cathedra info:\nid: %d\nname:%s\n\n", employee.Employee.Cathedra.Id, employee.Employee.Cathedra.Name)
 		fmt.Fprintf(w, "Accession:\nid_people: %d\nedit_access: %v\nset_absence: %v\nget_absence: %v\nset_mark: %v\nset_envent: %v\nget_sesnsitive: %v\nset_sensitive: %v\nget_ylist: %v\nmanage_academ: %v\n\n", employee.Accession.IdPeople, employee.Accession.EditAccess, employee.Accession.SetAbsence, employee.Accession.GetAbsence, employee.Accession.SetMark, employee.Accession.SetEvent, employee.Accession.GetSensitive, employee.Accession.SetSensitive, employee.Accession.GetYlist, employee.Accession.ManageAcadem)
-		fmt.Fprintf(w, "Sensitive Data:\nid_people: %d\npassport_code: %s\nrntrs: %s\nreg_address: %s\nmillitary_id: %s\n\n", employee.SensitiveData.IdPeople, employee.SensitiveData.PassportCode, employee.SensitiveData.Rntrs, employee.SensitiveData.RegAddress, employee.SensitiveData.MilitaryId)
+		//fmt.Fprintf(w, "Sensitive Data:\nid_people: %d\npassport_code: %s\nrntrs: %s\nreg_address: %s\nmillitary_id: %s\n\n", employee.SensitiveData.IdPeople, employee.SensitiveData.PassportCode, employee.SensitiveData.Rntrs, employee.SensitiveData.RegAddress, employee.SensitiveData.MilitaryId)
 	}
 	return
 }
@@ -112,7 +112,7 @@ func getSinglePeople(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Group Info:\nid_group: %d\nname: %s\nid_direction: %d\n\n", g.Id, g.Name, g.IdDirection)
 	}
 	fmt.Fprintf(w, "Accession:\nid_people: %d\nedit_access: %v\nset_absence: %v\nget_absence: %v\nset_mark: %v\nset_envent: %v\nget_sesnsitive: %v\nset_sensitive: %v\nget_ylist: %v\nmanage_academ: %v\n\n", p.Accession.IdPeople, p.Accession.EditAccess, p.Accession.SetAbsence, p.Accession.GetAbsence, p.Accession.SetMark, p.Accession.SetEvent, p.Accession.GetSensitive, p.Accession.SetSensitive, p.Accession.GetYlist, p.Accession.ManageAcadem)
-	fmt.Fprintf(w, "Sensitive Data:\nid_people: %d\npassport_code: %s\nrntrs: %s\nreg_address: %s\nmillitary_id: %s\n\n", p.SensitiveData.IdPeople, p.SensitiveData.PassportCode, p.SensitiveData.Rntrs, p.SensitiveData.RegAddress, p.SensitiveData.MilitaryId)
+	//fmt.Fprintf(w, "Sensitive Data:\nid_people: %d\npassport_code: %s\nrntrs: %s\nreg_address: %s\nmillitary_id: %s\n\n", p.SensitiveData.IdPeople, p.SensitiveData.PassportCode, p.SensitiveData.Rntrs, p.SensitiveData.RegAddress, p.SensitiveData.MilitaryId)
 
 }
 
@@ -143,7 +143,7 @@ func addStudent(w http.ResponseWriter, r *http.Request) {
 
 	p.Fio = "Student"
 	p.Password = "clearPass"
-	p.Email = "st@gmail.com"
+	p.Email = "st531@gmail.com"
 	p.PhoneNumber = "+0000000000"
 	p.Gender = 1
 	p.Img = "/static/img/default.png"
@@ -165,11 +165,12 @@ func addStudent(w http.ResponseWriter, r *http.Request) {
 	sd.Rntrs = "fks227176842190"
 	sd.PassportCode = "we886589as"
 
-	p.SensitiveData = sd
+	//p.SensitiveData = sd
 	p.Student = st
 	p.Accession = ac
 
-	p.InsertStudent(db.Connection)
+	err := p.InsertStudent(db.Connection)
+	fmt.Fprint(w, "%v", err)
 }
 
 func addEmployee(w http.ResponseWriter, r *http.Request) {
@@ -200,12 +201,14 @@ func addEmployee(w http.ResponseWriter, r *http.Request) {
 	sd.Rntrs = "fks227176842190"
 	sd.PassportCode = "we886589as"
 
-	p.SensitiveData = sd
+	//p.SensitiveData = sd
 	p.Employee = empl
 	p.Accession = ac
 
-	p.InsertEmployee(db.Connection)
-
+	err := p.InsertEmployee(db.Connection)
+	if err != nil {
+		fmt.Fprint(w, "Error: %v", err)
+	}
 }
 
 func login(w http.ResponseWriter, r *http.Request) {
@@ -285,7 +288,7 @@ func main() {
 	r.HandleFunc("/single", getSinglePeople).Methods("GET")
 	r.HandleFunc("/printMap", printMap).Methods("GET")
 
-	err := db.TestConnection(&dbPack.DefaultConfig)
+	err := db.TestConnection(&dbPack.DefaultConfigLaptop)
 	if err != nil {
 		fmt.Printf("Error in test connection: %s\n", err)
 	}

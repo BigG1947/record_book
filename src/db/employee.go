@@ -19,7 +19,7 @@ func (empl *Employee) insert(tx *sql.Tx) error {
 func GetLoadEmployees(db *sql.DB) ([]People, error) {
 	var employees []People
 
-	rows, err := db.Query("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access FROM people WHERE people.id IN (SELECT id_employee FROM loads)")
+	rows, err := db.Query("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access FROM people WHERE people.id IN (SELECT id_employee FROM loads)")
 	if err != nil {
 		return employees, err
 	}
@@ -27,7 +27,7 @@ func GetLoadEmployees(db *sql.DB) ([]People, error) {
 
 	for rows.Next() {
 		var p People
-		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status.Id, &p.HaveAccess)
+		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.Status.Id, &p.HaveAccess)
 		if err != nil {
 			return employees, err
 		}
@@ -44,11 +44,11 @@ func GetLoadEmployees(db *sql.DB) ([]People, error) {
 			return employees, err
 		}
 
-		var sd SensitiveData
-		err = sd.getById(db, p.Id)
-		if err != nil {
-			return employees, err
-		}
+		//var sd SensitiveData
+		//err = sd.getById(db, p.Id)
+		//if err != nil {
+		//	return employees, err
+		//}
 
 		err = p.Status.getStatusById(db, p.Status.Id)
 		if err != nil {
@@ -57,7 +57,7 @@ func GetLoadEmployees(db *sql.DB) ([]People, error) {
 
 		p.Employee = empl
 		p.Accession = ac
-		p.SensitiveData = sd
+		//p.SensitiveData = sd
 		employees = append(employees, p)
 	}
 

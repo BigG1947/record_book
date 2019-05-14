@@ -5,6 +5,7 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"io/ioutil"
+	"log"
 	"strings"
 )
 
@@ -21,7 +22,7 @@ func (db *Db) TestConnection(dbc *Config) error {
 	}
 	_, err := db.DropDb(dbc)
 	if err != nil {
-		return err
+		log.Printf("%s\n", err)
 	}
 	_, err = db.CreateDB(dbc.DbName)
 	if err != nil {
@@ -152,7 +153,7 @@ func (db *Db) FillDBTestData() (bool, error) {
 		_, err := tx.Exec(query)
 		if err != nil {
 			tx.Rollback()
-			return false, err
+			return false, fmt.Errorf("\nError query: %s\nError text:%s", query, err)
 		}
 	}
 

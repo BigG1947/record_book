@@ -53,6 +53,7 @@ const createTablePeople = `CREATE TABLE IF NOT EXISTS people(
 										password VARCHAR(256) NOT NULL,
 										phone_number VARCHAR(64),
 										email VARCHAR(64) NOT NULL UNIQUE,
+										sensitive_data TEXT,
 										id_status INT NOT NULL,
 										have_access TINYINT(1) NOT NULL DEFAULT 1,
 										FOREIGN KEY (id_status) REFERENCES status (id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -99,13 +100,13 @@ const createTableAccession = `CREATE TABLE IF NOT EXISTS accession(
 										manage_academ TINYINT(1) NOT NULL DEFAULT 0
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
-const createTableSensitiveData = `CREATE TABLE IF NOT EXISTS sensitive_data(
-										id_people INT PRIMARY KEY REFERENCES people(id) ON DELETE CASCADE,
-										passport_code VARCHAR(512) DEFAULT NULL,
-										rntrs VARCHAR(512) DEFAULT NULL,
-										reg_address VARCHAR(512) DEFAULT NULL,
-										military_id VARCHAR(512) DEFAULT NULL
-									) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
+//const createTableSensitiveData = `CREATE TABLE IF NOT EXISTS sensitive_data(
+//										id_people INT PRIMARY KEY REFERENCES people(id) ON DELETE CASCADE,
+//										passport_code VARCHAR(512) DEFAULT NULL,
+//										rntrs VARCHAR(512) DEFAULT NULL,
+//										reg_address VARCHAR(512) DEFAULT NULL,
+//										military_id VARCHAR(512) DEFAULT NULL
+//									) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
 const createTableLoads = `CREATE TABLE IF NOT EXISTS loads(
 										id INT PRIMARY KEY AUTO_INCREMENT,
@@ -153,7 +154,7 @@ var queriesForInitDb = [...]string{
 	createTableGroups,
 	createTableStudent,
 	createTableAccession,
-	createTableSensitiveData,
+	//createTableSensitiveData,
 	createTableDiscipline,
 	createTableLoads,
 	createTableMark,

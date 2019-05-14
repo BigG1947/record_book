@@ -9,6 +9,7 @@ const getAllPeopleScript = `SELECT people.id,
        people.password,
        people.phone_number,
        people.email,
+	   people.sensitive,
        people.have_access,
        student.id_people,
        student.date_admission,
@@ -35,10 +36,6 @@ const getAllPeopleScript = `SELECT people.id,
        accession.set_sensitive,
        accession.get_ylist,
        accession.manage_academ,
-       sensitive_data.passport_code,
-       sensitive_data.rntrs,
-       sensitive_data.reg_address,
-       sensitive_data.military_id,
        status.id,
        status.name
 FROM people
@@ -48,7 +45,6 @@ FROM people
        LEFT OUTER JOIN ranks ON employee.id_rank = ranks.id
        LEFT OUTER JOIN cathedra ON employee.id_cathedra = cathedra.id
        INNER JOIN accession ON people.id = accession.id_people
-       INNER JOIN sensitive_data ON people.id = sensitive_data.id_people
        INNER JOIN status ON people.id_status = status.id;`
 
 const getPeopleByIdScript = `SELECT people.id,
@@ -60,6 +56,7 @@ const getPeopleByIdScript = `SELECT people.id,
        people.password,
        people.phone_number,
        people.email,
+	   people.sensitive,
        people.have_access,
        student.id_people,
        student.date_admission,
@@ -86,10 +83,6 @@ const getPeopleByIdScript = `SELECT people.id,
        accession.set_sensitive,
        accession.get_ylist,
        accession.manage_academ,
-       sensitive_data.passport_code,
-       sensitive_data.rntrs,
-       sensitive_data.reg_address,
-       sensitive_data.military_id,
        status.id,
        status.name
 FROM people
@@ -99,7 +92,6 @@ FROM people
        LEFT OUTER JOIN ranks ON employee.id_rank = ranks.id
        LEFT OUTER JOIN cathedra ON employee.id_cathedra = cathedra.id
        INNER JOIN accession ON people.id = accession.id_people
-       INNER JOIN sensitive_data ON people.id = sensitive_data.id_people
        INNER JOIN status ON people.id_status = status.id
 WHERE people.id = (?);`
 
@@ -112,6 +104,7 @@ const getPeopleByEmailScript = `SELECT people.id,
        people.password,
        people.phone_number,
        people.email,
+	   people.sensitive,
        people.have_access,
        student.id_people,
        student.date_admission,
@@ -138,10 +131,6 @@ const getPeopleByEmailScript = `SELECT people.id,
        accession.set_sensitive,
        accession.get_ylist,
        accession.manage_academ,
-       sensitive_data.passport_code,
-       sensitive_data.rntrs,
-       sensitive_data.reg_address,
-       sensitive_data.military_id,
        status.id,
        status.name
 FROM people
@@ -151,7 +140,6 @@ FROM people
        LEFT OUTER JOIN ranks ON employee.id_rank = ranks.id
        LEFT OUTER JOIN cathedra ON employee.id_cathedra = cathedra.id
        INNER JOIN accession ON people.id = accession.id_people
-       INNER JOIN sensitive_data ON people.id = sensitive_data.id_people
        INNER JOIN status ON people.id_status = status.id
 WHERE people.email = (?);`
 
@@ -164,6 +152,7 @@ const getAllStudentsScript = `SELECT people.id,
     people.password,
     people.phone_number, 
     people.email, 
+	people.sensitive,
     people.have_access,
     student.id_people,
     student.date_admission,
@@ -183,17 +172,12 @@ const getAllStudentsScript = `SELECT people.id,
     accession.set_sensitive,
     accession.get_ylist,
     accession.manage_academ,
-    sensitive_data.passport_code,
-    sensitive_data.rntrs,
-    sensitive_data.reg_address,
-    sensitive_data.military_id,
     status.id,
     status.name
 FROM people 
 	INNER JOIN student ON people.id = student.id_people
 	INNER JOIN groups ON student.id_group = groups.id
 	INNER JOIN accession ON people.id = accession.id_people
-    INNER JOIN sensitive_data ON people.id = sensitive_data.id_people
     INNER JOIN status ON people.id_status = status.id
 WHERE people.id IN (SELECT id_people FROM student) ORDER BY status.id ASC, student.id_group DESC, people.fio ASC;`
 
@@ -206,7 +190,8 @@ const getAllEmployeeScript = `SELECT people.id,
        people.password,
        people.phone_number,
        people.email,
-       people.have_access,
+	   people.sensitive,
+	   people.have_access,
        employee.id_people,
        employee.date_invite,
        ranks.id,
@@ -223,10 +208,6 @@ const getAllEmployeeScript = `SELECT people.id,
        accession.set_sensitive,
        accession.get_ylist,
        accession.manage_academ,
-       sensitive_data.passport_code,
-       sensitive_data.rntrs,
-       sensitive_data.reg_address,
-       sensitive_data.military_id,
        status.id,
        status.name
 FROM people
@@ -234,7 +215,6 @@ FROM people
        INNER JOIN cathedra ON employee.id_cathedra = cathedra.id
        INNER JOIN ranks ON employee.id_rank = ranks.id
        INNER JOIN accession ON people.id = accession.id_people
-       INNER JOIN sensitive_data ON people.id = sensitive_data.id_people
        INNER JOIN status ON people.id_status = status.id
 WHERE people.id IN (SELECT id_people FROM employee) ORDER BY status.id ASC, cathedra.name ASC, ranks.name ASC, people.fio ASC;`
 
@@ -247,6 +227,7 @@ const getStudentFromGroupScript = `SELECT people.id,
     people.password,
     people.phone_number, 
     people.email, 
+    people.sensitive,
     people.have_access,
     student.id_people,
     student.date_admission,
@@ -266,17 +247,12 @@ const getStudentFromGroupScript = `SELECT people.id,
     accession.set_sensitive,
     accession.get_ylist,
     accession.manage_academ,
-    sensitive_data.passport_code,
-    sensitive_data.rntrs,
-    sensitive_data.reg_address,
-    sensitive_data.military_id,
     status.id,
     status.name
 FROM people 
 	INNER JOIN student ON people.id = student.id_people
 	INNER JOIN groups ON student.id_group = groups.id
 	INNER JOIN accession ON people.id = accession.id_people
-    INNER JOIN sensitive_data ON people.id = sensitive_data.id_people
     INNER JOIN status ON people.id_status = status.id
 WHERE people.id IN (SELECT id_people FROM student WHERE id_group = (?)) ORDER BY status.id ASC, student.id_group DESC, people.fio ASC;`
 

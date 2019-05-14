@@ -20,7 +20,7 @@ var DefaultConfig = Config{
 
 var DefaultConfigLaptop = Config{
 	User:     "root",
-	Password: "",
+	Password: "root",
 	Protocol: "tcp",
 	Host:     "127.0.0.1",
 	Port:     3306,

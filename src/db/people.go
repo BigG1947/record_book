@@ -8,26 +8,27 @@ import (
 )
 
 type People struct {
-	Id            int           `json:"id"`
-	Fio           string        `json:"fio"`
-	Birthday      string        `json:"birthday"`
-	Gender        int           `json:"gender"`
-	Comment       string        `json:"comment"`
-	Password      string        `json:"password"`
-	PhoneNumber   string        `json:"phone_number"`
-	Img           string        `json:"img"`
-	Email         string        `json:"email"`
-	Status        Status        `json:"status"`
-	HaveAccess    bool          `json:"have_access"`
-	Student       Student       `json:"student"`
-	Employee      Employee      `json:"employee"`
-	Accession     Accession     `json:"accession"`
-	SensitiveData SensitiveData `json:"sensitive_data"`
+	Id          int       `json:"id"`
+	Fio         string    `json:"fio"`
+	Birthday    string    `json:"birthday"`
+	Gender      int       `json:"gender"`
+	Comment     string    `json:"comment"`
+	Password    string    `json:"password"`
+	PhoneNumber string    `json:"phone_number"`
+	Img         string    `json:"img"`
+	Email       string    `json:"email"`
+	Sensitive   string    `json:"sensitive"`
+	Status      Status    `json:"status"`
+	HaveAccess  bool      `json:"have_access"`
+	Student     Student   `json:"student"`
+	Employee    Employee  `json:"employee"`
+	Accession   Accession `json:"accession"`
+	//SensitiveData SensitiveData `json:"sensitive_data"`
 }
 
 func (p *People) GetPeopleByEmail(db *sql.DB, email string) error {
 
-	err := db.QueryRow("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access FROM people WHERE email = (?)", email).Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status.Id, &p.HaveAccess)
+	err := db.QueryRow("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access FROM people WHERE email = (?)", email).Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.Status.Id, &p.HaveAccess)
 	if err != nil {
 		log.Printf("People.GetPeopleByEmail: failed selected people\n%s\n", err)
 		return err
@@ -51,11 +52,11 @@ func (p *People) GetPeopleByEmail(db *sql.DB, email string) error {
 		return err
 	}
 
-	err = p.SensitiveData.getById(db, p.Id)
-	if err != nil {
-		log.Printf("People.GetPeopleByEmail: \n%s\n", err)
-		return err
-	}
+	//err = p.SensitiveData.getById(db, p.Id)
+	//if err != nil {
+	//	log.Printf("People.GetPeopleByEmail: \n%s\n", err)
+	//	return err
+	//}
 
 	err = p.Status.getStatusById(db, p.Status.Id)
 	if err != nil {
@@ -66,7 +67,7 @@ func (p *People) GetPeopleByEmail(db *sql.DB, email string) error {
 
 func (p *People) GetPeopleById(db *sql.DB, id int) error {
 
-	err := db.QueryRow("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access FROM people WHERE id = (?)", id).Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status.Id, &p.HaveAccess)
+	err := db.QueryRow("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access FROM people WHERE id = (?)", id).Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.Status.Id, &p.HaveAccess)
 	if err != nil {
 		return err
 	}
@@ -86,11 +87,6 @@ func (p *People) GetPeopleById(db *sql.DB, id int) error {
 		return err
 	}
 
-	err = p.SensitiveData.getById(db, p.Id)
-	if err != nil {
-		return err
-	}
-
 	err = p.Status.getStatusById(db, p.Status.Id)
 	return nil
 }
@@ -98,7 +94,7 @@ func (p *People) GetPeopleById(db *sql.DB, id int) error {
 func GetAllEmployee(db *sql.DB) ([]People, error) {
 	var employees []People
 
-	rows, err := db.Query("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access FROM people WHERE people.id IN (SELECT id_people FROM employee)")
+	rows, err := db.Query("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access FROM people WHERE people.id IN (SELECT id_people FROM employee)")
 	if err != nil {
 		return []People{}, err
 	}
@@ -106,7 +102,7 @@ func GetAllEmployee(db *sql.DB) ([]People, error) {
 
 	for rows.Next() {
 		var p People
-		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status.Id, &p.HaveAccess)
+		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.Status.Id, &p.HaveAccess)
 		if err != nil {
 			return []People{}, err
 		}
@@ -123,11 +119,11 @@ func GetAllEmployee(db *sql.DB) ([]People, error) {
 			return []People{}, err
 		}
 
-		var sd SensitiveData
-		err = sd.getById(db, p.Id)
-		if err != nil {
-			return []People{}, err
-		}
+		//var sd SensitiveData
+		//err = sd.getById(db, p.Id)
+		//if err != nil {
+		//	return []People{}, err
+		//}
 
 		err = p.Status.getStatusById(db, p.Status.Id)
 		if err != nil {
@@ -136,7 +132,7 @@ func GetAllEmployee(db *sql.DB) ([]People, error) {
 
 		p.Employee = empl
 		p.Accession = ac
-		p.SensitiveData = sd
+		//p.SensitiveData = sd
 		employees = append(employees, p)
 	}
 
@@ -146,7 +142,7 @@ func GetAllEmployee(db *sql.DB) ([]People, error) {
 func GetAllStudent(db *sql.DB) ([]People, error) {
 	var students []People
 
-	rows, err := db.Query("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access FROM people WHERE people.id IN (SELECT id_people FROM student)")
+	rows, err := db.Query("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access FROM people WHERE people.id IN (SELECT id_people FROM student)")
 	if err != nil {
 		return []People{}, err
 	}
@@ -154,7 +150,7 @@ func GetAllStudent(db *sql.DB) ([]People, error) {
 
 	for rows.Next() {
 		var p People
-		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status.Id, &p.HaveAccess)
+		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.Status.Id, &p.HaveAccess)
 		if err != nil {
 			return []People{}, err
 		}
@@ -171,11 +167,11 @@ func GetAllStudent(db *sql.DB) ([]People, error) {
 			return []People{}, err
 		}
 
-		var sd SensitiveData
-		err = sd.getById(db, p.Id)
-		if err != nil {
-			return []People{}, err
-		}
+		//var sd SensitiveData
+		//err = sd.getById(db, p.Id)
+		//if err != nil {
+		//	return []People{}, err
+		//}
 
 		err = p.Status.getStatusById(db, p.Status.Id)
 		if err != nil {
@@ -184,7 +180,7 @@ func GetAllStudent(db *sql.DB) ([]People, error) {
 
 		p.Student = st
 		p.Accession = ac
-		p.SensitiveData = sd
+		//p.SensitiveData = sd
 		students = append(students, p)
 	}
 
@@ -194,7 +190,7 @@ func GetAllStudent(db *sql.DB) ([]People, error) {
 func GetStudentFromGroup(db *sql.DB, id int) ([]People, error) {
 	var students []People
 
-	rows, err := db.Query("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access FROM people WHERE id IN (SELECT id_people FROM student WHERE id_group = ?)", id)
+	rows, err := db.Query("SELECT id, fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access FROM people WHERE id IN (SELECT id_people FROM student WHERE id_group = ?)", id)
 	if err != nil {
 		return students, err
 	}
@@ -202,7 +198,7 @@ func GetStudentFromGroup(db *sql.DB, id int) ([]People, error) {
 
 	for rows.Next() {
 		var p People
-		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Status.Id, &p.HaveAccess)
+		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.Status.Id, &p.HaveAccess)
 		if err != nil {
 			return students, err
 		}
@@ -219,11 +215,11 @@ func GetStudentFromGroup(db *sql.DB, id int) ([]People, error) {
 			return students, err
 		}
 
-		var sd SensitiveData
-		err = sd.getById(db, p.Id)
-		if err != nil {
-			return students, err
-		}
+		//var sd SensitiveData
+		//err = sd.getById(db, p.Id)
+		//if err != nil {
+		//	return students, err
+		//}
 
 		err = p.Status.getStatusById(db, p.Status.Id)
 		if err != nil {
@@ -232,7 +228,7 @@ func GetStudentFromGroup(db *sql.DB, id int) ([]People, error) {
 
 		p.Student = st
 		p.Accession = ac
-		p.SensitiveData = sd
+		//p.SensitiveData = sd
 		students = append(students, p)
 	}
 
@@ -254,7 +250,7 @@ func (p *People) InsertEmployee(db *sql.DB) error {
 	}
 
 	p.Employee.IdPeople = idPeople
-	p.SensitiveData.IdPeople = idPeople
+	//p.SensitiveData.IdPeople = idPeople
 	p.Accession.IdPeople = idPeople
 
 	err = p.Employee.insert(tx)
@@ -269,11 +265,11 @@ func (p *People) InsertEmployee(db *sql.DB) error {
 		return err
 	}
 
-	err = p.SensitiveData.insert(tx)
-	if err != nil {
-		tx.Rollback()
-		return err
-	}
+	//err = p.SensitiveData.insert(tx)
+	//if err != nil {
+	//	tx.Rollback()
+	//	return err
+	//}
 
 	err = tx.Commit()
 	if err != nil {
@@ -299,7 +295,7 @@ func (p *People) InsertStudent(db *sql.DB) error {
 	}
 
 	p.Student.IdPeople = idPeople
-	p.SensitiveData.IdPeople = idPeople
+	//p.SensitiveData.IdPeople = idPeople
 	p.Accession.IdPeople = idPeople
 
 	err = p.Student.insert(tx)
@@ -314,11 +310,11 @@ func (p *People) InsertStudent(db *sql.DB) error {
 		return err
 	}
 
-	err = p.SensitiveData.insert(tx)
-	if err != nil {
-		tx.Rollback()
-		return err
-	}
+	//err = p.SensitiveData.insert(tx)
+	//if err != nil {
+	//	tx.Rollback()
+	//	return err
+	//}
 
 	err = tx.Commit()
 	if err != nil {
@@ -330,7 +326,7 @@ func (p *People) InsertStudent(db *sql.DB) error {
 }
 
 func (p *People) insert(tx *sql.Tx) (int, error) {
-	res, err := tx.Exec("INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, id_status, have_access) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", p.Fio, p.Birthday, p.Gender, p.Img, p.Comment, p.Password, p.PhoneNumber, p.Email, p.Status.Id, p.HaveAccess)
+	res, err := tx.Exec("INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", p.Fio, p.Birthday, p.Gender, p.Img, p.Comment, p.Password, p.PhoneNumber, p.Email, p.Sensitive, p.Status.Id, p.HaveAccess)
 	if err != nil {
 		return 0, err
 	}
@@ -349,10 +345,10 @@ func GetAllEmployeesV2(db *sql.DB) ([]People, error) {
 
 	for rows.Next() {
 		var p People
-		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.HaveAccess,
+		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
 			&p.Employee.IdPeople, &p.Employee.DateInvite, &p.Employee.Rank.Id, &p.Employee.Rank.Name, &p.Employee.Cathedra.Id, &p.Employee.Cathedra.Name, &p.Employee.Cathedra.IdFaculty,
 			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
-			&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
+			//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 			&p.Status.Id, &p.Status.Name)
 		if err != nil {
 			return []People{}, err
@@ -379,10 +375,10 @@ func GetStudentFromGroupV2(db *sql.DB, id int) ([]People, error) {
 	for rows.Next() {
 		var p People
 		var employeeId sql.NullInt64
-		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.HaveAccess,
+		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
 			&p.Student.IdPeople, &p.Student.DateAdmission, &p.Student.IsFullTime, &p.Student.IsCut, &p.Student.Group.Id, &employeeId, &p.Student.Group.Name, &p.Student.Group.IdDirection, &p.Student.Semester,
 			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
-			&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
+			//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 			&p.Status.Id, &p.Status.Name)
 		if employeeId.Valid {
 			p.Student.Group.IdEmployee = int(employeeId.Int64)
@@ -414,10 +410,10 @@ func GetAllStudentsV2(db *sql.DB) ([]People, error) {
 	for rows.Next() {
 		var p People
 		var employeeId sql.NullInt64
-		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.HaveAccess,
+		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
 			&p.Student.IdPeople, &p.Student.DateAdmission, &p.Student.IsFullTime, &p.Student.IsCut, &p.Student.Group.Id, &employeeId, &p.Student.Group.Name, &p.Student.Group.IdDirection, &p.Student.Semester,
 			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
-			&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
+			//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 			&p.Status.Id, &p.Status.Name)
 		if employeeId.Valid {
 			p.Student.Group.IdEmployee = int(employeeId.Int64)
@@ -455,11 +451,11 @@ func (p *People) GetPeopleByEmailV2(db *sql.DB, email string) error {
 	var employeeCathedraName sql.NullString
 	var employeeCathedraIdFaculty sql.NullInt64
 	row := db.QueryRow(getPeopleByEmailScript, email)
-	err := row.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.HaveAccess,
+	err := row.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
 		&studentIdPeople, &dateAdmission, &isFullTime, &isCut, &studentGroupId, &studentGroupEmployeeId, &studentGroupName, &studentGroupIdDirection, &studentSemester,
 		&employeeIdPeople, &employeeDateInvite, &employeeRankId, &employeeRankName, &employeeCathedraId, &employeeCathedraName, &employeeCathedraIdFaculty,
 		&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
-		&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
+		//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 		&p.Status.Id, &p.Status.Name)
 	if err != nil {
 		return err
@@ -541,11 +537,11 @@ func (p *People) GetPeopleByIdV2(db *sql.DB, id int) error {
 	var employeeCathedraName sql.NullString
 	var employeeCathedraIdFaculty sql.NullInt64
 	row := db.QueryRow(getPeopleByIdScript, id)
-	err := row.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.HaveAccess,
+	err := row.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
 		&studentIdPeople, &dateAdmission, &isFullTime, &isCut, &studentGroupId, &studentGroupEmployeeId, &studentGroupName, &studentGroupIdDirection, &studentSemester,
 		&employeeIdPeople, &employeeDateInvite, &employeeRankId, &employeeRankName, &employeeCathedraId, &employeeCathedraName, &employeeCathedraIdFaculty,
 		&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
-		&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
+		//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 		&p.Status.Id, &p.Status.Name)
 	if err != nil {
 		return err
