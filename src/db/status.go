@@ -4,6 +4,16 @@ import (
 	"database/sql"
 )
 
+const StatusStudy = 1
+const StatusDeducted = 2
+const StatusWork = 3
+const StatusStudentVacation = 4
+const StatusVacation = 5
+const StatusMaternityLeave = 6
+const StatusEndEducation = 7
+const StatusBusinesTrip = 8
+const StatusFired = 9
+
 type Status struct {
 	Id   int    `json:"id"`
 	Name string `json:"name"`
