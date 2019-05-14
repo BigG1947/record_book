@@ -49,3 +49,31 @@ func getFacultiesByInstitute(db *sql.DB, idInstitute int) ([]Faculty, error) {
 	}
 	return faculty, nil
 }
+
+func UpdateFaculty(db *sql.DB, f *Faculty) error {
+	_, err := db.Exec(updateFacultyScript, f.Name, f.IdInstitute, f.Id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func DeleteFaculty(db *sql.DB, id int) error {
+	_, err := db.Exec(deleteFacultyScript, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func InsertFaculty(db *sql.DB, f *Faculty) (int, error) {
+	res, err := db.Exec(insertFacultyScript, f.Name, f.IdInstitute)
+	if err != nil {
+		return 0, err
+	}
+	lastId, err := res.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+	return int(lastId), nil
+}

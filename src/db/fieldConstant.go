@@ -26,3 +26,32 @@ const TableEmployee = "employee"
 const FieldDateInvite = "date_invite"
 const FieldIdRank = "id_rank"
 const FieldIdCathedra = "id_cathedra"
+
+// GROUPS
+const TableGroups = "groups"
+const FieldTableName = "name"
+const FieldTableIdEmployee = "id_employee"
+const FieldTableIdDirection = "id_direction"
+
+// RANK
+const TableRank = "ranks"
+const FieldRankName = "name"
+
+// DIRECTION
+const TableDirection = "direction"
+const FieldDirectionName = "name"
+const FieldDirectionIdCathedra = "id_cathedra"
+
+// CATHEDRA
+const TableCathedra = "cathedra"
+const FieldCathedraName = "name"
+const FieldCathedraIdFaculty = "id_faculty"
+
+// FACULTY
+const TableFaculty = "faculty"
+const FieldFacultyName = "name"
+const FieldFacultyIdInstitute = "id_institute"
+
+// INSTITUTE
+const TableInstitute = "institute"
+const FieldInstituteName = "name"

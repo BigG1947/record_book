@@ -66,3 +66,31 @@ func GetCathedraByInstitute(db *sql.DB, idInstitute int) ([]Cathedra, error) {
 	}
 	return cathedra, nil
 }
+
+func UpdateCathedra(db *sql.DB, c *Cathedra) error {
+	_, err := db.Exec(updateCathedraScript, c.Name, c.IdFaculty, c.Id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func DeleteCathedra(db *sql.DB, id int) error {
+	_, err := db.Exec(deleteCathedraScript, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func InsertCathedra(db *sql.DB, c *Cathedra) (int, error) {
+	res, err := db.Exec(insertCathedraScript, c.Name, c.IdFaculty)
+	if err != nil {
+		return 0, err
+	}
+	lastId, err := res.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+	return int(lastId), nil
+}

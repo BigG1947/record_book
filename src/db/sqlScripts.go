@@ -297,3 +297,37 @@ const updateEmployeeDataScript = `UPDATE employee SET date_invite = ?, id_rank =
 const updateSensitiveDataScript = `UPDATE sensitive_data SET passport_code = ?, rntrs = ?, reg_address = ?, military_id = ? WHERE sensitive_data.id_people = ?`
 
 const updateAccessionDataScript = `UPDATE accession SET edit_access = ?, set_absence = ?, get_absence = ?, set_mark = ?, set_event = ?, get_sensitive = ?, set_sensitive = ?, get_ylist = ? , manage_academ = ? WHERE id_people = ?;`
+
+const updateGroupInfoScript = `UPDATE groups SET id_employee = ?, name = ?, id_direction = ? WHERE id = ?;`
+
+const deleteGroupScript = `DELETE FROM groups WHERE id = ?;`
+
+const insertRankScript = `INSERT INTO ranks(name) VALUES (?);`
+
+const updateRankScript = `UPDATE ranks SET name = ? WHERE id = ?;`
+
+const deleteRankScript = `DELETE FROM ranks WHERE id = ?;`
+
+const insertDirectionScript = `INSERT INTO direction(name, id_cathedra) VALUES (?, ?);`
+
+const updateDirectionScript = `UPDATE direction SET name = ?, id_cathedra = ? WHERE id = ?;`
+
+const deleteDirectionScript = `DELETE FROM direction WHERE id = ?;`
+
+const insertCathedraScript = `INSERT INTO cathedra(name, id_faculty) VALUES (?, ?);`
+
+const updateCathedraScript = `UPDATE cathedra SET name = ?, id_faculty = ? WHERE id = ?;`
+
+const deleteCathedraScript = `DELETE FROM cathedra WHERE id = ?;`
+
+const insertFacultyScript = `INSERT INTO faculty(name, id_institute) VALUES (?, ?);`
+
+const updateFacultyScript = `UPDATE faculty SET name = ?, id_institute = ? WHERE id = ?;`
+
+const deleteFacultyScript = `DELETE FROM faculty WHERE id = ?;`
+
+const updateInstituteScript = `UPDATE institute SET name = ? WHERE id = ?;`
+
+const insertInstituteScript = `INSERT INTO institute(name) VALUES (?);`
+
+const deleteInstituteScript = `DELETE FROM institute WHERE id = ?;`

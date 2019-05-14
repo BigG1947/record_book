@@ -178,3 +178,19 @@ func GetAllGroupByInstitute(db *sql.DB, idInstitute int) ([]Group, error) {
 	}
 	return groups, nil
 }
+
+func UpdateGroup(db *sql.DB, g *Group) error {
+	_, err := db.Exec(updateGroupInfoScript, checkForeignKey(g.IdEmployee), g.Name, g.IdDirection, g.Id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func DeleteGroup(db *sql.DB, id int) error {
+	_, err := db.Exec(deleteGroupScript, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}

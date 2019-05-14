@@ -85,3 +85,31 @@ func GetAllDirectionByInstitute(db *sql.DB, idInstitute int) ([]Direction, error
 	}
 	return directions, nil
 }
+
+func UpdateDirection(db *sql.DB, d *Direction) error {
+	_, err := db.Exec(updateDirectionScript, d.Name, d.IdCathedra, d.Id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func DeleteDirection(db *sql.DB, id int) error {
+	_, err := db.Exec(deleteDirectionScript, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func InsertDirection(db *sql.DB, d *Direction) (int, error) {
+	res, err := db.Exec(insertDirectionScript, d.Name, d.IdCathedra)
+	if err != nil {
+		return 0, err
+	}
+	lastId, err := res.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+	return int(lastId), nil
+}

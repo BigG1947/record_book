@@ -296,49 +296,132 @@ func main() {
 	}
 	bc.FillTestFeedBack()
 
-	err = dbPack.BlockPeopleById(db.Connection, 10)
-	if err != nil {
-		log.Printf("Error: %v\n", err)
-	}
-
-	students, err := dbPack.GetAllStudentsV2(db.Connection)
-	if err != nil {
-		log.Printf("Error: %v\n", err)
-	}
-	for _, student := range students {
-		fmt.Printf("%v\n", student)
-	}
-
-	employees, err := dbPack.GetAllEmployeesV2(db.Connection)
-	if err != nil {
-		log.Printf("Error: %v\n", err)
-	}
-	for _, employee := range employees {
-		fmt.Printf("%v\n", employee)
-	}
-
-	err = dbPack.UnblockPeopleById(db.Connection, 10)
-	if err != nil {
-		log.Printf("Error: %v\n", err)
-	}
-
-	updateData := make(map[string]string)
-	updateData["table"] = dbPack.TableStudent
-	updateData[dbPack.FieldFIO] = "Новое имя, отличное имя"
-	updateData[dbPack.FieldIdGroup] = "28"
-	updateData[dbPack.FieldPassword] = "Как же я заебался"
-	err = dbPack.UpdatePeopleData(db.Connection, 10, updateData)
-	if err != nil {
-		log.Printf("Err: %s\n", err)
-	}
-	students, err = dbPack.GetStudentFromGroupV2(db.Connection, 28)
-	if err != nil {
-		log.Printf("Error: %v\n", err)
-	}
-	for _, student := range students {
-		fmt.Printf("%v\n", student)
-	}
+	test()
 
 	log.Printf("Starting server...\n")
 	log.Fatal(http.ListenAndServe(":8080", r))
+}
+
+func test() {
+	var err error
+	var institute dbPack.Institute
+	institute.Name = "Новый институт"
+	institute.Id, err = dbPack.InsertInstitute(db.Connection, &institute)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	institute.Name = "This Work!"
+	err = dbPack.UpdateInstitute(db.Connection, &institute)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	err = dbPack.DeleteInstitute(db.Connection, institute.Id)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+
+	var faculty dbPack.Faculty
+	faculty.Name = "Новый факультет"
+	faculty.IdInstitute = 1
+	faculty.Id, err = dbPack.InsertFaculty(db.Connection, &faculty)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	faculty.Name = "This Work!"
+	err = dbPack.UpdateFaculty(db.Connection, &faculty)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	err = dbPack.DeleteFaculty(db.Connection, faculty.Id)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+
+	var cathedra dbPack.Cathedra
+	cathedra.Name = "Новая кафедра"
+	cathedra.IdFaculty = 1
+	cathedra.Id, err = dbPack.InsertCathedra(db.Connection, &cathedra)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	cathedra.Name = "This Work!"
+	err = dbPack.UpdateCathedra(db.Connection, &cathedra)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	err = dbPack.DeleteCathedra(db.Connection, cathedra.Id)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+
+	var direction dbPack.Direction
+	direction.Name = "Новое направление"
+	direction.IdCathedra = 1
+	direction.Id, err = dbPack.InsertDirection(db.Connection, &direction)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	direction.Name = "This Work!"
+	err = dbPack.UpdateDirection(db.Connection, &direction)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	err = dbPack.DeleteDirection(db.Connection, direction.Id)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+
+	var group dbPack.Group
+	group.Name = "Новая группа"
+	group.IdDirection = 1
+	group.Id, err = group.Insert(db.Connection)
+	if err != nil {
+		fmt.Printf("Err group.Insert: %s\n", err)
+		return
+	}
+	group.Name = "This Work!"
+	group.IdDirection = 2
+	err = dbPack.UpdateGroup(db.Connection, &group)
+	if err != nil {
+		fmt.Printf("Err UpdateGroup: %s\n", err)
+		return
+	}
+	err = dbPack.DeleteGroup(db.Connection, group.Id)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+
+	var rank dbPack.Rank
+	rank.Name = "Новая должность"
+	rank.Id, err = dbPack.InsertRank(db.Connection, &rank)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	rank.Name = "This Work!"
+	err = dbPack.UpdateRank(db.Connection, &rank)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	err = dbPack.DeleteRank(db.Connection, rank.Id)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	fmt.Printf("Ok!\n")
+	return
 }
