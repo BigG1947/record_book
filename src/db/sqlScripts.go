@@ -396,3 +396,13 @@ const getAllDisciplineForEmployeeScripts = `SELECT D.id, D.name
 const getStudentDisciplinesByMarkScript = `SELECT discipline.id, discipline.name
 											FROM discipline, marks
 											WHERE marks.id_student = ? AND discipline.id = marks.id_discipline`
+
+const getCurrentStudentDisciplineScript = `SELECT discipline.id, discipline.name
+FROM discipline,
+     loads,
+     loads_semester
+WHERE loads.id_semester = loads_semester.id
+  AND loads.id_group = ?
+  AND ? > loads_semester.start
+  AND ? < loads_semester.end
+  AND discipline.id = loads.id_discipline;`

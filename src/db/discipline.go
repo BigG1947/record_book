@@ -46,6 +46,25 @@ func GetAllDiscipline(db *sql.DB) ([]Discipline, error) {
 	return disciplines, nil
 }
 
+func GetCurrentStudentDiscipline(db *sql.DB, idGroup int) ([]Discipline, error) {
+	var disciplines []Discipline
+	currentTime := time.Now().Unix()
+	rows, err := db.Query(getCurrentStudentDisciplineScript, idGroup, currentTime, currentTime)
+	if err != nil {
+		return []Discipline{}, err
+	}
+
+	for rows.Next() {
+		var d Discipline
+		err = rows.Scan(&d.Id, &d.Name)
+		if err != nil {
+			return []Discipline{}, err
+		}
+		disciplines = append(disciplines, d)
+	}
+	return disciplines, nil
+}
+
 func GetAllDisciplineForEmployee(db *sql.DB, id int) ([]Discipline, error) {
 	var disciplines []Discipline
 	currentTime := time.Now().Unix()

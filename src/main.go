@@ -468,16 +468,21 @@ func test() {
 		fmt.Printf("Err: %s\n", err)
 		return
 	}
-	loads, err := dbPack.GetAllLoadsForEmployee(db.Connection, 3)
+	_, err = dbPack.GetAllLoadsForEmployee(db.Connection, 3)
 	if err != nil {
 		fmt.Printf("Err: %s\n", err)
 		return
 	}
-	for _, l := range loads {
-		fmt.Printf("%v\n", l)
-	}
 
 	disciplines, err := dbPack.GetStudentDisciplinesByMark(db.Connection, 1)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	for _, d := range disciplines {
+		fmt.Printf("%v\n", d)
+	}
+	disciplines, err = dbPack.GetCurrentStudentDiscipline(db.Connection, 1)
 	if err != nil {
 		fmt.Printf("Err: %s\n", err)
 		return
