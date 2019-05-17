@@ -335,7 +335,7 @@ func (p *People) insert(tx *sql.Tx) (int, error) {
 }
 
 func GetAllEmployeesV2(db *sql.DB) ([]People, error) {
-	var students []People
+	var employee []People
 
 	rows, err := db.Query(getAllEmployeeScript)
 	if err != nil {
@@ -357,10 +357,11 @@ func GetAllEmployeesV2(db *sql.DB) ([]People, error) {
 		if err != nil {
 			return []People{}, err
 		}
-		students = append(students, p)
+		p.Employee.Disciplines, err = GetAllDisciplineForEmployee(db, p.Id)
+		employee = append(employee, p)
 	}
 
-	return students, nil
+	return employee, nil
 }
 
 func GetStudentFromGroupV2(db *sql.DB, id int) ([]People, error) {

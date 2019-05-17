@@ -55,3 +55,12 @@ const FieldFacultyIdInstitute = "id_institute"
 // INSTITUTE
 const TableInstitute = "institute"
 const FieldInstituteName = "name"
+
+// LOADS
+const TableLoads = "loads"
+const FieldLoadsId = "id"
+const FieldLoadsIdDiscipline = "id_discipline"
+const FieldLoadsIdEmployee = "id_employee"
+const FieldLoadsIdGroup = "id_group"
+const FieldLoadsIdAssistant = "id_assistant"
+const FieldLoadsIdSemester = "semester"

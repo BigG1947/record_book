@@ -108,6 +108,13 @@ const createTableAccession = `CREATE TABLE IF NOT EXISTS accession(
 //										military_id VARCHAR(512) DEFAULT NULL
 //									) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
+const createTableLoadsSemester = `CREATE TABLE  IF NOT EXISTS loads_semester(
+  										id INT PRIMARY KEY AUTO_INCREMENT,
+  										start INTEGER NOT NULL,
+  										end INTEGER NOT NULL,
+  										name VARCHAR(128)
+)  ENGINE=InnoDB DEFAULT CHARSET="utf8";`
+
 const createTableLoads = `CREATE TABLE IF NOT EXISTS loads(
 										id INT PRIMARY KEY AUTO_INCREMENT,
 										id_discipline INT NOT NULL,
@@ -118,7 +125,8 @@ const createTableLoads = `CREATE TABLE IF NOT EXISTS loads(
 										FOREIGN KEY (id_discipline) REFERENCES discipline(id) ON DELETE RESTRICT ON UPDATE CASCADE,
 										FOREIGN KEY (id_employee) REFERENCES employee(id_people) ON DELETE RESTRICT ON UPDATE CASCADE,
 										FOREIGN KEY (id_group) REFERENCES groups(id) ON DELETE RESTRICT ON UPDATE CASCADE,
-										FOREIGN KEY (id_assistant) REFERENCES employee(id_people) ON DELETE RESTRICT ON UPDATE CASCADE
+										FOREIGN KEY (id_assistant) REFERENCES employee(id_people) ON DELETE RESTRICT ON UPDATE CASCADE,
+										FOREIGN KEY (semester) REFERENCES loads_semester(id) ON DELETE CASCADE ON UPDATE CASCADE
 						) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
 const createTableDiscipline = `CREATE TABLE IF NOT EXISTS discipline(
@@ -156,6 +164,7 @@ var queriesForInitDb = [...]string{
 	createTableAccession,
 	//createTableSensitiveData,
 	createTableDiscipline,
+	createTableLoadsSemester,
 	createTableLoads,
 	createTableMark,
 }

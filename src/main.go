@@ -425,6 +425,57 @@ func test() {
 		fmt.Printf("Err: %s\n", err)
 		return
 	}
+
+	_, err = dbPack.GetAllLoadsForEmployee(db.Connection, 3)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	_, err = dbPack.GetAllLoadsForAssistent(db.Connection, 6)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	_, err = dbPack.GetAllLoadsByIdGroup(db.Connection, 1)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	var l dbPack.Load
+	l.IdEmployee = 3
+	l.IdAssistant = 6
+	l.IdGroup = 1
+	l.Discipline.Id = 1
+	l.Semester.Id = 1
+	l.Id, err = l.Insert(db.Connection)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	l.Semester.Id = 2
+	err = dbPack.UpdateLoadsById(db.Connection, &l)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	err = dbPack.DeleteLoadsById(db.Connection, l.Id)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	_, err = dbPack.GetAllDisciplineForEmployee(db.Connection, 3)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	employes, err := dbPack.GetAllEmployeesV2(db.Connection)
+	if err != nil {
+		fmt.Printf("Err: %s\n", err)
+		return
+	}
+	for _, e := range employes {
+		fmt.Printf("%v\n", e.Employee.Disciplines)
+	}
 	fmt.Printf("Ok!\n")
 	return
 }

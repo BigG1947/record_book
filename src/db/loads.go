@@ -3,16 +3,26 @@ package db
 import "database/sql"
 
 type Load struct {
-	Id         int        `json:"id"`
-	Discipline Discipline `json:"id_discipline"`
-	Employee   People     `json:"id_employee"`
-	Group      Group      `json:"id_group"`
-	Assistant  People     `json:"id_assistant"`
-	Semester   int        `json:"semester"`
+	Id            int          `json:"id"`
+	Discipline    Discipline   `json:"id_discipline"`
+	IdEmployee    int          `json:"id_employee"`
+	NameEmployee  string       `json:"name_employee"`
+	IdGroup       int          `json:"id_group"`
+	NameGroup     string       `json:"name_group"`
+	IdAssistant   int          `json:"id_assistant"`
+	NameAssistant string       `json:"name_assistant"`
+	Semester      LoadSemester `json:"semester"`
+}
+
+type LoadSemester struct {
+	Id    int    `json:"id"`
+	Start int64  `json:"start"`
+	End   int64  `json:"end"`
+	Name  string `json:"name"`
 }
 
 func (l *Load) Insert(db *sql.DB) (int, error) {
-	res, err := db.Exec("INSERT INTO loads(id_discipline, id_employee, id_group, id_assistant, semester) VALUES (?, ?, ?, ?, ?, ?)", l.Discipline.Id, l.Employee.Id, l.Group.Id, l.Assistant.Id, l.Semester)
+	res, err := db.Exec("INSERT INTO loads(id_discipline, id_employee, id_group, id_assistant, semester) VALUES (?, ?, ?, ?, ?)", l.Discipline.Id, l.IdEmployee, l.IdGroup, l.IdAssistant, l.Semester.Id)
 	if err != nil {
 		return 0, err
 	}
@@ -23,30 +33,52 @@ func (l *Load) Insert(db *sql.DB) (int, error) {
 
 func GetAllLoadsForEmployee(db *sql.DB, id int) ([]Load, error) {
 	var loads []Load
-	rows, err := db.Query("SELECT L.id, L.id_discipline, L.id_employee, L.id_group, L.id_assistant, L.semester FROM loads L WHERE id_employee = ?", id)
+	rows, err := db.Query(getAllLoadsByIdAssistantScript, id)
 	if err != nil {
 		return []Load{}, err
 	}
 
 	for rows.Next() {
 		var l Load
-		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Employee.Id, &l.Group.Id, &l.Assistant.Id, &l.Semester)
+		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &l.IdAssistant, &l.NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name)
 		if err != nil {
 			return []Load{}, err
 		}
-		err = l.Discipline.getDisciplineById(db, l.Discipline.Id)
+
+		loads = append(loads, l)
+	}
+	return loads, nil
+}
+
+func GetAllLoadsForAssistent(db *sql.DB, id int) ([]Load, error) {
+	var loads []Load
+	rows, err := db.Query(getAllLoadsByIdEmployeeScript, id)
+	if err != nil {
+		return []Load{}, err
+	}
+
+	for rows.Next() {
+		var l Load
+		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &l.IdAssistant, &l.NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name)
 		if err != nil {
 			return []Load{}, err
 		}
-		err = l.Group.GetGroupById(db, l.Group.Id)
-		if err != nil {
-			return []Load{}, err
-		}
-		err = l.Employee.GetPeopleById(db, l.Employee.Id)
-		if err != nil {
-			return []Load{}, err
-		}
-		err = l.Assistant.GetPeopleById(db, l.Assistant.Id)
+
+		loads = append(loads, l)
+	}
+	return loads, nil
+}
+
+func GetAllLoadsByIdGroup(db *sql.DB, id int) ([]Load, error) {
+	var loads []Load
+	rows, err := db.Query(getAllLoadsByIdGroupScript, id)
+	if err != nil {
+		return []Load{}, err
+	}
+
+	for rows.Next() {
+		var l Load
+		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &l.IdAssistant, &l.NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name)
 		if err != nil {
 			return []Load{}, err
 		}
@@ -55,36 +87,26 @@ func GetAllLoadsForEmployee(db *sql.DB, id int) ([]Load, error) {
 	return loads, nil
 }
 
-func GetAllLoadsByIdGroup(db *sql.DB, id int) ([]Load, error) {
-	var loads []Load
-	rows, err := db.Query("SELECT L.id, L.id_discipline, L.id_employee, L.id_group, L.id_assistant, L.semester FROM loads L WHERE L.id_group = ? ORDER BY semester ASC ", id)
+func DeleteLoadsById(db *sql.DB, id int) error {
+	_, err := db.Exec(deleteLoadsByIdScript, id)
 	if err != nil {
-		return []Load{}, err
+		return err
 	}
+	return nil
+}
 
-	for rows.Next() {
-		var l Load
-		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Employee.Id, &l.Group.Id, &l.Assistant.Id, &l.Semester)
-		if err != nil {
-			return []Load{}, err
-		}
-		err = l.Discipline.getDisciplineById(db, l.Discipline.Id)
-		if err != nil {
-			return []Load{}, err
-		}
-		err = l.Group.GetGroupById(db, l.Group.Id)
-		if err != nil {
-			return []Load{}, err
-		}
-		err = l.Employee.GetPeopleById(db, l.Employee.Id)
-		if err != nil {
-			return []Load{}, err
-		}
-		err = l.Assistant.GetPeopleById(db, l.Assistant.Id)
-		if err != nil {
-			return []Load{}, err
-		}
-		loads = append(loads, l)
+func DeleteLoadsSemesterById(db *sql.DB, id int) error {
+	_, err := db.Exec(deleteLoadsSemesterByIdScript, id)
+	if err != nil {
+		return err
 	}
-	return loads, nil
+	return nil
+}
+
+func UpdateLoadsById(db *sql.DB, l *Load) error {
+	_, err := db.Exec(updateLoadsById, l.Discipline.Id, l.IdEmployee, l.IdGroup, l.IdAssistant, l.Semester.Id, l.Id)
+	if err != nil {
+		return err
+	}
+	return nil
 }
