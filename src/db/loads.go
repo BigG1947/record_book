@@ -4,7 +4,7 @@ import "database/sql"
 
 type Load struct {
 	Id            int          `json:"id"`
-	Discipline    Discipline   `json:"id_discipline"`
+	Discipline    Discipline   `json:"discipline"`
 	IdEmployee    int          `json:"id_employee"`
 	NameEmployee  string       `json:"name_employee"`
 	IdGroup       int          `json:"id_group"`
@@ -34,7 +34,7 @@ func (l *Load) Insert(db *sql.DB) (int, error) {
 
 func GetAllLoadsForEmployee(db *sql.DB, id int) ([]Load, error) {
 	var loads []Load
-	rows, err := db.Query(getAllLoadsByIdAssistantScript, id)
+	rows, err := db.Query(getAllLoadsByIdEmployeeScript, id)
 	if err != nil {
 		return []Load{}, err
 	}
@@ -53,7 +53,7 @@ func GetAllLoadsForEmployee(db *sql.DB, id int) ([]Load, error) {
 
 func GetAllLoadsForAssistent(db *sql.DB, id int) ([]Load, error) {
 	var loads []Load
-	rows, err := db.Query(getAllLoadsByIdEmployeeScript, id)
+	rows, err := db.Query(getAllLoadsByIdAssistantScript, id)
 	if err != nil {
 		return []Load{}, err
 	}

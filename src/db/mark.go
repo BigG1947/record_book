@@ -108,3 +108,21 @@ func GetStudentMarksByDiscipline(db *sql.DB, idStudent int, idDiscipline int) ([
 	}
 	return marks, nil
 }
+
+func GetStudentDisciplinesByMark(db *sql.DB, idStudent int) ([]Discipline, error) {
+	var disciplines []Discipline
+	rows, err := db.Query(getStudentDisciplinesByMarkScript, idStudent)
+	if err != nil {
+		return []Discipline{}, err
+	}
+
+	for rows.Next() {
+		var d Discipline
+		err = rows.Scan(&d.Id, &d.Name)
+		if err != nil {
+			return []Discipline{}, err
+		}
+		disciplines = append(disciplines, d)
+	}
+	return disciplines, nil
+}
