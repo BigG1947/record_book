@@ -320,12 +320,13 @@ const getAllLoadsByIdEmployeeScript = `SELECT loads.id,
        ls.id,
        ls.start,
        ls.end,
-       ls.name
+       ls.name,
+	   loads.semester
 FROM loads
          INNER JOIN discipline d ON loads.id_discipline = d.id
          INNER JOIN people p ON loads.id_employee = p.id
          INNER JOIN people p2 ON loads.id_assistant = p2.id
-         INNER JOIN loads_semester ls on loads.semester = ls.id
+         INNER JOIN loads_semester ls on loads.id_semester = ls.id
          INNER JOIN groups g ON loads.id_group = g.id
 WHERE loads.id_employee = ?
 ORDER BY ls.start DESC, d.name ASC, g.name ASC;`
@@ -342,12 +343,13 @@ const getAllLoadsByIdAssistantScript = `SELECT loads.id,
        ls.id,
        ls.start,
        ls.end,
-       ls.name
+       ls.name,
+       loads.semester
 FROM loads
          INNER JOIN discipline d ON loads.id_discipline = d.id
          INNER JOIN people p ON loads.id_employee = p.id
          INNER JOIN people p2 ON loads.id_assistant = p2.id
-         INNER JOIN loads_semester ls on loads.semester = ls.id
+         INNER JOIN loads_semester ls on loads.id_semester = ls.id
          INNER JOIN groups g ON loads.id_group = g.id
 WHERE loads.id_assistant = ?
 ORDER BY ls.start DESC, d.name ASC, g.name ASC;`
@@ -364,17 +366,18 @@ const getAllLoadsByIdGroupScript = `SELECT loads.id,
        ls.id,
        ls.start,
        ls.end,
-       ls.name
+       ls.name,
+       loads.semester
 FROM loads
          INNER JOIN discipline d ON loads.id_discipline = d.id
          INNER JOIN people p ON loads.id_employee = p.id
          INNER JOIN people p2 ON loads.id_assistant = p2.id
-         INNER JOIN loads_semester ls on loads.semester = ls.id
+         INNER JOIN loads_semester ls on loads.id_semester = ls.id
          INNER JOIN groups g ON loads.id_group = g.id
 WHERE loads.id_group = ?
 ORDER BY ls.start DESC, d.name ASC, g.name ASC;`
 
-const updateLoadsById = `UPDATE loads SET id_discipline = ?, id_employee = ?, id_group = ?, id_assistant = ?, semester = ? WHERE id = ?;`
+const updateLoadsById = `UPDATE loads SET id_discipline = ?, id_employee = ?, id_group = ?, id_assistant = ?, semester = ?, id_semester = ? WHERE id = ?;`
 
 const deleteLoadsByIdScript = `DELETE FROM loads WHERE id = ?;`
 
@@ -386,6 +389,6 @@ const getAllDisciplineForEmployeeScripts = `SELECT D.id, D.name
 	FROM loads,
 		loads_semester
 	WHERE loads.id_employee = ?
-	AND loads.semester = loads_semester.id
+	AND loads.id_semester = loads_semester.id
 	AND ? > loads_semester.start
 	AND ? < loads_semester.end);`

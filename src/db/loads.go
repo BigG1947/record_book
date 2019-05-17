@@ -11,6 +11,7 @@ type Load struct {
 	NameGroup     string       `json:"name_group"`
 	IdAssistant   int          `json:"id_assistant"`
 	NameAssistant string       `json:"name_assistant"`
+	NumSemester   int          `json:"num_semester"`
 	Semester      LoadSemester `json:"semester"`
 }
 
@@ -22,7 +23,7 @@ type LoadSemester struct {
 }
 
 func (l *Load) Insert(db *sql.DB) (int, error) {
-	res, err := db.Exec("INSERT INTO loads(id_discipline, id_employee, id_group, id_assistant, semester) VALUES (?, ?, ?, ?, ?)", l.Discipline.Id, l.IdEmployee, l.IdGroup, l.IdAssistant, l.Semester.Id)
+	res, err := db.Exec("INSERT INTO loads(id_discipline, id_employee, id_group, id_assistant, semester, id_semester) VALUES (?, ?, ?, ?, ?, ?)", l.Discipline.Id, l.IdEmployee, l.IdGroup, l.IdAssistant, l.NumSemester, l.Semester.Id)
 	if err != nil {
 		return 0, err
 	}
@@ -40,7 +41,7 @@ func GetAllLoadsForEmployee(db *sql.DB, id int) ([]Load, error) {
 
 	for rows.Next() {
 		var l Load
-		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &l.IdAssistant, &l.NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name)
+		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &l.IdAssistant, &l.NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name, &l.NumSemester)
 		if err != nil {
 			return []Load{}, err
 		}
@@ -59,7 +60,7 @@ func GetAllLoadsForAssistent(db *sql.DB, id int) ([]Load, error) {
 
 	for rows.Next() {
 		var l Load
-		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &l.IdAssistant, &l.NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name)
+		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &l.IdAssistant, &l.NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name, &l.NumSemester)
 		if err != nil {
 			return []Load{}, err
 		}
@@ -78,7 +79,7 @@ func GetAllLoadsByIdGroup(db *sql.DB, id int) ([]Load, error) {
 
 	for rows.Next() {
 		var l Load
-		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &l.IdAssistant, &l.NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name)
+		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &l.IdAssistant, &l.NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name, &l.NumSemester)
 		if err != nil {
 			return []Load{}, err
 		}
@@ -104,7 +105,7 @@ func DeleteLoadsSemesterById(db *sql.DB, id int) error {
 }
 
 func UpdateLoadsById(db *sql.DB, l *Load) error {
-	_, err := db.Exec(updateLoadsById, l.Discipline.Id, l.IdEmployee, l.IdGroup, l.IdAssistant, l.Semester.Id, l.Id)
+	_, err := db.Exec(updateLoadsById, l.Discipline.Id, l.IdEmployee, l.IdGroup, l.IdAssistant, l.NumSemester, l.Semester.Id, l.Id)
 	if err != nil {
 		return err
 	}

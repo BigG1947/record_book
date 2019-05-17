@@ -310,21 +310,21 @@ INSERT INTO loads_semester(start, end, name) VALUES (1562446800, 1562446800, "2 
 INSERT INTO loads_semester(start, end, name) VALUES (1562446800, 1562446800, "1 семестр 2018-2019 года");
 INSERT INTO loads_semester(start, end, name) VALUES (1562446800, 1562446800, "2 семестр 2018-2019 года");
 
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (1, 3, 1, 1, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (2, 6, 1, 2, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (3, 9, 1, 3, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (4, 12, 1, 4, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (5, 3, 1, 1, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (6, 6, 1, 2, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (7, 6, 1, 3, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (8, 9, 1, 4, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (9, 12, 1, 1, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (10, 3, 1, 2, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (11, 6, 1, 3, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (1, 3, 32, 4, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (2, 3, 1, 4, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (1, 6, 2, 4, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_assistant) VALUES (2, 6, 2, 4, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (1, 3, 1, 1, 1, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (2, 6, 1, 1, 2, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (3, 9, 1, 1, 3, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (4, 12, 1, 1, 4, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (5, 3, 1, 1, 1, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (6, 6, 1, 1, 2, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (7, 6, 1, 1, 3, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (8, 9, 1, 1, 4, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (9, 12, 1, 1, 1, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (10, 3, 1, 1, 2, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (11, 6, 1, 1, 3, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (1, 3, 32, 1, 4, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (2, 3, 1, 1, 4, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (1, 6, 2, 1, 4, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (2, 6, 2, 1, 4, 6);
 
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
 VALUES (1, 1, 3, 59, "неуд", 1, 4, "2018-09-05");

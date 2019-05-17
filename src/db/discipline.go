@@ -10,6 +10,18 @@ type Discipline struct {
 	Name string `json:"name"`
 }
 
+type StudentDiscipline struct {
+	Id            int          `json:"id"`
+	Discipline    Discipline   `json:"id_discipline"`
+	IdEmployee    int          `json:"id_employee"`
+	NameEmployee  string       `json:"name_employee"`
+	IdGroup       int          `json:"id_group"`
+	NameGroup     string       `json:"name_group"`
+	IdAssistant   int          `json:"id_assistant"`
+	NameAssistant string       `json:"name_assistant"`
+	Semester      LoadSemester `json:"semester"`
+}
+
 func (d *Discipline) getDisciplineById(db *sql.DB, id int) error {
 	err := db.QueryRow("SELECT id, name FROM discipline WHERE id = ?", id).Scan(&d.Id, &d.Name)
 	return err
