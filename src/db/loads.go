@@ -1,6 +1,9 @@
 package db
 
-import "database/sql"
+import (
+	"database/sql"
+	"time"
+)
 
 type Load struct {
 	Id            int          `json:"id"`
@@ -87,6 +90,33 @@ func GetAllLoadsForAssistent(db *sql.DB, id int) ([]Load, error) {
 func GetAllLoadsByIdGroup(db *sql.DB, id int) ([]Load, error) {
 	var loads []Load
 	rows, err := db.Query(getAllLoadsByIdGroupScript, id)
+	if err != nil {
+		return []Load{}, err
+	}
+
+	for rows.Next() {
+		var l Load
+		var IdAssistant sql.NullInt64
+		var NameAssistant sql.NullString
+		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &IdAssistant, &NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name, &l.NumSemester)
+		if err != nil {
+			return []Load{}, err
+		}
+		if IdAssistant.Valid {
+			l.IdAssistant = int(IdAssistant.Int64)
+		}
+		if NameAssistant.Valid {
+			l.NameAssistant = NameAssistant.String
+		}
+		loads = append(loads, l)
+	}
+	return loads, nil
+}
+
+func GetCurrentStudentDiscipline(db *sql.DB, idGroup int) ([]Load, error) {
+	var loads []Load
+	currentTime := time.Now().Unix()
+	rows, err := db.Query(getCurrentStudentDisciplineScript, idGroup, currentTime, currentTime)
 	if err != nil {
 		return []Load{}, err
 	}
