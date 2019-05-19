@@ -474,21 +474,30 @@ func test() {
 		return
 	}
 
-	disciplines, err := dbPack.GetStudentDisciplinesByMark(db.Connection, 1)
+	_, err = dbPack.GetStudentDisciplinesByMark(db.Connection, 1)
 	if err != nil {
 		fmt.Printf("Err: %s\n", err)
 		return
 	}
-	for _, d := range disciplines {
-		fmt.Printf("%v\n", d)
-	}
-	loads, err := dbPack.GetCurrentStudentDiscipline(db.Connection, 1)
+	_, err = dbPack.GetCurrentStudentDiscipline(db.Connection, 1)
 	if err != nil {
 		fmt.Printf("Err: %s\n", err)
 		return
 	}
-	for _, l := range loads {
-		fmt.Printf("%v\n", l)
+	_, err = dbPack.GetAllLoadsByIdGroup(db.Connection, 1)
+	if err != nil {
+		fmt.Printf("GetAllLoadsByIdGroup. Err: %s\n", err)
+		return
+	}
+	_, err = dbPack.GetAllLoadsForEmployee(db.Connection, 1)
+	if err != nil {
+		fmt.Printf("GetAllLoadsForEmployee. Err: %s\n", err)
+		return
+	}
+	_, err = dbPack.GetAllLoadsForAssistent(db.Connection, 1)
+	if err != nil {
+		fmt.Printf("GetAllLoadsForAssistent. Err: %s\n", err)
+		return
 	}
 	fmt.Printf("Ok!\n")
 	return
