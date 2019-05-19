@@ -23,7 +23,7 @@ type LoadSemester struct {
 }
 
 func (l *Load) Insert(db *sql.DB) (int, error) {
-	res, err := db.Exec("INSERT INTO loads(id_discipline, id_employee, id_group, id_assistant, semester, id_semester) VALUES (?, ?, ?, ?, ?, ?)", l.Discipline.Id, l.IdEmployee, l.IdGroup, l.IdAssistant, l.NumSemester, l.Semester.Id)
+	res, err := db.Exec("INSERT INTO loads(id_discipline, id_employee, id_group, id_assistant, semester, id_semester) VALUES (?, ?, ?, ?, ?, ?)", l.Discipline.Id, l.IdEmployee, l.IdGroup, checkForeignKey(l.IdAssistant), l.NumSemester, l.Semester.Id)
 	if err != nil {
 		return 0, err
 	}
@@ -41,11 +41,18 @@ func GetAllLoadsForEmployee(db *sql.DB, id int) ([]Load, error) {
 
 	for rows.Next() {
 		var l Load
-		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &l.IdAssistant, &l.NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name, &l.NumSemester)
+		var IdAssistant sql.NullInt64
+		var NameAssistant sql.NullString
+		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &IdAssistant, &NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name, &l.NumSemester)
 		if err != nil {
 			return []Load{}, err
 		}
-
+		if IdAssistant.Valid {
+			l.IdAssistant = int(IdAssistant.Int64)
+		}
+		if NameAssistant.Valid {
+			l.NameAssistant = NameAssistant.String
+		}
 		loads = append(loads, l)
 	}
 	return loads, nil
@@ -60,11 +67,18 @@ func GetAllLoadsForAssistent(db *sql.DB, id int) ([]Load, error) {
 
 	for rows.Next() {
 		var l Load
-		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &l.IdAssistant, &l.NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name, &l.NumSemester)
+		var IdAssistant sql.NullInt64
+		var NameAssistant sql.NullString
+		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &IdAssistant, &NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name, &l.NumSemester)
 		if err != nil {
 			return []Load{}, err
 		}
-
+		if IdAssistant.Valid {
+			l.IdAssistant = int(IdAssistant.Int64)
+		}
+		if NameAssistant.Valid {
+			l.NameAssistant = NameAssistant.String
+		}
 		loads = append(loads, l)
 	}
 	return loads, nil
@@ -79,9 +93,17 @@ func GetAllLoadsByIdGroup(db *sql.DB, id int) ([]Load, error) {
 
 	for rows.Next() {
 		var l Load
-		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &l.IdAssistant, &l.NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name, &l.NumSemester)
+		var IdAssistant sql.NullInt64
+		var NameAssistant sql.NullString
+		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &IdAssistant, &NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name, &l.NumSemester)
 		if err != nil {
 			return []Load{}, err
+		}
+		if IdAssistant.Valid {
+			l.IdAssistant = int(IdAssistant.Int64)
+		}
+		if NameAssistant.Valid {
+			l.NameAssistant = NameAssistant.String
 		}
 		loads = append(loads, l)
 	}

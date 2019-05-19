@@ -39,6 +39,7 @@ INSERT INTO institute(name) VALUES ("Навчально-науковий інс�
 INSERT INTO institute(name) VALUES ("Навчально-науковий інститут прикладної економіки та менеджменту ім. Г.Е. Вейнштейна");
 INSERT INTO institute(name) VALUES ("Навчально-науковий інститут холоду, кріотехнологій та екоенергетики ім. Мартиновського В.С.");
 
+
 INSERT INTO faculty(name, id_institute) VALUES ("Факультет технології зерна і зернового бізнесу", 1);
 INSERT INTO faculty(name, id_institute) VALUES ("Факультет інноваційних технологій харчування і ресторанно-готельного бізнесу", 1);
 INSERT INTO faculty(name, id_institute) VALUES ("Факультет технології та товарознавства харчових продуктів і продовольчого бізнесу", 1);
@@ -93,55 +94,41 @@ INSERT INTO cathedra(name, id_faculty) VALUES ("Кафедра комп`ютер
 INSERT INTO cathedra(name, id_faculty) VALUES ("Кафедра інформаційних технологій та кібербезпеки", 10);
 INSERT INTO cathedra(name, id_faculty) VALUES ("Кафедра фізичної культури та спорту", 10);
 
-INSERT INTO direction(name, id_cathedra) VALUES ("direction1", 1);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction2", 1);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction3", 2);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction4", 2);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction5", 3);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction6", 3);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction7", 4);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction8", 4);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction9", 5);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction10", 5);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction11", 6);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction12", 6);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction13", 7);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction14", 7);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction15", 8);
-INSERT INTO direction(name, id_cathedra) VALUES ("direction16", 8);
+INSERT INTO direction(name, id_cathedra) VALUES ("Комп'ютерні науки", 40);
+INSERT INTO direction(name, id_cathedra) VALUES ("Комп'ютерна інжеренерія", 40);
 
-INSERT INTO speciality(name, id_direction) VALUES ("speciality1", 1);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality2", 1);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality3", 2);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality4", 2);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality5", 3);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality6", 3);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality7", 4);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality8", 4);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality9", 5);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality10", 5);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality11", 6);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality12", 6);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality13", 7);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality14", 7);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality15", 8);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality16", 8);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality17", 9);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality18", 9);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality19", 10);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality20", 10);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality21", 11);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality22", 11);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality23", 12);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality24", 12);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality25", 13);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality26", 13);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality27", 14);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality28", 14);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality29", 15);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality30", 15);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality31", 16);
-INSERT INTO speciality(name, id_direction) VALUES ("speciality32", 16);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality1", 1);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality2", 1);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality3", 2);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality4", 2);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality5", 3);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality6", 3);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality7", 4);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality8", 4);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality9", 5);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality10", 5);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality11", 6);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality12", 6);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality13", 7);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality14", 7);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality15", 8);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality16", 8);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality17", 9);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality18", 9);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality19", 10);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality20", 10);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality21", 11);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality22", 11);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality23", 12);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality24", 12);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality25", 13);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality26", 13);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality27", 14);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality28", 14);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality29", 15);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality30", 15);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality31", 16);
+# INSERT INTO speciality(name, id_direction) VALUES ("speciality32", 16);
 
 -- INSERT INTO ranks(name) VALUES ("rank1");
 -- INSERT INTO ranks(name) VALUES ("rank2");
@@ -157,111 +144,83 @@ INSERT INTO speciality(name, id_direction) VALUES ("speciality32", 16);
 -- INSERT INTO status(name) VALUES ("status5");
 
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("Степул Артем Мартиросовчи", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "artem.stepul@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+VALUES ("Степул Артем Мартиросовчи", "1997-06-12", 1, "/photo/stepul.jpg", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "artem.stepul@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
 VALUES ("Луценко Артем Геннадиевич", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "artem.lucenko@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("Иванов Иван Иванович", "1979-09-17", 1, "/photo/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "admin@admin.com", "TestSensitiveData, I don`t think what this!", 3, 1);
+VALUES ("Адміністратор", "1989-09-17", 1, "/photo/admin.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "trishin@gmail.com", "TestSensitiveData, I don`t think what this!", 3, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("st3", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "st3@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+VALUES ("Єнов Богдан Олександрович", "1997-06-12", 1, "/photo/enov.jpg", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "st3@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("st4", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st4@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+VALUES ("Вдовиченко Максим Ігорович", "1997-03-16", 1, "/photo/vdovichenko.jpg", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "vdovichenko@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("empl2", "1979-09-17", 1, "/photo/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "empl2@admin.com", "TestSensitiveData, I don`t think what this!", 3, 1);
+VALUES ("Ольшевська Ольга Володимирівна", "1989-09-17", 0, "/photo/olshevska.jpg", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380667634118", "olshevska.olga@gmail.com", "TestSensitiveData, I don`t think what this!", 3, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("st5", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "st5@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+VALUES ("Іоргачов Євген Юрійович", "1998-03-01", 1, "/photo/iorgachev.jpg", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "iorgachev@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("st6", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st6@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+VALUES ("Ткачук Станіслав Віталіойвич", "1997-03-16", 1, "/photo/tkachuck.jpg", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st6@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("empl3", "1979-09-17", 1, "/photo/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "empl3@admin.com", "TestSensitiveData, I don`t think what this!", 3, 1);
+VALUES ("Бодюл Олена Станіславівна", "1977-07-23", 0, "/photo/bodul.jpeg", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380487209144", "olbodiul@ukr.net", "TestSensitiveData, I don`t think what this!", 3, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("st7", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "st7@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+VALUES ("Юрченко Боголеп Эразмович", "1970-01-01", "1", "/photo/default.png", "Старый студент", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "нету у него телефона", "st15@gmail.com", "TestSensitiveData, I don`t think what this!", 7, 0);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("st8", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st8@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
+VALUES ("Клокачева Лора Протасовна", "1970-01-01", "0", "/photo/default.png", "Старый студент", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "нету у него телефона", "st16@gmail.com", "TestSensitiveData, I don`t think what this!", 7, 0);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("empl4", "1979-09-17", 1, "/photo/default.png", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "empl4@admin.com", "TestSensitiveData, I don`t think what this!", 3, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("st9", "1997-06-12", 1, "/photo/default.png", "Поет, учавствует в студ. клубе", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "st9@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("st10", "1997-03-16", 1, "/photo/default.png", "Заместитель главы студенчиского совета факультета", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st10@gmail.com", "TestSensitiveData, I don`t think what this!", 1, 1);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("old student", "1970-01-01", "1", "/photo/default.png", "Старый студент", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "нету у него телефона", "st15@gmail.com", "TestSensitiveData, I don`t think what this!", 7, 0);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("old student2", "1970-01-01", "1", "/photo/default.png", "Старый студент", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "нету у него телефона", "st16@gmail.com", "TestSensitiveData, I don`t think what this!", 7, 0);
-INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status, have_access)
-VALUES ("old student3", "1970-01-01", "1", "/photo/default.png", "Старый студент", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "нету у него телефона", "st17@gmail.com", "TestSensitiveData, I don`t think what this!", 2, 0);
+VALUES ("Смирнова Катерина Василівна", "1983-12-25", 0, "/photo/bodul.jpeg", "", "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "720 91 14", "smirnova.kathrin@gmail.com", "TestSensitiveData, I don`t think what this!", 3, 1);
+
+
 
 INSERT INTO employee(id_people, date_invite, id_cathedra, id_rank)
-VALUES (3, "2007-07-22", 1, 1);
+VALUES (3, "2007-07-22", 21, 5);
 INSERT INTO employee(id_people, date_invite, id_cathedra, id_rank)
-VALUES (6, "2007-07-22", 1, 1);
+VALUES (6, "2007-07-22", 40, 5);
 INSERT INTO employee(id_people, date_invite, id_cathedra, id_rank)
-VALUES (9, "2007-07-22", 1, 1);
+VALUES (9, "2007-07-22", 40, 3);
 INSERT INTO employee(id_people, date_invite, id_cathedra, id_rank)
-VALUES (12, "2007-07-22", 1, 1);
+VALUES (12, "2007-07-22", 40, 1);
 
 
-INSERT INTO groups(id_employee, name, id_direction) VALUES (3, "group1", 1);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group2", 1);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group3", 2);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group4", 2);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group5", 3);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group6", 3);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group7", 4);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group8", 4);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group9", 5);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group10", 5);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group11", 6);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group12", 6);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group13", 7);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group14", 7);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group15", 8);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group16", 8);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group17", 9);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group18", 9);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (3, "group19", 10);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group20", 10);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group21", 11);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group22", 11);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group23", 12);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group24", 12);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group25", 13);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group26", 13);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group27", 14);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group28", 14);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group29", 15);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group30", 15);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group31", 16);
-INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "group32", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (3, "311а", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "311б", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "312а", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "312б", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "321а", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "321б", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "322а", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "322б", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "331а", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "331б", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "332а", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "332б", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "333а", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "333б", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "334а", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "334б", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "341а", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "341б", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (3, "342а", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "342б", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "343а", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "343б", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "344а", 1);
+INSERT INTO groups(id_employee, name, id_direction) VALUES (NULL, "344б", 1);
 
 INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
-VALUES (1, "2017-09-01", 1, 1, 4, 1);
+VALUES (1, "2017-09-01", 1, 1, 4, 22);
 INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
-VALUES (2, "2017-09-01", 1, 1, 4, 1);
+VALUES (2, "2017-09-01", 1, 1, 4, 22);
 INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
-VALUES (4, "2017-09-01", 1, 1, 4, 1);
+VALUES (4, "2017-09-01", 1, 1, 4, 22);
 INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
-VALUES (5, "2017-09-01", 1, 1, 4, 1);
+VALUES (5, "2017-09-01", 1, 1, 4, 22);
 INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
-VALUES (7, "2017-09-01", 1, 1, 4, 1);
+VALUES (7, "2017-09-01", 1, 1, 4, 22);
 INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
-VALUES (8, "2017-09-01", 1, 1, 4, 1);
+VALUES (8, "2017-09-01", 1, 1, 4, 22);
 INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
-VALUES (10, "2017-09-01", 1, 1, 4, 2);
+VALUES (10, "2014-09-01", 1, 1, 4, NULL);
 INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
-VALUES (11, "2017-09-01", 1, 1, 4, 2);
-INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
-VALUES (13, "2017-09-01", 1, 1, 4, 2);
-INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
-VALUES (14, "2017-09-01", 1, 1, 4, 2);
-INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
-VALUES (15, "2000-09-01", 1, 0, 10, 32);
-INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
-VALUES (16, "2000-09-01", 1, 0, 10, 32);
-INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
-VALUES (17, "2000-09-01", 1, 0, 10, 32);
-
-
+VALUES (11, "2014-09-01", 1, 1, 4, NULL);
 
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
 VALUES (1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -286,17 +245,7 @@ VALUES (10, 1, 1, 1, 1, 0, 0, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
 VALUES (11, 0, 0, 1, 1, 1, 1, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (12, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (13, 0, 0, 1, 1, 1, 0, 0, 1, 1);
-INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (14, 0, 1, 1, 0, 1, 0, 1, 0, 1);
-INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (15, 0, 1, 1, 0, 1, 0, 1, 0, 1);
-INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (16, 0, 1, 1, 0, 1, 0, 1, 0, 1);
-INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ)
-VALUES (17, 0, 1, 1, 0, 1, 0, 1, 0, 1);
+VALUES (12, 0, 0, 1, 1, 1, 1, 0, 0, 0);
 
 
 # INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
@@ -335,76 +284,28 @@ VALUES (17, 0, 1, 1, 0, 1, 0, 1, 0, 1);
 # VALUES (17, "214124124", "122fasf2", "ул. Пушкина, дом Колатушкина, квартира 12", "ыфафаы251512");
 
 
-INSERT INTO discipline(name) VALUES ("discipline1");
-INSERT INTO discipline(name) VALUES ("discipline2");
-INSERT INTO discipline(name) VALUES ("discipline3");
-INSERT INTO discipline(name) VALUES ("discipline4");
-INSERT INTO discipline(name) VALUES ("discipline5");
-INSERT INTO discipline(name) VALUES ("discipline6");
-INSERT INTO discipline(name) VALUES ("discipline7");
-INSERT INTO discipline(name) VALUES ("discipline8");
-INSERT INTO discipline(name) VALUES ("discipline9");
-INSERT INTO discipline(name) VALUES ("discipline10");
-INSERT INTO discipline(name) VALUES ("discipline11");
+INSERT INTO discipline(name) VALUES ("ММДО");
+INSERT INTO discipline(name) VALUES ("ОАПСОС");
+INSERT INTO discipline(name) VALUES ("КПП");
 
-INSERT INTO loads_semester(start, end, name) VALUES (1546293600, 1562446800, "1 семестр 2019-2020 года");
-INSERT INTO loads_semester(start, end, name) VALUES (1562446800, 1562446800, "2 семестр 2019-2020 года");
-INSERT INTO loads_semester(start, end, name) VALUES (1562446800, 1562446800, "1 семестр 2018-2019 года");
-INSERT INTO loads_semester(start, end, name) VALUES (1562446800, 1562446800, "2 семестр 2018-2019 года");
+INSERT INTO loads_semester(start, end, name) VALUES (1546293600, 1562446800, "1 семестр 2019-2020 року");
+INSERT INTO loads_semester(start, end, name) VALUES (1562446800, 1562446800, "2 семестр 2019-2020 року");
+INSERT INTO loads_semester(start, end, name) VALUES (1562446800, 1562446800, "1 семестр 2018-2019 року");
+INSERT INTO loads_semester(start, end, name) VALUES (1562446800, 1562446800, "2 семестр 2018-2019 року");
 
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (1, 3, 1, 1, 1, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (2, 6, 1, 1, 2, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (3, 9, 1, 1, 3, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (4, 12, 1, 1, 4, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (5, 3, 1, 1, 1, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (6, 6, 1, 1, 2, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (7, 6, 1, 1, 3, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (8, 9, 1, 1, 4, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (9, 12, 1, 1, 1, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (10, 3, 1, 1, 2, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (11, 6, 1, 1, 3, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (1, 3, 32, 1, 4, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (2, 3, 1, 1, 4, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (1, 6, 2, 1, 4, 6);
-INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (2, 6, 2, 1, 4, 6);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (1, 9, 22, 4, 1, 9);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (2, 9, 22, 4, 2, 9);
+INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant) VALUES (3, 12, 22, 4, 3, NULL);
 
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 1, 3, 59, "неуд", 1, 4, "2018-09-05");
+VALUES (1, 1, 6, 59, "неуд", 1, 4, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (2, 1, 3, 59, "неуд", 1, 4, "2018-09-05");
+VALUES (2, 1, 6, 59, "неуд", 1, 4, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (4, 1, 3, 59, "неуд", 1, 4, "2018-09-05");
+VALUES (4, 1, 6, 59, "неуд", 1, 4, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (5, 1, 3, 59, "неуд", 1, 4, "2018-09-05");
+VALUES (5, 1, 6, 59, "неуд", 1, 4, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (7, 1, 3, 59, "неуд", 1, 4, "2018-09-05");
+VALUES (7, 1, 6, 59, "неуд", 1, 4, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (8, 1, 3, 59, "неуд", 1, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 2, 3, 59, "неуд", 0, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (2, 2, 3, 59, "неуд", 0, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (4, 2, 3, 59, "неуд", 0, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (5, 2, 3, 59, "неуд", 0, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (7, 2, 3, 59, "неуд", 0, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (8, 2, 3, 59, "неуд", 0, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (10, 1, 6, 59, "неуд", 1, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (11, 1, 6, 59, "неуд", 1, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (13, 1, 6, 59, "неуд", 1, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (14, 1, 6, 59, "неуд", 1, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (10, 2, 6, 59, "неуд", 0, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (11, 2, 6, 59, "неуд", 0, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (13, 2, 6, 59, "неуд", 0, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (14, 2, 6, 59, "неуд", 0, 4, "2018-09-05");
+VALUES (8, 1, 6, 59, "неуд", 1, 4, "2018-09-05");

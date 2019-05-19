@@ -110,11 +110,13 @@ func GetAllEmployee(db *sql.DB) ([]People, error) {
 		var empl Employee
 		err = empl.getById(db, p.Id)
 		if err != nil {
+			fmt.Printf("Employee")
 			return []People{}, err
 		}
 
 		var ac Accession
 		err = ac.getById(db, p.Id)
+		fmt.Printf("Accession")
 		if err != nil {
 			return []People{}, err
 		}
@@ -126,6 +128,8 @@ func GetAllEmployee(db *sql.DB) ([]People, error) {
 		//}
 
 		err = p.Status.getStatusById(db, p.Status.Id)
+		fmt.Printf("Status")
+
 		if err != nil {
 			return []People{}, err
 		}
