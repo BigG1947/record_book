@@ -30,6 +30,11 @@ func addFeedback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	feedback := r.FormValue("text")
-	bc.AddBlock(feedback, idEmployee, mark, 0)
+	err = bc.AddBlock(feedback, idEmployee, mark, 0)
+	if err != nil {
+		log.Printf("Error in add block to BlockChain: %s\n", err)
+		fmt.Fprint(w, "Система отзывов временно недоступна, приносим вам свои извинения")
+		return
+	}
 	fmt.Fprintf(w, "Ваш отзыв принят в обработку\n")
 }

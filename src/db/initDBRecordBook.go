@@ -2,45 +2,45 @@ package db
 
 const createTableInstitute = `CREATE TABLE IF NOT EXISTS institute(
 										id INT PRIMARY KEY AUTO_INCREMENT,
-										name VARCHAR(64) NOT NULL
+										name VARCHAR(128) NOT NULL
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
 const createTableFaculty = `CREATE TABLE IF NOT EXISTS faculty(
 										id INT PRIMARY KEY AUTO_INCREMENT,
-										name VARCHAR(64) NOT NULL,
+										name VARCHAR(128) NOT NULL,
 										id_institute INT NOT NULL,
 										FOREIGN KEY	(id_institute) REFERENCES institute(id) ON DELETE RESTRICT
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
 const createTableCathedra = `CREATE TABLE IF NOT EXISTS cathedra(
 										id INT PRIMARY KEY AUTO_INCREMENT,
-										name VARCHAR(64) NOT NULL,
+										name VARCHAR(128) NOT NULL,
 										id_faculty INT NOT NULL,
 										FOREIGN KEY	(id_faculty) REFERENCES faculty(id) ON DELETE RESTRICT
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
 const createTableDirection = `CREATE TABLE IF NOT EXISTS direction(
 										id INT PRIMARY KEY AUTO_INCREMENT,
-										name VARCHAR(64) NOT NULL, 
+										name VARCHAR(128) NOT NULL, 
 										id_cathedra INT NOT NULL,
 										FOREIGN KEY	(id_cathedra) REFERENCES cathedra(id) ON DELETE RESTRICT
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
 const createTableSpeciality = `CREATE TABLE IF NOT EXISTS speciality(
 										id INT PRIMARY KEY AUTO_INCREMENT,
-										name VARCHAR(64) NOT NULL, 
+										name VARCHAR(128) NOT NULL, 
 										id_direction INT NOT NULL,
 										FOREIGN KEY	(id_direction) REFERENCES direction(id) ON DELETE RESTRICT
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
 const createTableRanks = `CREATE TABLE IF NOT EXISTS ranks(
 										id INT PRIMARY KEY AUTO_INCREMENT,
-										name VARCHAR(64) NOT NULL
+										name VARCHAR(128) NOT NULL
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
 const createTableStatus = `CREATE TABLE IF NOT EXISTS status(
 										id INT PRIMARY KEY AUTO_INCREMENT,
-										name VARCHAR(64) NOT NULL
+										name VARCHAR(128) NOT NULL
 							) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 
 const createTablePeople = `CREATE TABLE IF NOT EXISTS people(
@@ -52,7 +52,7 @@ const createTablePeople = `CREATE TABLE IF NOT EXISTS people(
 										comment TEXT,
 										password VARCHAR(256) NOT NULL,
 										phone_number VARCHAR(64),
-										email VARCHAR(64) NOT NULL UNIQUE,
+										email VARCHAR(128) NOT NULL UNIQUE,
 										sensitive_data TEXT,
 										id_status INT NOT NULL,
 										have_access TINYINT(1) NOT NULL DEFAULT 1,

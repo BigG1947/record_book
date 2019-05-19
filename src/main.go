@@ -482,13 +482,13 @@ func test() {
 	for _, d := range disciplines {
 		fmt.Printf("%v\n", d)
 	}
-	disciplines, err = dbPack.GetCurrentStudentDiscipline(db.Connection, 1)
+	loads, err := dbPack.GetCurrentStudentDiscipline(db.Connection, 1)
 	if err != nil {
 		fmt.Printf("Err: %s\n", err)
 		return
 	}
-	for _, d := range disciplines {
-		fmt.Printf("%v\n", d)
+	for _, l := range loads {
+		fmt.Printf("%v\n", l)
 	}
 	fmt.Printf("Ok!\n")
 	return

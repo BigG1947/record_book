@@ -397,12 +397,27 @@ const getStudentDisciplinesByMarkScript = `SELECT discipline.id, discipline.name
 											FROM discipline, marks
 											WHERE marks.id_student = ? AND discipline.id = marks.id_discipline`
 
-const getCurrentStudentDisciplineScript = `SELECT discipline.id, discipline.name
-FROM discipline,
-     loads,
-     loads_semester
-WHERE loads.id_semester = loads_semester.id
-  AND loads.id_group = ?
-  AND ? > loads_semester.start
-  AND ? < loads_semester.end
-  AND discipline.id = loads.id_discipline;`
+const getCurrentStudentDisciplineScript = `SELECT loads.id,
+       d.id,
+       d.name,
+       p.id,
+       p.fio,
+       g.id,
+       g.name,
+       p2.id,
+       p2.fio,
+       ls.id,
+       ls.start,
+       ls.end,
+       ls.name,
+       loads.semester
+FROM loads
+         INNER JOIN discipline d ON loads.id_discipline = d.id
+         INNER JOIN people p ON loads.id_employee = p.id
+         INNER JOIN people p2 ON loads.id_assistant = p2.id
+         INNER JOIN loads_semester ls on loads.id_semester = ls.id
+         INNER JOIN groups g ON loads.id_group = g.id
+WHERE loads.id_group = ?
+  AND ? > ls.start
+  AND ? < ls.end
+ORDER BY ls.start DESC, d.name ASC, g.name ASC;`

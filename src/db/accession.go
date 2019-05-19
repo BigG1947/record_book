@@ -41,7 +41,7 @@ func (ac *Accession) getById(db *sql.DB, id int) error {
 }
 
 func (ac *Accession) Update(db *sql.DB) error {
-	_, err := db.Exec(updateAccessionDataScript, ac.EditAccess, ac.SetAbsence, ac.GetAbsence, ac.SetMark, ac.SetEvent, ac.GetSensitive, ac.SetSensitive, ac.GetYlist, ac.ManageAcadem)
+	_, err := db.Exec(updateAccessionDataScript, ac.EditAccess, ac.SetAbsence, ac.GetAbsence, ac.SetMark, ac.SetEvent, ac.GetSensitive, ac.SetSensitive, ac.GetYlist, ac.ManageAcadem, ac.IdPeople)
 	if err != nil {
 		return err
 	}
@@ -49,7 +49,7 @@ func (ac *Accession) Update(db *sql.DB) error {
 }
 
 func UpdateAccession(db *sql.DB, ac *Accession) error {
-	_, err := db.Exec(updateAccessionDataScript, ac.EditAccess, ac.SetAbsence, ac.GetAbsence, ac.SetMark, ac.SetEvent, ac.GetSensitive, ac.SetSensitive, ac.GetYlist, ac.ManageAcadem)
+	_, err := db.Exec(updateAccessionDataScript, ac.EditAccess, ac.SetAbsence, ac.GetAbsence, ac.SetMark, ac.SetEvent, ac.GetSensitive, ac.SetSensitive, ac.GetYlist, ac.ManageAcadem, ac.IdPeople)
 	if err != nil {
 		return err
 	}

@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 )
 
 type BlockChain struct {
@@ -15,7 +16,7 @@ type BlockChain struct {
 	db       *sql.DB
 	length   int
 	Status   bool
-	listNode *[]Node
+	listNode []Node
 }
 
 type Iterator struct {
@@ -23,16 +24,35 @@ type Iterator struct {
 	db          *sql.DB
 }
 
-func (bc *BlockChain) AddBlock(data string, employeeId int, mark int, timestamp int64) {
+func (bc *BlockChain) AddBlock(data string, employeeId int, mark int, timestamp int64) error {
+	var err error
+	//if !bc.Status {
+	//	return errors.New("BlockChain status if fall ")
+	//}
+	//ok, err = CheckNodesLive(bc.listNode)
+	//if err != nil {
+	//	return err
+	//}
+	//if !ok {
+	//	bc.Status = false
+	//	return errors.New("Nodes in network < 3 ")
+	//}
 	prevFeedBackHash := bc.Tip
 	newFeedBack := NewBlock(data, employeeId, mark, prevFeedBackHash, timestamp)
-
-	_, err := bc.db.Exec("INSERT INTO feedbacks(hash, prev_hash, nonce, timestamp, data, id_employee, mark) VALUES (?,?,?,?,?,?,?)", newFeedBack.Hash, newFeedBack.PrevFeedBackHash, newFeedBack.Nonce, newFeedBack.TimeStamp, newFeedBack.Data, newFeedBack.EmployeeId, newFeedBack.Mark)
+	//ok, err = bc.compareBlockWithOtherNodes(employeeId, mark, data, newFeedBack.TimeStamp, newFeedBack.Hash)
+	//if err != nil {
+	//	return err
+	//}
+	//if !ok {
+	//	return errors.New("Block Hash not match to Hash in other nodes ")
+	//}
+	_, err = bc.db.Exec("INSERT INTO feedbacks(hash, prev_hash, nonce, timestamp, data, id_employee, mark) VALUES (?,?,?,?,?,?,?)", newFeedBack.Hash, newFeedBack.PrevFeedBackHash, newFeedBack.Nonce, newFeedBack.TimeStamp, newFeedBack.Data, newFeedBack.EmployeeId, newFeedBack.Mark)
 	if err != nil {
-		log.Printf("Error in add block to blockchain: %s", err)
+		return err
 	}
 	bc.Tip = newFeedBack.Hash
 	bc.length++
+	return nil
 }
 
 func (bc *BlockChain) AddBlockWithOutSum(block *Block) error {
@@ -70,7 +90,7 @@ func InitBlockChain(db *sql.DB) (*BlockChain, error) {
 		log.Printf("Error in initialization blockchain: %s", err)
 	}
 	if len(tip) == 0 {
-		genesis := NewBlock("Genesis", -1, 0, []byte{}, 0)
+		genesis := NewBlock("Genesis", -1, 0, []byte{}, 1)
 		_, err := db.Exec("INSERT INTO feedbacks(hash, prev_hash, nonce, timestamp, data, id_employee, mark) VALUES (?,?,?,?,?,?,?)", genesis.Hash, genesis.PrevFeedBackHash, genesis.Nonce, genesis.TimeStamp, genesis.Data, genesis.EmployeeId, genesis.Mark)
 		if err != nil {
 			return &BlockChain{}, err
@@ -78,8 +98,9 @@ func InitBlockChain(db *sql.DB) (*BlockChain, error) {
 		tip = genesis.Hash
 		length = 1
 	}
-
-	return &BlockChain{tip, db, length, false, GetNodeList()}, nil
+	bc := BlockChain{tip, db, length, false, GetNodeList()}
+	//go bc.CheckNodesInNetWork()
+	return &bc, nil
 }
 
 func (bc *BlockChain) FillTestFeedBack() {
@@ -106,9 +127,14 @@ func (bc *BlockChain) GetLength() int {
 	return bc.length
 }
 
+func (bc *BlockChain) GetNodeList() []Node {
+	return bc.listNode
+}
+
 func (bc *BlockChain) compareBlockWithOtherNodes(idEmployee int, mark int, text string, timestamp int64, hash []byte) (bool, error) {
 	client := http.Client{}
 	var applyNode int
+
 	var data = struct {
 		IdEmployee int    `json:"id_employee"`
 		Mark       int    `json:"mark"`
@@ -124,8 +150,10 @@ func (bc *BlockChain) compareBlockWithOtherNodes(idEmployee int, mark int, text 
 	if err != nil {
 		return false, err
 	}
-
-	for _, node := range *bc.listNode {
+	for _, node := range bc.listNode {
+		if !node.status {
+			continue
+		}
 		stringURL := fmt.Sprintf("http://%s:%d/blockchain/sumBlock", node.ip, node.port)
 		req, err := http.NewRequest("POST", stringURL, bytes.NewBuffer(jsonData))
 		if err != nil {
@@ -133,21 +161,48 @@ func (bc *BlockChain) compareBlockWithOtherNodes(idEmployee int, mark int, text 
 		}
 		resp, err := client.Do(req)
 		if err != nil {
-			continue
+			return false, err
 		}
 		if resp.StatusCode == http.StatusBadRequest {
-			continue
+			fmt.Printf("BadRequest")
+			return false, nil
 		}
-		if body, _ := ioutil.ReadAll(resp.Body); bytes.Equal(body, hash) {
+		body, _ := ioutil.ReadAll(resp.Body)
+		fmt.Printf("Body request: %x\n", body)
+		fmt.Printf("Block hash: %x\n", hash)
+		fmt.Printf("%t\n", bytes.Equal(body, hash))
+		if bytes.Equal(body, hash) {
 			applyNode++
 			continue
 		}
+	}
+	if applyNode == len(bc.listNode) {
+		return true, nil
 	}
 	return false, nil
 }
 
 func (bc *BlockChain) sendBlockToOtherNodes() (bool, error) {
 	return false, nil
+}
+
+func (bc *BlockChain) CheckNodesInNetWork() {
+	for true {
+		for true {
+			var err error
+			time.Sleep(10 * time.Second)
+			bc.Status, err = CheckNodesLive(bc.listNode)
+			if err != nil {
+				log.Printf("Error in CheckNodesLive:\n%s\n", err)
+				return
+			}
+			if bc.Status == true {
+				break
+			}
+		}
+		log.Printf("BlockChain is work!")
+		time.Sleep(60 * time.Second)
+	}
 }
 
 func (bc *BlockChain) CheckBlockChain(bci *Iterator) (bool, error) {
