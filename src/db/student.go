@@ -1,6 +1,8 @@
 package db
 
-import "database/sql"
+import (
+	"database/sql"
+)
 
 type Student struct {
 	IdPeople      int    `json:"id_people"`
@@ -18,14 +20,17 @@ func (st *Student) insert(tx *sql.Tx) error {
 }
 
 func (st *Student) getById(db *sql.DB, id int) error {
-	err := db.QueryRow("SELECT id_people, date_admission, is_full_time, is_cut, id_group, semester FROM student WHERE id_people = (?)", id).Scan(&st.IdPeople, &st.DateAdmission, &st.IsFullTime, &st.IsCut, &st.Group.Id, &st.Semester)
+	var IdGroup sql.NullInt64
+	err := db.QueryRow("SELECT id_people, date_admission, is_full_time, is_cut, id_group, semester FROM student WHERE id_people = (?)", id).Scan(&st.IdPeople, &st.DateAdmission, &st.IsFullTime, &st.IsCut, &IdGroup, &st.Semester)
 	if err != nil {
 		return err
 	}
-
-	err = st.Group.GetGroupById(db, st.Group.Id)
-	if err != nil {
-		return err
+	if IdGroup.Valid {
+		st.Group.Id = int(IdGroup.Int64)
+		err = st.Group.GetGroupById(db, st.Group.Id)
+		if err != nil {
+			return err
+		}
 	}
 	st.Marks, err = GetMarksByStudentId(db, st.IdPeople)
 	if err != nil && err != sql.ErrNoRows {

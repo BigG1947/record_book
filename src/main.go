@@ -499,6 +499,17 @@ func test() {
 		fmt.Printf("GetAllLoadsForAssistent. Err: %s\n", err)
 		return
 	}
+	_, err = dbPack.GetAllStudent(db.Connection)
+	if err != nil {
+		fmt.Printf("Err GetAllStudent: %s\n", err)
+		return
+	}
+	_, err = dbPack.GetAllEmployee(db.Connection)
+	if err != nil {
+		fmt.Printf("Err GetAllEmployee: %s\n", err)
+		return
+	}
+
 	fmt.Printf("Ok!\n")
 	return
 }
