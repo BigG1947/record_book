@@ -365,6 +365,36 @@ func GetAllEmployeesV2(db *sql.DB) ([]People, error) {
 	return employee, nil
 }
 
+func GetCurrentEmployees(db *sql.DB) ([]People, error) {
+	var employee []People
+
+	rows, err := db.Query(getCurrentEmployeesScript)
+	if err != nil {
+		return []People{}, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var p People
+		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
+			&p.Employee.IdPeople, &p.Employee.DateInvite, &p.Employee.Rank.Id, &p.Employee.Rank.Name, &p.Employee.Cathedra.Id, &p.Employee.Cathedra.Name, &p.Employee.Cathedra.IdFaculty,
+			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
+			//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
+			&p.Status.Id, &p.Status.Name)
+		if err != nil {
+			return []People{}, err
+		}
+		p.Employee.Group, err = GetGroupByIdEmployee(db, p.Id)
+		if err != nil {
+			return []People{}, err
+		}
+		p.Employee.Disciplines, err = GetAllDisciplineForEmployee(db, p.Id)
+		employee = append(employee, p)
+	}
+
+	return employee, nil
+}
+
 func GetStudentFromGroupV2(db *sql.DB, id int) ([]People, error) {
 	var students []People
 
@@ -377,13 +407,25 @@ func GetStudentFromGroupV2(db *sql.DB, id int) ([]People, error) {
 	for rows.Next() {
 		var p People
 		var employeeId sql.NullInt64
+		var groupId sql.NullInt64
+		var groupName sql.NullString
+		var groupIdDirection sql.NullInt64
 		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
-			&p.Student.IdPeople, &p.Student.DateAdmission, &p.Student.IsFullTime, &p.Student.IsCut, &p.Student.Group.Id, &employeeId, &p.Student.Group.Name, &p.Student.Group.IdDirection, &p.Student.Semester,
+			&p.Student.IdPeople, &p.Student.DateAdmission, &p.Student.IsFullTime, &p.Student.IsCut, &groupId, &employeeId, &groupName, &groupIdDirection, &p.Student.Semester,
 			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
 			//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 			&p.Status.Id, &p.Status.Name)
+		if groupId.Valid {
+			p.Student.Group.Id = int(groupId.Int64)
+		}
 		if employeeId.Valid {
 			p.Student.Group.IdEmployee = int(employeeId.Int64)
+		}
+		if groupName.Valid {
+			p.Student.Group.Name = groupName.String
+		}
+		if groupIdDirection.Valid {
+			p.Student.Group.IdDirection = int(groupIdDirection.Int64)
 		}
 		if err != nil {
 			return []People{}, err
@@ -412,13 +454,72 @@ func GetAllStudentsV2(db *sql.DB) ([]People, error) {
 	for rows.Next() {
 		var p People
 		var employeeId sql.NullInt64
+		var groupId sql.NullInt64
+		var groupName sql.NullString
+		var groupIdDirection sql.NullInt64
 		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
-			&p.Student.IdPeople, &p.Student.DateAdmission, &p.Student.IsFullTime, &p.Student.IsCut, &p.Student.Group.Id, &employeeId, &p.Student.Group.Name, &p.Student.Group.IdDirection, &p.Student.Semester,
+			&p.Student.IdPeople, &p.Student.DateAdmission, &p.Student.IsFullTime, &p.Student.IsCut, &groupId, &employeeId, &groupName, &groupIdDirection, &p.Student.Semester,
 			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
 			//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 			&p.Status.Id, &p.Status.Name)
+		if groupId.Valid {
+			p.Student.Group.Id = int(groupId.Int64)
+		}
 		if employeeId.Valid {
 			p.Student.Group.IdEmployee = int(employeeId.Int64)
+		}
+		if groupName.Valid {
+			p.Student.Group.Name = groupName.String
+		}
+		if groupIdDirection.Valid {
+			p.Student.Group.IdDirection = int(groupIdDirection.Int64)
+		}
+		if err != nil {
+			return []People{}, err
+		}
+
+		p.Student.Marks, err = GetMarksByStudentId(db, p.Id)
+		if err != nil {
+			return []People{}, err
+		}
+
+		students = append(students, p)
+	}
+
+	return students, nil
+}
+
+func GetCurrentStudents(db *sql.DB) ([]People, error) {
+	var students []People
+
+	rows, err := db.Query(getCurrentStudentsScript)
+	if err != nil {
+		return []People{}, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var p People
+		var employeeId sql.NullInt64
+		var groupId sql.NullInt64
+		var groupName sql.NullString
+		var groupIdDirection sql.NullInt64
+		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
+			&p.Student.IdPeople, &p.Student.DateAdmission, &p.Student.IsFullTime, &p.Student.IsCut, &groupId, &employeeId, &groupName, &groupIdDirection, &p.Student.Semester,
+			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
+			//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
+			&p.Status.Id, &p.Status.Name)
+		if groupId.Valid {
+			p.Student.Group.Id = int(groupId.Int64)
+		}
+		if employeeId.Valid {
+			p.Student.Group.IdEmployee = int(employeeId.Int64)
+		}
+		if groupName.Valid {
+			p.Student.Group.Name = groupName.String
+		}
+		if groupIdDirection.Valid {
+			p.Student.Group.IdDirection = int(groupIdDirection.Int64)
 		}
 		if err != nil {
 			return []People{}, err

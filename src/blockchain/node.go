@@ -1,7 +1,9 @@
 package blockchain
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
@@ -21,12 +23,14 @@ func GetNodeList() []Node {
 			ip:     "localhost",
 			port:   8082,
 			length: 0,
+			hash:   []byte{},
 			status: false,
 		},
 		{
 			ip:     "127.0.0.1",
 			port:   8083,
 			length: 0,
+			hash:   []byte{},
 			status: false,
 		},
 	}
@@ -50,6 +54,18 @@ func CheckNodesLive(list []Node) (bool, error) {
 		}
 		if resp.StatusCode == http.StatusOK {
 			list[i].status = true
+			body, _ := ioutil.ReadAll(resp.Body)
+			responseStruct := struct {
+				Length int    `json:"length"`
+				Hash   []byte `json:"hash"`
+			}{}
+			err = json.Unmarshal(body, &responseStruct)
+			if err != nil {
+				log.Printf("Node: %s:%d\nError: %s", list[i].ip, list[i].port, err)
+				return false, nil
+			}
+			list[i].length = responseStruct.Length
+			list[i].hash = responseStruct.Hash
 			countActiveNode++
 			log.Printf("Node: %s:%d have status OK!\n", list[i].ip, list[i].port)
 		}

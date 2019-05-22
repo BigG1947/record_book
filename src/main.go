@@ -504,12 +504,70 @@ func test() {
 		fmt.Printf("Err GetAllStudent: %s\n", err)
 		return
 	}
-	_, err = dbPack.GetAllEmployee(db.Connection)
+	_, err = dbPack.GetMarksByStudentId(db.Connection, 1)
 	if err != nil {
-		fmt.Printf("Err GetAllEmployee: %s\n", err)
+		fmt.Printf("Err GetMarksByStudentId: %s\n", err)
+		return
+	}
+	_, err = dbPack.GetArchiveEmployee(db.Connection, 14)
+	if err != nil {
+		fmt.Printf("Err GetArchiveEmployee: %s\n", err)
+		return
+	}
+	_, err = dbPack.GetArchiveEmployeeCard(db.Connection)
+	if err != nil {
+		fmt.Printf("Err GetArchiveEmployeeCard: %s\n", err)
 		return
 	}
 
+	_, err = dbPack.GetAllStudent(db.Connection)
+	if err != nil {
+		fmt.Printf("Err GetAllStudent: %s\n", err)
+		return
+	}
+	_, err = dbPack.GetAllStudentsV2(db.Connection)
+	if err != nil {
+		fmt.Printf("Err GetAllStudentsV2: %s\n", err)
+		return
+	}
+	_, err = dbPack.GetStudentFromGroupV2(db.Connection, 22)
+	if err != nil {
+		fmt.Printf("Err GetStudentFromGroupV2: %s\n", err)
+		return
+	}
+
+	_, err = dbPack.GetArchiveStudentCard(db.Connection)
+	if err != nil {
+		fmt.Printf("Err GetArchiveStudentCard: %s\n", err)
+		return
+	}
+
+	_, err = dbPack.GetArchiveStudent(db.Connection, 10)
+	if err != nil {
+		fmt.Printf("Err GetArchiveStudent: %s\n", err)
+		return
+	}
+
+	_, err = dbPack.GetAllEmployeesV2(db.Connection)
+	if err != nil {
+		fmt.Printf("Err GetAllEmployeesV2: %s\n", err)
+		return
+	}
+
+	_, err = dbPack.GetCurrentStudents(db.Connection)
+	if err != nil {
+		fmt.Printf("Err GetCurrentStudents: %s\n", err)
+		return
+	}
+
+	empls, err := dbPack.GetCurrentEmployees(db.Connection)
+	if err != nil {
+		fmt.Printf("Err GetCurrentEmployees: %s\n", err)
+		return
+	}
+	for _, e := range empls {
+		fmt.Printf("%v\n", e)
+	}
 	fmt.Printf("Ok!\n")
 	return
 }

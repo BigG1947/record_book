@@ -26,7 +26,7 @@ type Accession struct {
 	SetEvent     bool `json:"set_event"`
 	GetSensitive bool `json:"get_sensitive"`
 	SetSensitive bool `json:"set_sensitive"`
-	GetYlist     bool `json:"get_ylist"`
+	GetYlist     bool `json:"get_ylist"` // пока не нужен
 	ManageAcadem bool `json:"manage_academ"`
 }
 

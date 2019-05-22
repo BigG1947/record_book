@@ -1,5 +1,246 @@
 package db
 
+const getCurrentEmployeesScript = `SELECT people.id,
+       people.fio,
+       people.birthday,
+       people.gender,
+       people.img,
+       people.comment,
+       people.password,
+       people.phone_number,
+       people.email,
+       people.sensitive_data,
+       people.have_access,
+       employee.id_people,
+       employee.date_invite,
+       ranks.id,
+       ranks.name,
+       cathedra.id,
+       cathedra.name,
+       cathedra.id_faculty,
+       accession.edit_access,
+       accession.set_absence,
+       accession.get_absence,
+       accession.set_mark,
+       accession.set_event,
+       accession.get_sensitive,
+       accession.set_sensitive,
+       accession.get_ylist,
+       accession.manage_academ,
+       status.id,
+       status.name
+FROM people
+         INNER JOIN employee ON employee.id_people = people.id
+         INNER JOIN cathedra ON employee.id_cathedra = cathedra.id
+         INNER JOIN ranks ON employee.id_rank = ranks.id
+         INNER JOIN accession ON people.id = accession.id_people
+         INNER JOIN status ON people.id_status = status.id
+WHERE people.id IN (SELECT id_people FROM employee) AND people.id_status != 9 ORDER BY status.id ASC, cathedra.name ASC, ranks.name ASC, people.fio ASC;`
+
+const getCurrentStudentsScript = `SELECT people.id,
+       people.fio,
+       people.birthday,
+       people.gender,
+       people.img,
+       people.comment,
+       people.password,
+       people.phone_number,
+       people.email,
+       people.sensitive_data,
+       people.have_access,
+       student.id_people,
+       student.date_admission,
+       student.is_full_time,
+       student.is_cut,
+       groups.id,
+       groups.id_employee,
+       groups.name,
+       groups.id_direction,
+       student.semester,
+       accession.edit_access,
+       accession.set_absence,
+       accession.get_absence,
+       accession.set_mark,
+       accession.set_event,
+       accession.get_sensitive,
+       accession.set_sensitive,
+       accession.get_ylist,
+       accession.manage_academ,
+       status.id,
+       status.name
+FROM people
+         INNER JOIN student ON people.id = student.id_people
+         INNER JOIN groups ON student.id_group = groups.id
+         INNER JOIN accession ON people.id = accession.id_people
+         INNER JOIN status ON people.id_status = status.id
+WHERE people.id IN (SELECT id_people FROM student) AND people.id_status NOT IN (2, 7) ORDER BY status.id ASC, student.id_group DESC, people.fio ASC;`
+
+const getArchiveStudentsCardScripts = `SELECT people.id,
+       people.fio,
+       people.gender,
+       people.img,
+       people.have_access,
+       people.id_status,
+       status.name
+FROM people
+    INNER JOIN student ON student.id_people = people.id
+    INNER JOIN status ON status.id = people.id_status
+WHERE people.id_status IN (2, 7)
+ORDER BY have_access DESC, id_status ASC, fio ASC;`
+
+const getArchiveStudentByIdScript = `
+SELECT people.id,
+       people.fio,
+       people.birthday,
+       people.gender,
+       people.img,
+       people.comment,
+       people.password,
+       people.phone_number,
+       people.email,
+       people.sensitive_data,
+       people.have_access,
+       student.id_people,
+       student.date_admission,
+       student.is_full_time,
+       student.is_cut,
+       groups.id,
+       groups.id_employee,
+       groups.name,
+       groups.id_direction,
+       student.semester,
+       accession.edit_access,
+       accession.set_absence,
+       accession.get_absence,
+       accession.set_mark,
+       accession.set_event,
+       accession.get_sensitive,
+       accession.set_sensitive,
+       accession.get_ylist,
+       accession.manage_academ,
+       status.id,
+       status.name
+FROM people
+         INNER JOIN student ON people.id = student.id_people
+         LEFT OUTER JOIN groups ON student.id_group = groups.id
+         INNER JOIN accession ON people.id = accession.id_people
+         INNER JOIN status ON people.id_status = status.id
+WHERE people.id = ? AND people.id_status IN (2, 7);`
+
+const getStudentByIdScript = `
+SELECT people.id,
+       people.fio,
+       people.birthday,
+       people.gender,
+       people.img,
+       people.comment,
+       people.password,
+       people.phone_number,
+       people.email,
+       people.sensitive_data,
+       people.have_access,
+       student.id_people,
+       student.date_admission,
+       student.is_full_time,
+       student.is_cut,
+       groups.id,
+       groups.id_employee,
+       groups.name,
+       groups.id_direction,
+       student.semester,
+       accession.edit_access,
+       accession.set_absence,
+       accession.get_absence,
+       accession.set_mark,
+       accession.set_event,
+       accession.get_sensitive,
+       accession.set_sensitive,
+       accession.get_ylist,
+       accession.manage_academ,
+       status.id,
+       status.name
+FROM people
+         INNER JOIN student ON people.id = student.id_people
+         LEFT OUTER JOIN groups ON student.id_group = groups.id
+         INNER JOIN accession ON people.id = accession.id_people
+         INNER JOIN status ON people.id_status = status.id
+WHERE people.id = ?
+`
+
+const getEmployeeByIdScript = `SELECT people.id,
+       people.fio,
+       people.birthday,
+       people.gender,
+       people.img,
+       people.comment,
+       people.password,
+       people.phone_number,
+       people.email,
+	   people.sensitive_data,
+	   people.have_access,
+       employee.id_people,
+       employee.date_invite,
+       ranks.id,
+       ranks.name,
+       cathedra.id,
+       cathedra.name,
+       cathedra.id_faculty,
+       accession.edit_access,
+       accession.set_absence,
+       accession.get_absence,
+       accession.set_mark,
+       accession.set_event,
+       accession.get_sensitive,
+       accession.set_sensitive,
+       accession.get_ylist,
+       accession.manage_academ,
+       status.id,
+       status.name
+FROM people
+       INNER JOIN employee ON employee.id_people = people.id
+       INNER JOIN cathedra ON employee.id_cathedra = cathedra.id
+       INNER JOIN ranks ON employee.id_rank = ranks.id
+       INNER JOIN accession ON people.id = accession.id_people
+       INNER JOIN status ON people.id_status = status.id
+WHERE people.id = ?`
+
+const getArchiveEmployeeByIdScript = `SELECT people.id,
+       people.fio,
+       people.birthday,
+       people.gender,
+       people.img,
+       people.comment,
+       people.password,
+       people.phone_number,
+       people.email,
+	   people.sensitive_data,
+	   people.have_access,
+       employee.id_people,
+       employee.date_invite,
+       ranks.id,
+       ranks.name,
+       cathedra.id,
+       cathedra.name,
+       cathedra.id_faculty,
+       accession.edit_access,
+       accession.set_absence,
+       accession.get_absence,
+       accession.set_mark,
+       accession.set_event,
+       accession.get_sensitive,
+       accession.set_sensitive,
+       accession.get_ylist,
+       accession.manage_academ,
+       status.id,
+       status.name
+FROM people
+       INNER JOIN employee ON employee.id_people = people.id
+       INNER JOIN cathedra ON employee.id_cathedra = cathedra.id
+       INNER JOIN ranks ON employee.id_rank = ranks.id
+       INNER JOIN accession ON people.id = accession.id_people
+       INNER JOIN status ON people.id_status = status.id
+WHERE people.id = ? AND people.id_status = 9`
+
 const getAllPeopleScript = `SELECT people.id,
        people.fio,
        people.birthday,
@@ -176,7 +417,7 @@ const getAllStudentsScript = `SELECT people.id,
     status.name
 FROM people 
 	INNER JOIN student ON people.id = student.id_people
-	INNER JOIN groups ON student.id_group = groups.id
+	LEFT OUTER JOIN groups ON student.id_group = groups.id
 	INNER JOIN accession ON people.id = accession.id_people
     INNER JOIN status ON people.id_status = status.id
 WHERE people.id IN (SELECT id_people FROM student) ORDER BY status.id ASC, student.id_group DESC, people.fio ASC;`
