@@ -96,7 +96,7 @@ const createTableAccession = `CREATE TABLE IF NOT EXISTS accession(
 										set_event TINYINT(1) NOT NULL DEFAULT 0,
 										get_sensitive TINYINT(1) NOT NULL DEFAULT 0,
 										set_sensitive TINYINT(1) NOT NULL DEFAULT 0,
-										get_ylist TINYINT(1) NOT NULL DEFAULT 0,
+										manage_load TINYINT(1) NOT NULL DEFAULT 0,
 										manage_academ TINYINT(1) NOT NULL DEFAULT 0
 								) ENGINE=InnoDB DEFAULT CHARSET="utf8";`
 

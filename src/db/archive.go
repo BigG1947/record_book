@@ -26,7 +26,7 @@ func GetArchiveEmployee(db *sql.DB, id int) (People, error) {
 
 	err := db.QueryRow(getArchiveEmployeeByIdScript, id).Scan(&employee.Id, &employee.Fio, &employee.Birthday, &employee.Gender, &employee.Img, &employee.Comment, &employee.Password, &employee.PhoneNumber, &employee.Email, &employee.Sensitive, &employee.HaveAccess,
 		&employee.Employee.IdPeople, &employee.Employee.DateInvite, &employee.Employee.Rank.Id, &employee.Employee.Rank.Name, &employee.Employee.Cathedra.Id, &employee.Employee.Cathedra.Name, &employee.Employee.Cathedra.IdFaculty,
-		&employee.Accession.EditAccess, &employee.Accession.SetAbsence, &employee.Accession.GetAbsence, &employee.Accession.SetMark, &employee.Accession.SetEvent, &employee.Accession.GetSensitive, &employee.Accession.SetSensitive, &employee.Accession.GetYlist, &employee.Accession.ManageAcadem,
+		&employee.Accession.EditAccess, &employee.Accession.SetAbsence, &employee.Accession.GetAbsence, &employee.Accession.SetMark, &employee.Accession.SetEvent, &employee.Accession.GetSensitive, &employee.Accession.SetSensitive, &employee.Accession.ManageLoad, &employee.Accession.ManageAcadem,
 		&employee.Status.Id, &employee.Status.Name)
 	if err != nil && err != sql.ErrNoRows {
 		return People{}, err
@@ -61,7 +61,7 @@ func GetArchiveStudent(db *sql.DB, id int) (People, error) {
 	var groupIdDirection sql.NullInt64
 	err := db.QueryRow(getArchiveStudentByIdScript, id).Scan(&student.Id, &student.Fio, &student.Birthday, &student.Gender, &student.Img, &student.Comment, &student.Password, &student.PhoneNumber, &student.Email, &student.Sensitive, &student.HaveAccess,
 		&student.Student.IdPeople, &student.Student.DateAdmission, &student.Student.IsFullTime, &student.Student.IsCut, &groupId, &employeeId, &groupName, &groupIdDirection, &student.Student.Semester,
-		&student.Accession.EditAccess, &student.Accession.SetAbsence, &student.Accession.GetAbsence, &student.Accession.SetMark, &student.Accession.SetEvent, &student.Accession.GetSensitive, &student.Accession.SetSensitive, &student.Accession.GetYlist, &student.Accession.ManageAcadem,
+		&student.Accession.EditAccess, &student.Accession.SetAbsence, &student.Accession.GetAbsence, &student.Accession.SetMark, &student.Accession.SetEvent, &student.Accession.GetSensitive, &student.Accession.SetSensitive, &student.Accession.ManageLoad, &student.Accession.ManageAcadem,
 		&student.Status.Id, &student.Status.Name)
 	if groupId.Valid {
 		student.Student.Group.Id = int(groupId.Int64)

@@ -232,75 +232,89 @@ INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, 
                    have_access)
 VALUES ("Степул Артем Мартиросовчи", "1997-06-12", 1, "/photo/stepul.jpg", "Поет, учавствует в студ. клубе",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "artem.stepul@gmail.com",
-        "TestSensitiveData, I don`t think what this!", 1, 1);
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        1, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Луценко Артем Геннадиевич", "1997-03-16", 1, "/photo/default.png",
         "Заместитель главы студенчиского совета факультета",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "artem.lucenko@gmail.com",
-        "TestSensitiveData, I don`t think what this!", 1, 1);
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        1, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Адміністратор", "1989-09-17", 1, "/photo/admin.png", "",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380444444444", "admin@admin.com",
-        "TestSensitiveData, I don`t think what this!", 3, 1);
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        3, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Єнов Богдан Олександрович", "1997-06-12", 1, "/photo/enov.jpg", "Поет, учавствует в студ. клубе",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "st3@gmail.com",
-        "TestSensitiveData, I don`t think what this!", 1, 1);
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        1, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Вдовиченко Максим Ігорович", "1997-03-16", 1, "/photo/vdovichenko.jpg",
         "Заместитель главы студенчиского совета факультета",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "vdovichenko@gmail.com",
-        "TestSensitiveData, I don`t think what this!", 1, 1);
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        1, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Ольшевська Ольга Володимирівна", "1989-09-17", 0, "/photo/olshevska.jpg", "",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380667634118", "olshevska.olga@gmail.com",
-        "TestSensitiveData, I don`t think what this!", 3, 1);
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        3, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Іоргачов Євген Юрійович", "1998-03-01", 1, "/photo/iorgachev.jpg", "Поет, учавствует в студ. клубе",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "iorgachev@gmail.com",
-        "TestSensitiveData, I don`t think what this!", 1, 1);
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        1, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Ткачук Станіслав Віталіойвич", "1997-03-16", 1, "/photo/tkachuck.jpg",
         "Заместитель главы студенчиского совета факультета",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st6@gmail.com",
-        "TestSensitiveData, I don`t think what this!", 1, 1);
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        1, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Бодюл Олена Станіславівна", "1977-07-23", 0, "/photo/bodul.jpeg", "",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380487209144", "olbodiul@ukr.net",
-        "TestSensitiveData, I don`t think what this!", 3, 1);
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        3, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Юрченко Боголеп Эразмович", "1970-01-01", "1", "/photo/default.png", "Старый студент",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "нету у него телефона", "st15@gmail.com",
-        "TestSensitiveData, I don`t think what this!", 7, 0);
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        7, 0);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Клокачева Лора Протасовна", "1970-01-01", "0", "/photo/default.png", "Старый студент",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "нету у него телефона", "st16@gmail.com",
-        "TestSensitiveData, I don`t think what this!", 7, 0);
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        7, 0);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Смирнова Катерина Василівна", "1983-12-25", 0, "/photo/smirnova.jpeg", "",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "720 91 14", "smirnova.kathrin@gmail.com",
-        "TestSensitiveData, I don`t think what this!", 3, 1);
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        3, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Попков Денис Миколайович", "1982-06-03", 0, "/photo/popkov.jpg", "",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "720 91 14", "popkovdn@ukr.net",
-        "TestSensitiveData, I don`t think what this!", 3, 1);
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        3, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Становська Тетяна Павлівна", "1951-11-25", 0, "/photo/stanovska.jpeg", "",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "720 91 18", "vmplotnik@gmail.com",
-        "TestSensitiveData, I don`t think what this!", 9, 0);
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        9, 0);
 
 
 INSERT INTO employee(id_people, date_invite, id_cathedra, id_rank)
@@ -383,47 +397,47 @@ INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, i
 VALUES (11, "2014-09-01", 1, 1, 4, NULL);
 
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
-                      set_sensitive, get_ylist, manage_academ)
+                      set_sensitive, manage_load, manage_academ)
 VALUES (1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
-                      set_sensitive, get_ylist, manage_academ)
-VALUES (2, 1, 0, 1, 0, 0, 1, 1, 0, 1);
+                      set_sensitive, manage_load, manage_academ)
+VALUES (2, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
-                      set_sensitive, get_ylist, manage_academ)
-VALUES (3, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+                      set_sensitive, manage_load, manage_academ)
+VALUES (3, 1, 0, 0, 0, 0, 1, 1, 1, 1);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
-                      set_sensitive, get_ylist, manage_academ)
-VALUES (4, 1, 0, 1, 0, 1, 0, 1, 0, 1);
+                      set_sensitive, manage_load, manage_academ)
+VALUES (4, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
-                      set_sensitive, get_ylist, manage_academ)
-VALUES (5, 0, 1, 0, 1, 0, 1, 0, 1, 0);
+                      set_sensitive, manage_load, manage_academ)
+VALUES (5, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
-                      set_sensitive, get_ylist, manage_academ)
-VALUES (6, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+                      set_sensitive, manage_load, manage_academ)
+VALUES (6, 0, 0, 0, 1, 0, 0, 0, 1, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
-                      set_sensitive, get_ylist, manage_academ)
-VALUES (7, 0, 1, 0, 1, 0, 1, 0, 1, 0);
+                      set_sensitive, manage_load, manage_academ)
+VALUES (7, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
-                      set_sensitive, get_ylist, manage_academ)
-VALUES (8, 0, 0, 0, 0, 0, 1, 1, 1, 1);
+                      set_sensitive, manage_load, manage_academ)
+VALUES (8, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
-                      set_sensitive, get_ylist, manage_academ)
-VALUES (9, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+                      set_sensitive, manage_load, manage_academ)
+VALUES (9, 0, 0, 0, 1, 0, 0, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
-                      set_sensitive, get_ylist, manage_academ)
-VALUES (10, 1, 1, 1, 1, 0, 0, 0, 0, 0);
+                      set_sensitive, manage_load, manage_academ)
+VALUES (10, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
-                      set_sensitive, get_ylist, manage_academ)
-VALUES (11, 0, 0, 1, 1, 1, 1, 0, 0, 0);
+                      set_sensitive, manage_load, manage_academ)
+VALUES (11, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
-                      set_sensitive, get_ylist, manage_academ)
+                      set_sensitive, manage_load, manage_academ)
 VALUES (12, 0, 0, 1, 1, 1, 1, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
-                      set_sensitive, get_ylist, manage_academ)
+                      set_sensitive, manage_load, manage_academ)
 VALUES (13, 0, 0, 1, 1, 1, 1, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
-                      set_sensitive, get_ylist, manage_academ)
-VALUES (14, 0, 0, 1, 1, 1, 1, 0, 0, 0);
+                      set_sensitive, manage_load, manage_academ)
+VALUES (14, 0, 0, 0, 1, 0, 1, 0, 0, 0);
 
 
 # INSERT INTO sensitive_data(id_people, passport_code, rntrs, reg_address, military_id)
@@ -497,34 +511,32 @@ INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, i
 VALUES (5, 14, 22, 2, 2, 9);
 
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 1, 9, 59, "неуд", 1, 4, "2018-09-05");
+VALUES (1, 1, 9, 59, "незадовільно", 1, 4, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 4, 13, 59, "неуд", 1, 4, "2018-09-05");
+VALUES (1, 4, 13, 59, "незадовільно", 1, 4, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 4, 13, 75, "неуд", 0, 3, "2018-09-05");
+VALUES (1, 4, 13, 75, "задовільно", 0, 3, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 4, 13, 75, "неуд", 0, 2, "2018-09-05");
+VALUES (1, 4, 13, 75, "задовільно", 0, 2, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 2, 9, 86, "неуд", 1, 2, "2018-09-05");
+VALUES (1, 2, 9, 86, "добре", 1, 2, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 2, 9, 64, "неуд", 0, 1, "2018-09-05");
+VALUES (1, 2, 9, 64, "задовільно", 0, 1, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 1, 9, 65, "неуд", 0, 1, "2018-09-05");
+VALUES (1, 1, 9, 65, "задовільно", 0, 1, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 4, 13, 75, "неуд", 0, 2, "2018-09-05");
+VALUES (1, 4, 13, 75, "задовільно", 0, 2, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 5, 14, 86, "неуд", 1, 2, "2018-09-05");
+VALUES (1, 5, 14, 86, "добре", 1, 2, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 5, 14, 64, "неуд", 0, 1, "2018-09-05");
-
+VALUES (1, 5, 14, 64, "задовільно", 0, 1, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (2, 1, 9, 59, "неуд", 1, 4, "2018-09-05");
+VALUES (2, 1, 9, 59, "незадовільно", 1, 4, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (4, 1, 9, 59, "неуд", 1, 4, "2018-09-05");
+VALUES (4, 1, 9, 59, "незадовільно", 1, 4, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (5, 1, 9, 59, "неуд", 1, 4, "2018-09-05");
+VALUES (5, 1, 9, 59, "незадовільно", 1, 4, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (7, 1, 9, 59, "неуд", 1, 4, "2018-09-05");
+VALUES (7, 1, 9, 59, "незадовільно", 1, 4, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (8, 1, 9, 59, "неуд", 1, 4, "2018-09-05");
-
+VALUES (8, 1, 9, 59, "незадовільно", 1, 4, "2018-09-05");

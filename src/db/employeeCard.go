@@ -19,7 +19,7 @@ type EmployeeCard struct {
 
 func GetEmployeeCards(db *sql.DB) ([]EmployeeCard, error) {
 	var employeeCards []EmployeeCard
-	rows, err := db.Query("SELECT people.id, people.fio, people.gender, people.img, people.have_access, people.id_status, status.name, employee.id_rank, ranks.name, employee.id_cathedra, cathedra.id_faculty, faculty.id_institute FROM people, employee, ranks, cathedra, faculty, status WHERE people.id = employee.id_people AND status.id = people.id_status AND ranks.id = employee.id_rank AND cathedra.id = employee.id_cathedra AND faculty.id = cathedra.id_faculty ORDER BY have_access DESC, id_status ASC, id_rank ASC")
+	rows, err := db.Query("SELECT people.id, people.fio, people.gender, people.img, people.have_access, people.id_status, status.name, employee.id_rank, ranks.name, employee.id_cathedra, cathedra.id_faculty, faculty.id_institute FROM people, employee, ranks, cathedra, faculty, status WHERE people.id_status != 9 AND people.id = employee.id_people AND status.id = people.id_status AND ranks.id = employee.id_rank AND cathedra.id = employee.id_cathedra AND faculty.id = cathedra.id_faculty ORDER BY have_access DESC, id_status ASC, id_rank ASC")
 	if err != nil {
 		return []EmployeeCard{}, err
 	}

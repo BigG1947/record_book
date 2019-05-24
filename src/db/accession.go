@@ -6,15 +6,15 @@ import (
 )
 
 const (
-	SET_ACCESS      string = "edit_access"
-	SET_SKIP        string = "set_absence"
-	GET_SKIP        string = "get_absence"
-	SET_MARK        string = "set_mark"
-	SET_EVENT       string = "set_event"
-	GET_SENSITIVE   string = "get_sensitive"
-	SET_SENSITIVE   string = "set_sensitive"
-	GET_YELLOW_LIST string = "get_yellow_list"
-	MANAGE          string = "menage_academ"
+	SET_ACCESS    string = "edit_access"
+	SET_SKIP      string = "set_absence"
+	GET_SKIP      string = "get_absence"
+	SET_MARK      string = "set_mark"
+	SET_EVENT     string = "set_event"
+	GET_SENSITIVE string = "get_sensitive"
+	SET_SENSITIVE string = "set_sensitive"
+	MANAGE        string = "menage_academ"
+	MANAGE_LOAD   string = "manage_load"
 )
 
 type Accession struct {
@@ -26,22 +26,22 @@ type Accession struct {
 	SetEvent     bool `json:"set_event"`
 	GetSensitive bool `json:"get_sensitive"`
 	SetSensitive bool `json:"set_sensitive"`
-	GetYlist     bool `json:"get_ylist"` // пока не нужен
+	ManageLoad   bool `json:"manage_load"`
 	ManageAcadem bool `json:"manage_academ"`
 }
 
 func (ac *Accession) insert(tx *sql.Tx) error {
-	_, err := tx.Exec("INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", ac.IdPeople, ac.EditAccess, ac.SetAbsence, ac.GetAbsence, ac.SetMark, ac.SetEvent, ac.GetSensitive, ac.SetSensitive, ac.GetYlist, ac.ManageAcadem)
+	_, err := tx.Exec("INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, manage_load, manage_academ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", ac.IdPeople, ac.EditAccess, ac.SetAbsence, ac.GetAbsence, ac.SetMark, ac.SetEvent, ac.GetSensitive, ac.SetSensitive, ac.ManageLoad, ac.ManageAcadem)
 	return err
 }
 
 func (ac *Accession) getById(db *sql.DB, id int) error {
-	err := db.QueryRow("SELECT id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, get_ylist, manage_academ FROM accession WHERE id_people = (?)", id).Scan(&ac.IdPeople, &ac.EditAccess, &ac.SetAbsence, &ac.GetAbsence, &ac.SetMark, &ac.SetEvent, &ac.GetSensitive, &ac.SetSensitive, &ac.GetYlist, &ac.ManageAcadem)
+	err := db.QueryRow("SELECT id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive, set_sensitive, manage_load, manage_academ FROM accession WHERE id_people = (?)", id).Scan(&ac.IdPeople, &ac.EditAccess, &ac.SetAbsence, &ac.GetAbsence, &ac.SetMark, &ac.SetEvent, &ac.GetSensitive, &ac.SetSensitive, &ac.ManageLoad, &ac.ManageAcadem)
 	return err
 }
 
 func (ac *Accession) Update(db *sql.DB) error {
-	_, err := db.Exec(updateAccessionDataScript, ac.EditAccess, ac.SetAbsence, ac.GetAbsence, ac.SetMark, ac.SetEvent, ac.GetSensitive, ac.SetSensitive, ac.GetYlist, ac.ManageAcadem, ac.IdPeople)
+	_, err := db.Exec(updateAccessionDataScript, ac.EditAccess, ac.SetAbsence, ac.GetAbsence, ac.SetMark, ac.SetEvent, ac.GetSensitive, ac.SetSensitive, ac.ManageLoad, ac.ManageAcadem, ac.IdPeople)
 	if err != nil {
 		return err
 	}
@@ -49,7 +49,7 @@ func (ac *Accession) Update(db *sql.DB) error {
 }
 
 func UpdateAccession(db *sql.DB, ac *Accession) error {
-	_, err := db.Exec(updateAccessionDataScript, ac.EditAccess, ac.SetAbsence, ac.GetAbsence, ac.SetMark, ac.SetEvent, ac.GetSensitive, ac.SetSensitive, ac.GetYlist, ac.ManageAcadem, ac.IdPeople)
+	_, err := db.Exec(updateAccessionDataScript, ac.EditAccess, ac.SetAbsence, ac.GetAbsence, ac.SetMark, ac.SetEvent, ac.GetSensitive, ac.SetSensitive, ac.ManageLoad, ac.ManageAcadem, ac.IdPeople)
 	if err != nil {
 		return err
 	}
@@ -62,7 +62,7 @@ func (ac *Accession) getAccession() (result map[string]bool) {
 	result[SET_SENSITIVE] = ac.SetSensitive
 	result[GET_SKIP] = ac.GetAbsence
 	result[SET_SKIP] = ac.SetAbsence
-	result[GET_YELLOW_LIST] = ac.GetYlist
+	result[MANAGE_LOAD] = ac.ManageLoad
 	result[SET_ACCESS] = ac.EditAccess
 	result[SET_EVENT] = ac.SetEvent
 	result[SET_MARK] = ac.SetMark
@@ -113,8 +113,8 @@ func (ac *Accession) setAccession(acm map[string]bool) error {
 	} else {
 		return err
 	}
-	if b, ok := acm[GET_YELLOW_LIST]; ok {
-		ac.GetYlist = b
+	if b, ok := acm[MANAGE_LOAD]; ok {
+		ac.ManageLoad = b
 	} else {
 		return err
 	}

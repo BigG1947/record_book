@@ -1,10 +1,12 @@
 package blockchain
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math"
 	"net/http"
 	"strings"
 )
@@ -36,12 +38,14 @@ func GetNodeList() []Node {
 	}
 }
 
-func CheckNodesLive(list []Node) (bool, error) {
+func (bc *BlockChain) CheckNodesLive(list []Node) (bool, error) {
 	client := &http.Client{}
 	var countActiveNode int
+	var noMatchNode int
+
 	for i := range list {
 		stringURL := fmt.Sprintf("http://%s:%d/blockchain/checkActivity", list[i].ip, list[i].port)
-		addrNode := fmt.Sprintf("%s:%d", list[i].ip, list[i].port)
+		addrNode := fmt.Sprintf("%s:%d", "localhost", 8080)
 		req, err := http.NewRequest("GET", stringURL, strings.NewReader(addrNode))
 		if err != nil {
 			return false, err
@@ -61,16 +65,27 @@ func CheckNodesLive(list []Node) (bool, error) {
 			}{}
 			err = json.Unmarshal(body, &responseStruct)
 			if err != nil {
-				log.Printf("Node: %s:%d\nError: %s", list[i].ip, list[i].port, err)
+				log.Printf("Node: %s:%d\nError: %s\n", list[i].ip, list[i].port, err)
 				return false, nil
 			}
 			list[i].length = responseStruct.Length
 			list[i].hash = responseStruct.Hash
 			countActiveNode++
+			if bc.length != list[i].length || !bytes.Equal(bc.hash, list[i].hash) {
+				noMatchNode++
+				log.Printf("Node: %s:%d No match len or hash\n", list[i].ip, list[i].port)
+			}
 			log.Printf("Node: %s:%d have status OK!\n", list[i].ip, list[i].port)
 		}
 	}
+	if noMatchNode > int(math.Round(float64(len(list))/2.0)) {
+		bc.matched = false
+		log.Printf("BlockChain is not math to other blockChain nodes\n")
+		return false, nil
+	}
+
 	if countActiveNode < 2 || countActiveNode%2 != 0 {
+		log.Printf("Not enough nodes in Network, must be 3 and more!\n")
 		return false, nil
 	}
 	return true, nil

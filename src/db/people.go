@@ -348,7 +348,7 @@ func GetAllEmployeesV2(db *sql.DB) ([]People, error) {
 		var p People
 		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
 			&p.Employee.IdPeople, &p.Employee.DateInvite, &p.Employee.Rank.Id, &p.Employee.Rank.Name, &p.Employee.Cathedra.Id, &p.Employee.Cathedra.Name, &p.Employee.Cathedra.IdFaculty,
-			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
+			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.ManageLoad, &p.Accession.ManageAcadem,
 			//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 			&p.Status.Id, &p.Status.Name)
 		if err != nil {
@@ -378,7 +378,7 @@ func GetCurrentEmployees(db *sql.DB) ([]People, error) {
 		var p People
 		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
 			&p.Employee.IdPeople, &p.Employee.DateInvite, &p.Employee.Rank.Id, &p.Employee.Rank.Name, &p.Employee.Cathedra.Id, &p.Employee.Cathedra.Name, &p.Employee.Cathedra.IdFaculty,
-			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
+			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.ManageLoad, &p.Accession.ManageAcadem,
 			//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 			&p.Status.Id, &p.Status.Name)
 		if err != nil {
@@ -412,7 +412,7 @@ func GetStudentFromGroupV2(db *sql.DB, id int) ([]People, error) {
 		var groupIdDirection sql.NullInt64
 		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
 			&p.Student.IdPeople, &p.Student.DateAdmission, &p.Student.IsFullTime, &p.Student.IsCut, &groupId, &employeeId, &groupName, &groupIdDirection, &p.Student.Semester,
-			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
+			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.ManageLoad, &p.Accession.ManageAcadem,
 			//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 			&p.Status.Id, &p.Status.Name)
 		if groupId.Valid {
@@ -459,7 +459,7 @@ func GetAllStudentsV2(db *sql.DB) ([]People, error) {
 		var groupIdDirection sql.NullInt64
 		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
 			&p.Student.IdPeople, &p.Student.DateAdmission, &p.Student.IsFullTime, &p.Student.IsCut, &groupId, &employeeId, &groupName, &groupIdDirection, &p.Student.Semester,
-			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
+			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.ManageLoad, &p.Accession.ManageAcadem,
 			//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 			&p.Status.Id, &p.Status.Name)
 		if groupId.Valid {
@@ -506,7 +506,7 @@ func GetCurrentStudents(db *sql.DB) ([]People, error) {
 		var groupIdDirection sql.NullInt64
 		err := rows.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
 			&p.Student.IdPeople, &p.Student.DateAdmission, &p.Student.IsFullTime, &p.Student.IsCut, &groupId, &employeeId, &groupName, &groupIdDirection, &p.Student.Semester,
-			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
+			&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.ManageLoad, &p.Accession.ManageAcadem,
 			//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 			&p.Status.Id, &p.Status.Name)
 		if groupId.Valid {
@@ -557,7 +557,7 @@ func (p *People) GetPeopleByEmailV2(db *sql.DB, email string) error {
 	err := row.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
 		&studentIdPeople, &dateAdmission, &isFullTime, &isCut, &studentGroupId, &studentGroupEmployeeId, &studentGroupName, &studentGroupIdDirection, &studentSemester,
 		&employeeIdPeople, &employeeDateInvite, &employeeRankId, &employeeRankName, &employeeCathedraId, &employeeCathedraName, &employeeCathedraIdFaculty,
-		&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
+		&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.ManageLoad, &p.Accession.ManageAcadem,
 		//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 		&p.Status.Id, &p.Status.Name)
 	if err != nil {
@@ -643,7 +643,7 @@ func (p *People) GetPeopleByIdV2(db *sql.DB, id int) error {
 	err := row.Scan(&p.Id, &p.Fio, &p.Birthday, &p.Gender, &p.Img, &p.Comment, &p.Password, &p.PhoneNumber, &p.Email, &p.Sensitive, &p.HaveAccess,
 		&studentIdPeople, &dateAdmission, &isFullTime, &isCut, &studentGroupId, &studentGroupEmployeeId, &studentGroupName, &studentGroupIdDirection, &studentSemester,
 		&employeeIdPeople, &employeeDateInvite, &employeeRankId, &employeeRankName, &employeeCathedraId, &employeeCathedraName, &employeeCathedraIdFaculty,
-		&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.GetYlist, &p.Accession.ManageAcadem,
+		&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.ManageLoad, &p.Accession.ManageAcadem,
 		//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 		&p.Status.Id, &p.Status.Name)
 	if err != nil {
@@ -695,7 +695,7 @@ func (p *People) GetPeopleByIdV2(db *sql.DB, id int) error {
 			p.Employee.Cathedra.Id = int(employeeCathedraId.Int64)
 		}
 		if employeeCathedraName.Valid {
-			p.Employee.Cathedra.Name = employeeRankName.String
+			p.Employee.Cathedra.Name = employeeCathedraName.String
 		}
 		if employeeCathedraIdFaculty.Valid {
 			p.Employee.Cathedra.IdFaculty = int(employeeCathedraId.Int64)

@@ -67,7 +67,7 @@ func getStudent(w http.ResponseWriter, r *http.Request) {
 		for _, mark := range student.Student.Marks {
 			fmt.Fprintf(w, "id_disciplie: %d\nid_employee: %d\nvalue: %d\nnational_value: %s\nis_exam: %v\nsemester: %d\ndate: %s\n\n", mark.IdDiscipline, mark.IdEmployee, mark.Value, mark.NationalValue, mark.IsExam, mark.Semester, mark.Date)
 		}
-		fmt.Fprintf(w, "Accession:\nid_people: %d\nedit_access: %v\nset_absence: %v\nget_absence: %v\nset_mark: %v\nset_envent: %v\nget_sesnsitive: %v\nset_sensitive: %v\nget_ylist: %v\nmanage_academ: %v\n\n", student.Accession.IdPeople, student.Accession.EditAccess, student.Accession.SetAbsence, student.Accession.GetAbsence, student.Accession.SetMark, student.Accession.SetEvent, student.Accession.GetSensitive, student.Accession.SetSensitive, student.Accession.GetYlist, student.Accession.ManageAcadem)
+		fmt.Fprintf(w, "Accession:\nid_people: %d\nedit_access: %v\nset_absence: %v\nget_absence: %v\nset_mark: %v\nset_envent: %v\nget_sesnsitive: %v\nset_sensitive: %v\nmanage_load: %v\nmanage_academ: %v\n\n", student.Accession.IdPeople, student.Accession.EditAccess, student.Accession.SetAbsence, student.Accession.GetAbsence, student.Accession.SetMark, student.Accession.SetEvent, student.Accession.GetSensitive, student.Accession.SetSensitive, student.Accession.ManageLoad, student.Accession.ManageAcadem)
 		//fmt.Fprintf(w, "Sensitive Data:\nid_people: %d\npassport_code: %s\nrntrs: %s\nreg_address: %s\nmillitary_id: %s\n\n", student.SensitiveData.IdPeople, student.SensitiveData.PassportCode, student.SensitiveData.Rntrs, student.SensitiveData.RegAddress, student.SensitiveData.MilitaryId)
 	}
 	return
@@ -94,7 +94,7 @@ func getEmployee(w http.ResponseWriter, r *http.Request) {
 		}
 		fmt.Fprintf(w, "Rank info:\nid: %d\nname:%s\n\n", employee.Employee.Rank.Id, employee.Employee.Rank.Name)
 		fmt.Fprintf(w, "Cathedra info:\nid: %d\nname:%s\n\n", employee.Employee.Cathedra.Id, employee.Employee.Cathedra.Name)
-		fmt.Fprintf(w, "Accession:\nid_people: %d\nedit_access: %v\nset_absence: %v\nget_absence: %v\nset_mark: %v\nset_envent: %v\nget_sesnsitive: %v\nset_sensitive: %v\nget_ylist: %v\nmanage_academ: %v\n\n", employee.Accession.IdPeople, employee.Accession.EditAccess, employee.Accession.SetAbsence, employee.Accession.GetAbsence, employee.Accession.SetMark, employee.Accession.SetEvent, employee.Accession.GetSensitive, employee.Accession.SetSensitive, employee.Accession.GetYlist, employee.Accession.ManageAcadem)
+		fmt.Fprintf(w, "Accession:\nid_people: %d\nedit_access: %v\nset_absence: %v\nget_absence: %v\nset_mark: %v\nset_envent: %v\nget_sesnsitive: %v\nset_sensitive: %v\nmanage_load: %v\nmanage_academ: %v\n\n", employee.Accession.IdPeople, employee.Accession.EditAccess, employee.Accession.SetAbsence, employee.Accession.GetAbsence, employee.Accession.SetMark, employee.Accession.SetEvent, employee.Accession.GetSensitive, employee.Accession.SetSensitive, employee.Accession.ManageLoad, employee.Accession.ManageAcadem)
 		//fmt.Fprintf(w, "Sensitive Data:\nid_people: %d\npassport_code: %s\nrntrs: %s\nreg_address: %s\nmillitary_id: %s\n\n", employee.SensitiveData.IdPeople, employee.SensitiveData.PassportCode, employee.SensitiveData.Rntrs, employee.SensitiveData.RegAddress, employee.SensitiveData.MilitaryId)
 	}
 	return
@@ -111,7 +111,7 @@ func getSinglePeople(w http.ResponseWriter, r *http.Request) {
 	for _, g := range p.Employee.Group {
 		fmt.Fprintf(w, "Group Info:\nid_group: %d\nname: %s\nid_direction: %d\n\n", g.Id, g.Name, g.IdDirection)
 	}
-	fmt.Fprintf(w, "Accession:\nid_people: %d\nedit_access: %v\nset_absence: %v\nget_absence: %v\nset_mark: %v\nset_envent: %v\nget_sesnsitive: %v\nset_sensitive: %v\nget_ylist: %v\nmanage_academ: %v\n\n", p.Accession.IdPeople, p.Accession.EditAccess, p.Accession.SetAbsence, p.Accession.GetAbsence, p.Accession.SetMark, p.Accession.SetEvent, p.Accession.GetSensitive, p.Accession.SetSensitive, p.Accession.GetYlist, p.Accession.ManageAcadem)
+	fmt.Fprintf(w, "Accession:\nid_people: %d\nedit_access: %v\nset_absence: %v\nget_absence: %v\nset_mark: %v\nset_envent: %v\nget_sesnsitive: %v\nset_sensitive: %v\nmanage_load: %v\nmanage_academ: %v\n\n", p.Accession.IdPeople, p.Accession.EditAccess, p.Accession.SetAbsence, p.Accession.GetAbsence, p.Accession.SetMark, p.Accession.SetEvent, p.Accession.GetSensitive, p.Accession.SetSensitive, p.Accession.ManageLoad, p.Accession.ManageAcadem)
 	//fmt.Fprintf(w, "Sensitive Data:\nid_people: %d\npassport_code: %s\nrntrs: %s\nreg_address: %s\nmillitary_id: %s\n\n", p.SensitiveData.IdPeople, p.SensitiveData.PassportCode, p.SensitiveData.Rntrs, p.SensitiveData.RegAddress, p.SensitiveData.MilitaryId)
 
 }
@@ -559,15 +559,19 @@ func test() {
 		fmt.Printf("Err GetCurrentStudents: %s\n", err)
 		return
 	}
-
-	empls, err := dbPack.GetCurrentEmployees(db.Connection)
+	_, err = dbPack.GetCurrentEmployees(db.Connection)
 	if err != nil {
 		fmt.Printf("Err GetCurrentEmployees: %s\n", err)
 		return
 	}
-	for _, e := range empls {
-		fmt.Printf("%v\n", e)
+
+	var p dbPack.People
+	err = p.GetPeopleByIdV2(db.Connection, 3)
+	if err != nil {
+		fmt.Printf("Err GetPeopleByIdV2: %s\n", err)
+		return
 	}
+	fmt.Printf("%#v\n", p.Employee)
 	fmt.Printf("Ok!\n")
 	return
 }

@@ -13,11 +13,13 @@ import (
 
 type BlockChain struct {
 	Tip      []byte
+	Status   bool
 	db       *sql.DB
 	length   int
-	Status   bool
 	listNode []Node
 	hash     []byte
+	broken   bool
+	matched  bool
 }
 
 type Iterator struct {
@@ -30,7 +32,7 @@ func (bc *BlockChain) AddBlock(data string, employeeId int, mark int, timestamp 
 	//if !bc.Status {
 	//	return errors.New("BlockChain status if fall ")
 	//}
-	//ok, err := CheckNodesLive(bc.listNode)
+	//ok, err := bc.CheckNodesLive(bc.listNode)
 	//if err != nil {
 	//	return err
 	//}
@@ -48,7 +50,7 @@ func (bc *BlockChain) AddBlock(data string, employeeId int, mark int, timestamp 
 	//	return errors.New("Block Hash not match to Hash in other nodes ")
 	//}
 	//ok, err = bc.sendBlockToOtherNodes(newFeedBack)
-	//if err != nil{
+	//if err != nil {
 	//	return err
 	//}
 	//if !ok {
@@ -106,7 +108,7 @@ func InitBlockChain(db *sql.DB) (*BlockChain, error) {
 		tip = genesis.Hash
 		length = 1
 	}
-	bc := BlockChain{tip, db, length, false, GetNodeList(), []byte{}}
+	bc := BlockChain{tip, false, db, length, GetNodeList(), []byte{}, false, false}
 	bc.hash, err = bc.GetFinalHash()
 	if err != nil {
 		return &BlockChain{}, err
@@ -236,17 +238,17 @@ func (bc *BlockChain) sendBlockToOtherNodes(block *Block) (bool, error) {
 			return false, nil
 		}
 		if resp.StatusCode == http.StatusOK {
-			return true, nil
+			continue
 		}
 	}
-	return false, nil
+	return true, nil
 }
 
 func (bc *BlockChain) CheckNodesInNetWork() {
 	for true {
 		for true {
 			var err error
-			bc.Status, err = CheckNodesLive(bc.listNode)
+			bc.Status, err = bc.CheckNodesLive(bc.listNode)
 			if err != nil {
 				log.Printf("Error in CheckNodesLive:\n%s\n", err)
 				return
@@ -263,6 +265,9 @@ func (bc *BlockChain) CheckNodesInNetWork() {
 
 func (bc *BlockChain) CheckBlockChain() {
 	for true {
+		if bc.matched == false {
+
+		}
 		var finalHash []byte
 		var ok = true
 		bci := bc.Iterator()
@@ -283,9 +288,10 @@ func (bc *BlockChain) CheckBlockChain() {
 			finalHash = bytes.Join([][]byte{finalHash, fb.Hash}, []byte{})
 		}
 		if ok {
-			log.Printf("BlockChain is Whole!\n")
+			log.Printf("BlockChain is Ok!\n")
 			bc.hash = finalHash
-		} else {
+		} else if !ok {
+			bc.broken = false
 			log.Printf("BlockChain is Broken\n")
 		}
 		time.Sleep(5 * time.Minute)
@@ -294,5 +300,5 @@ func (bc *BlockChain) CheckBlockChain() {
 
 func (bc *BlockChain) repairBlockChain() {
 	log.Printf("Start repair blockchain...\n")
-	//lenghtMap := make(map[int][]Node)
+
 }
