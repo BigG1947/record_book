@@ -38,16 +38,17 @@ func printBC(w http.ResponseWriter, r *http.Request) {
 }
 
 func getFeedback(w http.ResponseWriter, r *http.Request) {
-	feedbacks, err := dbPack.GetAllFeedBacks(db.Connection)
-	if err != nil {
-		fmt.Fprintf(w, "Error при запросе отзывов: %s\n", err)
-		return
-	}
-	for _, f := range feedbacks {
-		var p dbPack.People
-		p.GetPeopleById(db.Connection, f.EmployeeId)
-		fmt.Fprintf(w, "Employee: %s\nFeedback: %s\nMark: %d\n\n", p.Fio, f.Data, f.Mark)
-	}
+	//feedbacks, err := dbPack.GetAllFeedBacks(db.Connection)
+	//if err != nil {
+	//	fmt.Fprintf(w, "Error при запросе отзывов: %s\n", err)
+	//	return
+	//}
+	//for _, f := range feedbacks {
+	//	var p dbPack.People
+	//	p.GetPeopleById(db.Connection, f.EmployeeId)
+	//	fmt.Fprintf(w, "Employee: %s\nFeedback: %s\nMark: %d\n\n", p.Fio, f.Data, f.Mark)
+	//}
+	bc.Print(bc.Iterator(), &w)
 }
 
 func getStudent(w http.ResponseWriter, r *http.Request) {
@@ -265,6 +266,14 @@ func main() {
 	r.PathPrefix("/templates/").Handler(http.StripPrefix("/templates/", http.FileServer(http.Dir("templates"))))
 
 	r.HandleFunc("/blockchain/checkActivity", checkActivity).Methods("GET")
+	r.HandleFunc("/blockchain/checkActivity", checkActivity)
+	// CRUD routes
+	r.HandleFunc("/blockchain/sumBlock", sumBlock).Methods("POST")
+	r.HandleFunc("/blockchain/getValidBlockChain", getValidBlockChain)
+	r.HandleFunc("/blockchain/addBlockWithoutSum", addBlockWithoutSum).Methods("POST")
+
+	// For test routes
+	r.HandleFunc("/blockchain/printBlockChain", printBlockchain)
 
 	r.HandleFunc("/login", login).Methods("POST")
 	r.HandleFunc("/angular", angularJs)

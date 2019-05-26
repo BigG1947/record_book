@@ -2,6 +2,7 @@ package blockchain
 
 import (
 	"bytes"
+	"crypto/sha256"
 	"database/sql"
 	"encoding/json"
 	"errors"
@@ -20,7 +21,7 @@ type BlockChain struct {
 	db       *sql.DB
 	length   int
 	listNode []Node
-	hash     []byte
+	hash     [32]byte
 	broken   bool
 	matched  bool
 	mutex    *sync.Mutex
@@ -42,7 +43,7 @@ func (bc *BlockChain) AddBlock(data string, employeeId int, mark int, timestamp 
 	}
 	if !ok {
 		bc.Status = false
-		return errors.New("Nodes in network < 3 ")
+		return errors.New("BlockChain status if fall ")
 	}
 	prevFeedBackHash := bc.Tip
 	newFeedBack := NewBlock(data, employeeId, mark, prevFeedBackHash, timestamp)
@@ -112,7 +113,7 @@ func InitBlockChain(db *sql.DB) (*BlockChain, error) {
 		tip = genesis.Hash
 		length = 1
 	}
-	bc := BlockChain{tip, false, db, length, GetNodeList(), []byte{}, false, false, &sync.Mutex{}}
+	bc := BlockChain{tip, false, db, length, GetNodeList(), [32]byte{}, false, false, &sync.Mutex{}}
 	bc.hash, err = bc.GetFinalHash()
 	if err != nil {
 		return &BlockChain{}, err
@@ -152,7 +153,7 @@ func (bc *BlockChain) GetNodeList() []Node {
 	return bc.listNode
 }
 
-func (bc *BlockChain) GetFinalHash() ([]byte, error) {
+func (bc *BlockChain) GetFinalHash() ([32]byte, error) {
 	var finalHash []byte
 	bci := bc.Iterator()
 	for {
@@ -161,12 +162,12 @@ func (bc *BlockChain) GetFinalHash() ([]byte, error) {
 			break
 		}
 		if err != nil {
-			return []byte{}, err
+			return [32]byte{}, err
 		}
 
 		finalHash = bytes.Join([][]byte{finalHash, fb.Hash}, []byte{})
 	}
-	return finalHash, nil
+	return sha256.Sum256(finalHash), nil
 }
 
 func (bc *BlockChain) compareBlockWithOtherNodes(idEmployee int, mark int, text string, timestamp int64, hash []byte) (bool, error) {
@@ -202,13 +203,9 @@ func (bc *BlockChain) compareBlockWithOtherNodes(idEmployee int, mark int, text 
 			return false, err
 		}
 		if resp.StatusCode == http.StatusBadRequest {
-			fmt.Printf("BadRequest")
 			return false, nil
 		}
 		body, _ := ioutil.ReadAll(resp.Body)
-		fmt.Printf("Body request: %x\n", body)
-		fmt.Printf("Block hash: %x\n", hash)
-		fmt.Printf("%t\n", bytes.Equal(body, hash))
 		if bytes.Equal(body, hash) {
 			applyNode++
 			continue
@@ -240,7 +237,6 @@ func (bc *BlockChain) sendBlockToOtherNodes(block *Block) (bool, error) {
 			return false, err
 		}
 		if resp.StatusCode == http.StatusBadRequest {
-			fmt.Printf("BadRequest")
 			return false, nil
 		}
 		if resp.StatusCode == http.StatusOK {
@@ -271,7 +267,7 @@ func (bc *BlockChain) CheckNodesInNetWork() {
 			time.Sleep(10 * time.Second)
 		}
 		bc.mutex.Unlock()
-		time.Sleep(60 * time.Second)
+		time.Sleep(30 * time.Second)
 	}
 }
 
@@ -298,10 +294,9 @@ func (bc *BlockChain) Check() {
 			}
 			finalHash = bytes.Join([][]byte{finalHash, fb.Hash}, []byte{})
 		}
-		bc.hash = finalHash
 		if !bc.broken && bc.matched {
 			log.Printf("BlockChain is Ok!\n")
-			bc.hash = finalHash
+			bc.hash = sha256.Sum256(finalHash)
 		} else if bc.broken {
 			log.Printf("BlockChain is Broken\n")
 			bc.repair()
@@ -311,7 +306,7 @@ func (bc *BlockChain) Check() {
 		}
 		fmt.Printf("Matched: %v\nBroken: %v\nStatus: %v\nHash: %x\n", bc.matched, bc.broken, bc.Status, bc.hash)
 		bc.mutex.Unlock()
-		time.Sleep(1 * time.Minute)
+		time.Sleep(30 * time.Second)
 	}
 }
 
@@ -362,7 +357,13 @@ func (bc *BlockChain) repair() {
 		return
 	}
 	bc.length = mapLengthNode[maxLength][0].length
+	bc.hash = mapLengthNode[maxLength][0].hash
+	bc.Tip = blocks[0].Hash[:]
 	log.Printf("Repair is success!")
+}
+
+func (bc *BlockChain) GetHash() [32]byte {
+	return bc.hash
 }
 
 func getValidBlockChain(node *Node) ([]Block, error) {
@@ -389,7 +390,6 @@ func getValidBlockChain(node *Node) ([]Block, error) {
 		err = json.Unmarshal(body, &backUpBlockChain.Blocks)
 		if err != nil {
 			err = fmt.Errorf("getValidBlockChain: %s:%d node\nError Unmarshaling: %s\n", node.ip, node.port, err)
-			fmt.Printf("%s", body)
 			return []Block{}, err
 		}
 	}

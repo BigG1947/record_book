@@ -230,13 +230,13 @@ VALUES ("Комп''ютерна інжеренерія", 40);
 
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
-VALUES ("Степул Артем Мартиросовчи", "1997-06-12", 1, "/photo/stepul.jpg", "Поет, учавствует в студ. клубе",
+VALUES ("Степул Артем Мартиросович", "1997-06-12", 1, "/photo/stepul.jpg", "Поет, учавствует в студ. клубе",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380999999999", "artem.stepul@gmail.com",
         "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
         1, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
-VALUES ("Луценко Артем Геннадиевич", "1997-03-16", 1, "/photo/default.png",
+VALUES ("Луценко Артем Геннадійович", "1997-03-16", 1, "/photo/default.png",
         "Заместитель главы студенчиского совета факультета",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "artem.lucenko@gmail.com",
         "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
@@ -274,7 +274,7 @@ VALUES ("Іоргачов Євген Юрійович", "1998-03-01", 1, "/photo
         1, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
-VALUES ("Ткачук Станіслав Віталіойвич", "1997-03-16", 1, "/photo/tkachuck.jpg",
+VALUES ("Ткачук Станіслав Віталійович", "1997-03-16", 1, "/photo/tkachuck.jpg",
         "Заместитель главы студенчиского совета факультета",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+380333333333", "st6@gmail.com",
         "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
@@ -302,13 +302,13 @@ INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, 
 VALUES ("Смирнова Катерина Василівна", "1983-12-25", 0, "/photo/smirnova.jpeg", "",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "720 91 14", "smirnova.kathrin@gmail.com",
         "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
-        3, 1);
+        6, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Попков Денис Миколайович", "1982-06-03", 1, "/photo/popkov.jpg", "",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "720 91 14", "popkovdn@ukr.net",
         "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
-        3, 1);
+        8, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
 VALUES ("Становська Тетяна Павлівна", "1951-11-25", 0, "/photo/stanovska.jpeg", "",

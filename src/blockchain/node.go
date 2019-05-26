@@ -15,7 +15,7 @@ type Node struct {
 	ip     string
 	port   int
 	length int
-	hash   []byte
+	hash   [32]byte
 	status bool
 }
 
@@ -25,14 +25,14 @@ func GetNodeList() []Node {
 			ip:     "localhost",
 			port:   8082,
 			length: 0,
-			hash:   []byte{},
+			hash:   [32]byte{},
 			status: false,
 		},
 		{
 			ip:     "127.0.0.1",
 			port:   8083,
 			length: 0,
-			hash:   []byte{},
+			hash:   [32]byte{},
 			status: false,
 		},
 	}
@@ -60,8 +60,8 @@ func (bc *BlockChain) CheckNodesLive(list []Node) (bool, error) {
 			list[i].status = true
 			body, _ := ioutil.ReadAll(resp.Body)
 			responseStruct := struct {
-				Length int    `json:"length"`
-				Hash   []byte `json:"hash"`
+				Length int      `json:"length"`
+				Hash   [32]byte `json:"hash"`
 			}{}
 			err = json.Unmarshal(body, &responseStruct)
 			if err != nil {
@@ -71,10 +71,10 @@ func (bc *BlockChain) CheckNodesLive(list []Node) (bool, error) {
 			list[i].length = responseStruct.Length
 			list[i].hash = responseStruct.Hash
 			countActiveNode++
-			if bc.length != list[i].length || !bytes.Equal(bc.hash, list[i].hash) {
+			if bc.length != list[i].length || !bytes.Equal(bc.hash[:], list[i].hash[:]) {
 				noMatchNode++
 				log.Printf("Node: %s:%d No match len or hash\n", list[i].ip, list[i].port)
-				fmt.Printf("BC len: %d | BC hash : %x\nNODE len: %d | NODE hash : %x\n", bc.length, bc.hash, list[i].length, list[i].hash)
+				log.Printf("\nBC len: %d | BC hash : %x\nNODE len: %d | NODE hash : %x\n", bc.length, bc.hash, list[i].length, list[i].hash)
 			}
 			log.Printf("Node: %s:%d have status OK!\n", list[i].ip, list[i].port)
 		}
