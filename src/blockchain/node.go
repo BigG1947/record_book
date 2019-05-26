@@ -74,14 +74,16 @@ func (bc *BlockChain) CheckNodesLive(list []Node) (bool, error) {
 			if bc.length != list[i].length || !bytes.Equal(bc.hash, list[i].hash) {
 				noMatchNode++
 				log.Printf("Node: %s:%d No match len or hash\n", list[i].ip, list[i].port)
+				fmt.Printf("BC len: %d | BC hash : %x\nNODE len: %d | NODE hash : %x\n", bc.length, bc.hash, list[i].length, list[i].hash)
 			}
 			log.Printf("Node: %s:%d have status OK!\n", list[i].ip, list[i].port)
 		}
 	}
 	if noMatchNode > int(math.Round(float64(len(list))/2.0)) {
 		bc.matched = false
-		log.Printf("BlockChain is not math to other blockChain nodes\n")
 		return false, nil
+	} else {
+		bc.matched = true
 	}
 
 	if countActiveNode < 2 || countActiveNode%2 != 0 {

@@ -33,7 +33,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 func printBC(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(200)
 	bci := bc.Iterator()
-	bc.PrintBlockChain(bci, &w)
+	bc.Print(bci, &w)
 	return
 }
 
@@ -571,7 +571,7 @@ func test() {
 		fmt.Printf("Err GetPeopleByIdV2: %s\n", err)
 		return
 	}
-	fmt.Printf("%#v\n", p.Employee)
+
 	fmt.Printf("Ok!\n")
 	return
 }

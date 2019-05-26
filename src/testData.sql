@@ -305,7 +305,7 @@ VALUES ("Смирнова Катерина Василівна", "1983-12-25", 0,
         3, 1);
 INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
                    have_access)
-VALUES ("Попков Денис Миколайович", "1982-06-03", 0, "/photo/popkov.jpg", "",
+VALUES ("Попков Денис Миколайович", "1982-06-03", 1, "/photo/popkov.jpg", "",
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "720 91 14", "popkovdn@ukr.net",
         "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
         3, 1);
