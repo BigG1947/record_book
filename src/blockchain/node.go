@@ -74,7 +74,6 @@ func (bc *BlockChain) CheckNodesLive(list []Node) (bool, error) {
 			if bc.length != list[i].length || !bytes.Equal(bc.hash[:], list[i].hash[:]) {
 				noMatchNode++
 				log.Printf("Node: %s:%d No match len or hash\n", list[i].ip, list[i].port)
-				log.Printf("\nBC len: %d | BC hash : %x\nNODE len: %d | NODE hash : %x\n", bc.length, bc.hash, list[i].length, list[i].hash)
 			}
 			log.Printf("Node: %s:%d have status OK!\n", list[i].ip, list[i].port)
 		}
