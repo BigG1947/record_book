@@ -580,7 +580,6 @@ func test() {
 		fmt.Printf("Err GetPeopleByIdV2: %s\n", err)
 		return
 	}
-
 	fmt.Printf("Ok!\n")
 	return
 }

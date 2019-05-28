@@ -1,5 +1,28 @@
 package db
 
+const getCurrentStudentCardScript = `SELECT people.id,
+       people.fio,
+       people.gender,
+       people.img,
+       people.have_access,
+       people.id_status,
+       status.name,
+       student.id_group,
+       groups.name,
+       groups.id_direction,
+       direction.id_cathedra,
+       cathedra.id_faculty,
+       faculty.id_institute
+FROM people
+INNER JOIN student ON student.id_people = people.id
+LEFT OUTER JOIN groups ON groups.id = student.id_group
+LEFT OUTER JOIN direction ON direction.id = groups.id_direction
+LEFT OUTER JOIN cathedra ON cathedra.id = direction.id_cathedra
+LEFT OUTER JOIN faculty ON faculty.id = cathedra.id_faculty
+INNER JOIN status ON status.id = people.id_status
+WHERE people.id_status NOT IN (2, 7)
+ORDER BY have_access DESC, id_status ASC, groups.id DESC`
+
 const getCurrentEmployeesScript = `SELECT people.id,
        people.fio,
        people.birthday,

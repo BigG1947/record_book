@@ -20,7 +20,7 @@ type StudentCard struct {
 
 func GetStudentCards(db *sql.DB) ([]StudentCard, error) {
 	var studentCards []StudentCard
-	rows, err := db.Query("SELECT people.id, people.fio, people.gender, people.img, people.have_access, people.id_status, status.name, student.id_group, groups.name, groups.id_direction, direction.id_cathedra, cathedra.id_faculty, faculty.id_institute FROM people, student, groups, direction, cathedra, faculty, status WHERE people.id_status NOT IN (2, 7) AND people.id = student.id_people AND status.id = people.id_status AND groups.id = student.id_group AND direction.id = groups.id_direction AND cathedra.id = direction.id_cathedra AND faculty.id = cathedra.id_faculty ORDER BY have_access DESC, id_status ASC, groups.id DESC")
+	rows, err := db.Query(getCurrentStudentCardScript)
 	if err != nil {
 		return []StudentCard{}, err
 	}
@@ -28,9 +28,35 @@ func GetStudentCards(db *sql.DB) ([]StudentCard, error) {
 
 	for rows.Next() {
 		var card StudentCard
-		err := rows.Scan(&card.Id, &card.Fio, &card.Gender, &card.Photo, &card.HaveAccess, &card.IdStatus, &card.StatusName, &card.IdGroup, &card.GroupName, &card.IdDirection, &card.IdCathedra, &card.IdFaculty, &card.IdInstitute)
+
+		var IdGroup sql.NullInt64
+		var GroupName sql.NullString
+		var IdDirection sql.NullInt64
+		var IdCathedra sql.NullInt64
+		var IdFaculty sql.NullInt64
+		var IdInstitute sql.NullInt64
+
+		err := rows.Scan(&card.Id, &card.Fio, &card.Gender, &card.Photo, &card.HaveAccess, &card.IdStatus, &card.StatusName, &IdGroup, &GroupName, &IdDirection, &IdCathedra, &IdFaculty, &IdInstitute)
 		if err != nil {
 			return []StudentCard{}, err
+		}
+		if IdGroup.Valid {
+			card.IdGroup = int(IdGroup.Int64)
+			if GroupName.Valid {
+				card.GroupName = GroupName.String
+			}
+			if IdDirection.Valid {
+				card.IdDirection = int(IdDirection.Int64)
+			}
+			if IdCathedra.Valid {
+				card.IdCathedra = int(IdCathedra.Int64)
+			}
+			if IdFaculty.Valid {
+				card.IdFaculty = int(IdFaculty.Int64)
+			}
+			if IdInstitute.Valid {
+				card.IdInstitute = int(IdInstitute.Int64)
+			}
 		}
 		studentCards = append(studentCards, card)
 	}
