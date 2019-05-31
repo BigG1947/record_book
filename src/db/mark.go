@@ -62,7 +62,7 @@ func GetMarksByStudentEmail(db *sql.DB, email string) ([]Mark, error) {
 }
 
 func (m *Mark) Update(db *sql.DB) error {
-	_, err := db.Exec("UPDATE marks SET id_student = (?), id_discipline = (?), id_employee = (?), value = (?), national_value = (?), semester = (?), date = (?) WHERE id = (?)", m.IdStudent, m.IdDiscipline, m.IdEmployee, m.Value, m.NationalValue, m.Semester, m.Date, m.Id)
+	_, err := db.Exec("UPDATE marks SET id_student = (?), id_discipline = (?), is_exam = (?), id_employee = (?), value = (?), national_value = (?), semester = (?), date = (?) WHERE id = (?)", m.IdStudent, m.IdDiscipline, m.IsExam, m.IdEmployee, m.Value, m.NationalValue, m.Semester, m.Date, m.Id)
 	return err
 }
 
