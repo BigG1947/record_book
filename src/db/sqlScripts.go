@@ -589,7 +589,7 @@ const getAllLoadsByIdEmployeeScript = `SELECT loads.id,
 FROM loads
          INNER JOIN discipline d ON loads.id_discipline = d.id
          INNER JOIN people p ON loads.id_employee = p.id
-         INNER JOIN people p2 ON loads.id_assistant = p2.id
+         LEFT OUTER JOIN people p2 ON loads.id_assistant = p2.id
          INNER JOIN loads_semester ls on loads.id_semester = ls.id
          INNER JOIN groups g ON loads.id_group = g.id
 WHERE loads.id_employee = ?
@@ -635,7 +635,7 @@ const getAllLoadsByIdGroupScript = `SELECT loads.id,
 FROM loads
          INNER JOIN discipline d ON loads.id_discipline = d.id
          INNER JOIN people p ON loads.id_employee = p.id
-         INNER JOIN people p2 ON loads.id_assistant = p2.id
+         LEFT OUTER JOIN people p2 ON loads.id_assistant = p2.id
          INNER JOIN loads_semester ls on loads.id_semester = ls.id
          INNER JOIN groups g ON loads.id_group = g.id
 WHERE loads.id_group = ?
@@ -678,7 +678,7 @@ const getCurrentStudentDisciplineScript = `SELECT loads.id,
 FROM loads
          INNER JOIN discipline d ON loads.id_discipline = d.id
          INNER JOIN people p ON loads.id_employee = p.id
-         INNER JOIN people p2 ON loads.id_assistant = p2.id
+         LEFT OUTER JOIN people p2 ON loads.id_assistant = p2.id
          INNER JOIN loads_semester ls on loads.id_semester = ls.id
          INNER JOIN groups g ON loads.id_group = g.id
 WHERE loads.id_group = ?
