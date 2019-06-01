@@ -178,9 +178,9 @@ INSERT INTO cathedra(name, id_faculty)
 VALUES ("Кафедра фізичної культури та спорту", 10);
 
 INSERT INTO direction(name, id_cathedra)
-VALUES ("Комп''ютерні науки", 40);
+VALUES ("Комп''''ютерні науки", 40);
 INSERT INTO direction(name, id_cathedra)
-VALUES ("Комп''ютерна інжеренерія", 40);
+VALUES ("Комп''''ютерна інжеренерія", 40);
 
 # INSERT INTO speciality(name, id_direction) VALUES ("speciality1", 1);
 # INSERT INTO speciality(name, id_direction) VALUES ("speciality2", 1);
@@ -322,6 +322,12 @@ VALUES ("Гнатюк Анастасія Андріївна", "1998-05-25", 0, "
         "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "+3801234567890", "gnatuk@gmail.com",
         "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
         1, 1);
+INSERT INTO people(fio, birthday, gender, img, comment, password, phone_number, email, sensitive_data, id_status,
+                   have_access)
+VALUES ("Снігур Тетяна Сергіївна", "1998-04-11", 0, "/photo/snigur.jpeg", "",
+        "$2a$10$oqygBXUWPKkdL.wdac68n.GtjRGxk8LnaqxpTcNvZGWxRTtRHE0TK", "720-91-44", "snigur.tatyana@ukr.net",
+        "JIW4cQpUP7Xcf+tB4C0HOrgJqc2EcC6w5UqnDugSvTEPgcmBEjTyNaQAjzjtBm2CGqjMUrjQ942X1h8vrTi/hRq3x4eu176e/0FMH5hJ12ljvX2IJcvs7AD1VL3zrenXuMhZLsdmWxqCBZRwxv2lZRJNrg6Uv8uymcVnhtcGVWy9+YQCQ87m+tufVtETec6Tdjk8C3HEs/DseyueKRzfk1CZI9+k6P88uCUhRM2XMmgMCj4Mm0EsO52nvHmk+/+fwiYt700qfknjVxG/SZAJvw5mPpHDEfG2wVJhBRhLHMBx23YxINd0JBPxMW6fT5yrYN+AqeI2amXcjAzLyGlC2Q==",
+        3, 1);
 
 
 INSERT INTO employee(id_people, date_invite, id_cathedra, id_rank)
@@ -336,6 +342,8 @@ INSERT INTO employee(id_people, date_invite, id_cathedra, id_rank)
 VALUES (13, "2007-07-22", 40, 3);
 INSERT INTO employee(id_people, date_invite, id_cathedra, id_rank)
 VALUES (14, "2007-07-22", 40, 5);
+INSERT INTO employee(id_people, date_invite, id_cathedra, id_rank)
+VALUES (16, "2007-07-22", 40, 1);
 
 INSERT INTO groups(id_employee, name, id_direction)
 VALUES (6, "311а", 1);
@@ -403,7 +411,7 @@ VALUES (10, "2014-09-01", 1, 1, 4, NULL);
 INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
 VALUES (11, "2014-09-01", 1, 1, 4, NULL);
 INSERT INTO student(id_people, date_admission, is_full_time, is_cut, semester, id_group)
-VALUES (15, "2018-09-01", 1, 0, 1, 1);
+VALUES (15, "2017-09-01", 1, 1, 4, 22);
 
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
                       set_sensitive, manage_load, manage_academ)
@@ -422,7 +430,7 @@ INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark
 VALUES (5, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
                       set_sensitive, manage_load, manage_academ)
-VALUES (6, 0, 0, 0, 1, 0, 0, 0, 1, 0);
+VALUES (13, 0, 0, 0, 0, 0, 1, 1, 1, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
                       set_sensitive, manage_load, manage_academ)
 VALUES (7, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -443,14 +451,16 @@ INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark
 VALUES (12, 0, 0, 1, 1, 1, 1, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
                       set_sensitive, manage_load, manage_academ)
-VALUES (13, 0, 0, 1, 1, 1, 1, 0, 0, 0);
+VALUES (6, 0, 0, 0, 1, 0, 1, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
                       set_sensitive, manage_load, manage_academ)
 VALUES (14, 0, 0, 0, 1, 0, 1, 0, 0, 0);
 INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
                       set_sensitive, manage_load, manage_academ)
 VALUES (15, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
+INSERT INTO accession(id_people, edit_access, set_absence, get_absence, set_mark, set_event, get_sensitive,
+                      set_sensitive, manage_load, manage_academ)
+VALUES (16, 0, 0, 0, 1, 0, 0, 0, 0, 0);
 
 
 
@@ -514,55 +524,59 @@ INSERT INTO loads_semester(start, end, name)
 VALUES (1546293600, 1562446800, "1 семестр 2018-2019 року");
 
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant)
-VALUES (1, 9, 1, 1, 1, 9);
+VALUES (1, 9, 22, 1, 1, 16);
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant)
-VALUES (2, 9, 1, 1, 1, 9);
+VALUES (2, 9, 22, 1, 1, 16);
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant)
-VALUES (3, 12, 1, 1, 1, NULL);
+VALUES (3, 6, 22, 1, 1, NULL);
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant)
-VALUES (4, 13, 1, 1, 1, NULL);
+VALUES (4, 13, 22, 1, 1, NULL);
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant)
-VALUES (5, 14, 1, 1, 1, 9);
+VALUES (5, 13, 22, 1, 1, 16);
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant)
-VALUES (6, 6, 1, 1, 1, 9);
+VALUES (6, 6, 22, 1, 1, 9);
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant)
-VALUES (7, 6, 1, 1, 1, 9);
+VALUES (7, 6, 22, 1, 1, 9);
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant)
-VALUES (8, 6, 1, 1, 1, 9);
+VALUES (8, 6, 22, 1, 1, 9);
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant)
-VALUES (9, 6, 1, 1, 1, 9);
+VALUES (9, 16, 22, 1, 1, 9);
 INSERT INTO loads(id_discipline, id_employee, id_group, semester, id_semester, id_assistant)
-VALUES (10, 6, 1, 1, 1, 9);
+VALUES (10, 6, 22, 1, 1, 9);
 
 
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (15, 2, 9, 75, "задовільно", 0, 1, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (15, 3, 6, 89, "добре", 1, 1, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (15, 5, 12, 64, "задовільно", 0, 1, "2018-09-05");
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (15, 8, 14, 85, "добре", 1, 1, "2018-09-05");
 
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 1, 9, 59, "незадовільно", 1, 4, "2018-09-05");
+VALUES (15, 4, 13, 83, "добре", 0, 2, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 4, 13, 59, "незадовільно", 1, 4, "2018-09-05");
+VALUES (15, 2, 9, 86, "добре", 1, 2, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 4, 13, 75, "задовільно", 0, 3, "2018-09-05");
+VALUES (15, 6, 12, 75, "задовільно", 1, 2, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 4, 13, 75, "задовільно", 0, 2, "2018-09-05");
+VALUES (15, 8, 16, 86, "добре", 0, 2, "2018-09-05");
+
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 2, 9, 86, "добре", 1, 2, "2018-09-05");
+VALUES (15, 4, 13, 75, "задовільно", 0, 3, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 2, 9, 64, "задовільно", 0, 1, "2018-09-05");
+VALUES (15, 10, 6, 60, "задовільно", 1, 3, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 1, 9, 65, "задовільно", 0, 1, "2018-09-05");
+VALUES (15, 9, 9, 84, "добре", 0, 3, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 4, 13, 75, "задовільно", 0, 2, "2018-09-05");
+VALUES (15, 1, 12, 95, "відмінно", 1, 3, "2018-09-05");
+
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 5, 14, 86, "добре", 1, 2, "2018-09-05");
+VALUES (15, 3, 6, 97, "відмінно", 1, 4, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (1, 5, 14, 64, "задовільно", 0, 1, "2018-09-05");
+VALUES (15, 4, 13, 78, "задовільно", 0, 4, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (2, 1, 9, 59, "незадовільно", 1, 4, "2018-09-05");
+VALUES (15, 7, 12, 87, "добре", 1, 4, "2018-09-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (4, 1, 9, 59, "незадовільно", 1, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (5, 1, 9, 59, "незадовільно", 1, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (7, 1, 9, 59, "незадовільно", 1, 4, "2018-09-05");
-INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
-VALUES (8, 1, 9, 59, "незадовільно", 1, 4, "2018-09-05");
+VALUES (15, 5, 9, 96, "відмінно", 0, 4, "2018-09-05");
