@@ -25,6 +25,32 @@ type LoadSemester struct {
 	Name  string `json:"name"`
 }
 
+func GetLoadForEmployeeByIdSemester(db *sql.DB, idEmployee int, idSemester int) ([]Load, error) {
+	var loads []Load
+	rows, err := db.Query(getAllLoadsForEmployeeBuIdSemesterScript, idEmployee, idSemester)
+	if err != nil {
+		return []Load{}, err
+	}
+
+	for rows.Next() {
+		var l Load
+		var IdAssistant sql.NullInt64
+		var NameAssistant sql.NullString
+		err = rows.Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &IdAssistant, &NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name, &l.NumSemester)
+		if err != nil {
+			return []Load{}, err
+		}
+		if IdAssistant.Valid {
+			l.IdAssistant = int(IdAssistant.Int64)
+		}
+		if NameAssistant.Valid {
+			l.NameAssistant = NameAssistant.String
+		}
+		loads = append(loads, l)
+	}
+	return loads, nil
+}
+
 func GetLoadSemesterById(db *sql.DB, id int) (LoadSemester, error) {
 	var ls LoadSemester
 	err := db.QueryRow("SELECT id, start, end, name FROM loads_semester WHERE id = ?", id).Scan(&ls.Id, &ls.Start, &ls.End, &ls.Name)

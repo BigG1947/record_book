@@ -572,6 +572,29 @@ const insertInstituteScript = `INSERT INTO institute(name) VALUES (?);`
 
 const deleteInstituteScript = `DELETE FROM institute WHERE id = ?;`
 
+const getAllLoadsForEmployeeBuIdSemesterScript = `SELECT loads.id,
+       d.id,
+       d.name,
+       p.id,
+       p.fio,
+       g.id,
+       g.name,
+       p2.id,
+       p2.fio,
+       ls.id,
+       ls.start,
+       ls.end,
+       ls.name,
+	   loads.semester
+FROM loads
+         INNER JOIN discipline d ON loads.id_discipline = d.id
+         INNER JOIN people p ON loads.id_employee = p.id
+         LEFT OUTER JOIN people p2 ON loads.id_assistant = p2.id
+         INNER JOIN loads_semester ls on loads.id_semester = ls.id
+         INNER JOIN groups g ON loads.id_group = g.id
+WHERE loads.id_employee = ? AND loads.id_semester = ?
+ORDER BY ls.start DESC, d.name ASC, g.name ASC;`
+
 const getAllLoadsByIdEmployeeScript = `SELECT loads.id,
        d.id,
        d.name,

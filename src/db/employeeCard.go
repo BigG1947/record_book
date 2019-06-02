@@ -11,7 +11,7 @@ type EmployeeCard struct {
 	IdStatus    int    `json:"id_status"`
 	StatusName  string `json:"status_name"`
 	IdRank      int    `json:"id_rank"`
-	RankName    string `json:"group_name"`
+	RankName    string `json:"rank_name"`
 	IdCathedra  int    `json:"id_cathedra"`
 	IdFaculty   int    `json:"id_faculty"`
 	IdInstitute int    `json:"id_institute"`
