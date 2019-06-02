@@ -743,10 +743,13 @@ func ChangePeoplePassword(db *sql.DB, idPeople int, password string) error {
 func UpdatePeopleData(db *sql.DB, idPeople int, updateData map[string]string) error {
 	tableName, ok := updateData["table"]
 	if !ok {
-		return errors.New("Неверный формат мапы, остутсвует поле 'table'")
+		return errors.New("Неверный формат мапы, остутсвует поле 'table' ")
 	}
 	delete(updateData, "table")
 	lenData := len(updateData)
+	if lenData == 0 {
+		return errors.New("Нету параметров для замены! ")
+	}
 	sqlScript := fmt.Sprintf("UPDATE people, %s SET", tableName)
 	var i int
 	for key, value := range updateData {

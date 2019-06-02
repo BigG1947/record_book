@@ -49,7 +49,7 @@ const createTablePeople = `CREATE TABLE IF NOT EXISTS people(
 										birthday DATE DEFAULT NULL,
 										gender TINYINT(1) NOT NULL,
 										img VARCHAR(256) DEFAULT '/photo/default.png',
-										comment TEXT,
+										comment TEXT NOT NULL DEFAULT "",
 										password VARCHAR(256) NOT NULL,
 										phone_number VARCHAR(64),
 										email VARCHAR(128) NOT NULL UNIQUE,
