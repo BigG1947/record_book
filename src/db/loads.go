@@ -236,6 +236,23 @@ func DeleteLoadsSemesterById(db *sql.DB, id int) error {
 	return nil
 }
 
+func GetLoadsById(db *sql.DB, id int) (Load, error) {
+	var l Load
+	var IdAssistant sql.NullInt64
+	var NameAssistant sql.NullString
+	err := db.QueryRow(getAllLoadsByIdScript, id).Scan(&l.Id, &l.Discipline.Id, &l.Discipline.Name, &l.IdEmployee, &l.NameEmployee, &l.IdGroup, &l.NameGroup, &IdAssistant, &NameAssistant, &l.Semester.Id, &l.Semester.Start, &l.Semester.End, &l.Semester.Name, &l.NumSemester)
+	if err != nil {
+		return Load{}, err
+	}
+	if IdAssistant.Valid {
+		l.IdAssistant = int(IdAssistant.Int64)
+	}
+	if NameAssistant.Valid {
+		l.NameAssistant = NameAssistant.String
+	}
+	return l, nil
+}
+
 func UpdateLoadsById(db *sql.DB, l *Load) error {
 	_, err := db.Exec(updateLoadsById, l.Discipline.Id, l.IdEmployee, l.IdGroup, l.IdAssistant, l.NumSemester, l.Semester.Id, l.Id)
 	if err != nil {

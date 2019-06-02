@@ -634,53 +634,12 @@ func test() {
 		fmt.Printf("GetMarksByDiscipline: %s\n", err)
 	}
 
-	var la dbPack.LoadSemester
-	la, err = dbPack.GetLoadSemesterById(db.Connection, 1)
+	l, err = dbPack.GetLoadsById(db.Connection, 4)
 	if err != nil {
-		fmt.Printf("err getById: %s\n", err)
+		fmt.Printf("%s", err)
 		return
 	}
-	fmt.Printf("%#v\n", la)
-
-	la.Name = "renamed semester"
-	err = la.Update(db.Connection)
-
-	if err != nil {
-		fmt.Printf("err update: %s\n", err)
-		return
-	}
-
-	var newLs dbPack.LoadSemester
-	newLs.Name = "test"
-	newLs.Start = 0
-	newLs.End = 1
-	_, err = newLs.Insert(db.Connection)
-	if err != nil {
-		fmt.Printf("err update: %s\n", err)
-		return
-	}
-	err = dbPack.DeleteLoadSemester(db.Connection, 5)
-	if err != nil {
-		fmt.Printf("err DeleteLoadsSenester: %s", err)
-		return
-	}
-
-	ls, err := dbPack.GetAllLoadsSemester(db.Connection)
-	if err != nil {
-		fmt.Printf("err GetAllLoadsSemester: %s", err)
-		return
-	}
-	for _, l := range ls {
-		fmt.Printf("%#v\n", l)
-	}
-
-	dls, err := dbPack.GetLoadSemesterById(db.Connection, 5)
-	if err != nil {
-		fmt.Printf("err GetLoadSemesterById: %s", err)
-		return
-	}
-	fmt.Printf("%#v\n", dls)
-
+	fmt.Printf("%#v", l)
 	fmt.Printf("Ok!\n")
 	return
 }
