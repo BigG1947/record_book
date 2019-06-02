@@ -21,7 +21,7 @@ LEFT OUTER JOIN cathedra ON cathedra.id = direction.id_cathedra
 LEFT OUTER JOIN faculty ON faculty.id = cathedra.id_faculty
 INNER JOIN status ON status.id = people.id_status
 WHERE people.id_status NOT IN (2, 7)
-ORDER BY have_access DESC, id_status ASC, groups.id DESC`
+ORDER BY people.fio ASC`
 
 const getCurrentEmployeesScript = `SELECT people.id,
        people.fio,
@@ -518,7 +518,7 @@ FROM people
 	INNER JOIN groups ON student.id_group = groups.id
 	INNER JOIN accession ON people.id = accession.id_people
     INNER JOIN status ON people.id_status = status.id
-WHERE people.id IN (SELECT id_people FROM student WHERE id_group = (?)) ORDER BY status.id ASC, student.id_group DESC, people.fio ASC;`
+WHERE people.id IN (SELECT id_people FROM student WHERE id_group = (?)) AND people.id_status = 1 ORDER BY status.id ASC, student.id_group DESC, people.fio ASC;`
 
 const blockPeopleScript = `UPDATE people SET people.have_access = false WHERE people.id = ?;`
 

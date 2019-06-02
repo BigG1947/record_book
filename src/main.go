@@ -320,18 +320,18 @@ func test() {
 	institute.Name = "Новый институт"
 	institute.Id, err = dbPack.InsertInstitute(db.Connection, &institute)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err InsertInstitute: %s\n", err)
 		return
 	}
 	institute.Name = "This Work!"
 	err = dbPack.UpdateInstitute(db.Connection, &institute)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err UpdateInstitute: %s\n", err)
 		return
 	}
 	err = dbPack.DeleteInstitute(db.Connection, institute.Id)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err DeleteInstitute: %s\n", err)
 		return
 	}
 
@@ -340,18 +340,18 @@ func test() {
 	faculty.IdInstitute = 1
 	faculty.Id, err = dbPack.InsertFaculty(db.Connection, &faculty)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err InsertFaculty: %s\n", err)
 		return
 	}
 	faculty.Name = "This Work!"
 	err = dbPack.UpdateFaculty(db.Connection, &faculty)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err UpdateFaculty: %s\n", err)
 		return
 	}
 	err = dbPack.DeleteFaculty(db.Connection, faculty.Id)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err DeleteFaculty: %s\n", err)
 		return
 	}
 
@@ -360,18 +360,18 @@ func test() {
 	cathedra.IdFaculty = 1
 	cathedra.Id, err = dbPack.InsertCathedra(db.Connection, &cathedra)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err InsertCathedra: %s\n", err)
 		return
 	}
 	cathedra.Name = "This Work!"
 	err = dbPack.UpdateCathedra(db.Connection, &cathedra)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err UpdateCathedra: %s\n", err)
 		return
 	}
 	err = dbPack.DeleteCathedra(db.Connection, cathedra.Id)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err DeleteCathedra: %s\n", err)
 		return
 	}
 
@@ -380,18 +380,18 @@ func test() {
 	direction.IdCathedra = 1
 	direction.Id, err = dbPack.InsertDirection(db.Connection, &direction)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err InsertDirection: %s\n", err)
 		return
 	}
 	direction.Name = "This Work!"
 	err = dbPack.UpdateDirection(db.Connection, &direction)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err UpdateDirection: %s\n", err)
 		return
 	}
 	err = dbPack.DeleteDirection(db.Connection, direction.Id)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err DeleteDirection: %s\n", err)
 		return
 	}
 
@@ -412,7 +412,7 @@ func test() {
 	}
 	err = dbPack.DeleteGroup(db.Connection, group.Id)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err DeleteGroup: %s\n", err)
 		return
 	}
 
@@ -420,34 +420,34 @@ func test() {
 	rank.Name = "Новая должность"
 	rank.Id, err = dbPack.InsertRank(db.Connection, &rank)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err InsertRank: %s\n", err)
 		return
 	}
 	rank.Name = "This Work!"
 	err = dbPack.UpdateRank(db.Connection, &rank)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err UpdateRank: %s\n", err)
 		return
 	}
 	err = dbPack.DeleteRank(db.Connection, rank.Id)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err DeleteRank: %s\n", err)
 		return
 	}
 
 	_, err = dbPack.GetAllLoadsForEmployee(db.Connection, 3)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err GetAllLoadsForEmployee: %s\n", err)
 		return
 	}
 	_, err = dbPack.GetAllLoadsForAssistent(db.Connection, 6)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err GetAllLoadsForAssistent: %s\n", err)
 		return
 	}
 	_, err = dbPack.GetAllLoadsByIdGroup(db.Connection, 1)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err GetAllLoadsByIdGroup: %s\n", err)
 		return
 	}
 	var l dbPack.Load
@@ -458,39 +458,39 @@ func test() {
 	l.Semester.Id = 1
 	l.Id, err = l.Insert(db.Connection)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err Load.Insert: %s\n", err)
 		return
 	}
-	l.Semester.Id = 2
+	l.Semester.Id = 1
 	err = dbPack.UpdateLoadsById(db.Connection, &l)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err UpdateLoadsById: %s\n", err)
 		return
 	}
 	err = dbPack.DeleteLoadsById(db.Connection, l.Id)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err DeleteLoadsById: %s\n", err)
 		return
 	}
 	_, err = dbPack.GetAllDisciplineForEmployee(db.Connection, 3)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err GetAllDisciplineForEmployee: %s\n", err)
 		return
 	}
 	_, err = dbPack.GetAllLoadsForEmployee(db.Connection, 3)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err GetAllLoadsForEmployee: %s\n", err)
 		return
 	}
 
 	_, err = dbPack.GetStudentDisciplinesByMark(db.Connection, 1)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err GetStudentDisciplinesByMark: %s\n", err)
 		return
 	}
 	_, err = dbPack.GetCurrentStudentDiscipline(db.Connection, 1)
 	if err != nil {
-		fmt.Printf("Err: %s\n", err)
+		fmt.Printf("Err GetCurrentStudentDiscipline: %s\n", err)
 		return
 	}
 	_, err = dbPack.GetAllLoadsByIdGroup(db.Connection, 1)
@@ -580,6 +580,78 @@ func test() {
 		fmt.Printf("Err GetPeopleByIdV2: %s\n", err)
 		return
 	}
+
+	marks, err := dbPack.GetMarksByDiscipline(db.Connection, 1)
+	if err != nil {
+		fmt.Printf("GetMarksByDiscipline: %s\n", err)
+	}
+	for _, m := range marks {
+		fmt.Printf("mark: %#v\n", m)
+	}
+	marks, err = dbPack.GetMarksByDiscipline(db.Connection, 2)
+	if err != nil {
+		fmt.Printf("GetMarksByDiscipline: %s\n", err)
+	}
+	for _, m := range marks {
+		fmt.Printf("mark: %#v\n", m)
+	}
+	marks, err = dbPack.GetMarksByDiscipline(db.Connection, 3)
+	if err != nil {
+		fmt.Printf("GetMarksByDiscipline: %s\n", err)
+	}
+	for _, m := range marks {
+		fmt.Printf("mark: %#v\n", m)
+	}
+	marks, err = dbPack.GetMarksByDiscipline(db.Connection, 4)
+	if err != nil {
+		fmt.Printf("GetMarksByDiscipline: %s\n", err)
+	}
+	for _, m := range marks {
+		fmt.Printf("mark: %#v\n", m)
+	}
+	marks, err = dbPack.GetMarksByDiscipline(db.Connection, 5)
+	if err != nil {
+		fmt.Printf("GetMarksByDiscipline: %s\n", err)
+	}
+	for _, m := range marks {
+		fmt.Printf("mark: %#v\n", m)
+	}
+	marks, err = dbPack.GetMarksByDiscipline(db.Connection, 6)
+	if err != nil {
+		fmt.Printf("GetMarksByDiscipline: %s\n", err)
+	}
+	for _, m := range marks {
+		fmt.Printf("mark: %#v\n", m)
+	}
+	marks, err = dbPack.GetMarksByDiscipline(db.Connection, 7)
+	if err != nil {
+		fmt.Printf("GetMarksByDiscipline: %s\n", err)
+	}
+	for _, m := range marks {
+		fmt.Printf("mark: %#v\n", m)
+	}
+	marks, err = dbPack.GetMarksByDiscipline(db.Connection, 8)
+	if err != nil {
+		fmt.Printf("GetMarksByDiscipline: %s\n", err)
+	}
+	for _, m := range marks {
+		fmt.Printf("mark: %#v\n", m)
+	}
+	marks, err = dbPack.GetMarksByDiscipline(db.Connection, 9)
+	if err != nil {
+		fmt.Printf("GetMarksByDiscipline: %s\n", err)
+	}
+	for _, m := range marks {
+		fmt.Printf("mark: %#v\n", m)
+	}
+	marks, err = dbPack.GetMarksByDiscipline(db.Connection, 10)
+	if err != nil {
+		fmt.Printf("GetMarksByDiscipline: %s\n", err)
+	}
+	for _, m := range marks {
+		fmt.Printf("mark: %#v\n", m)
+	}
+
 	fmt.Printf("Ok!\n")
 	return
 }
