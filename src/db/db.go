@@ -63,7 +63,7 @@ func (db *Db) CreateDB(name string) (bool, error) {
 	if db.Status == false && db.Err != nil {
 		return db.Status, db.Err
 	}
-	query := fmt.Sprintf("CREATE DATABASE IF NOT EXISTS %s", name)
+	query := fmt.Sprintf("CREATE DATABASE IF NOT EXISTS %s CHARACTER SET utf8 COLLATE utf8_unicode_ci;", name)
 	_, err := db.Connection.Exec(query)
 	if err != nil {
 		return false, err

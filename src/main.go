@@ -613,44 +613,73 @@ func test() {
 	if err != nil {
 		fmt.Printf("GetMarksByDiscipline: %s\n", err)
 	}
-	for _, m := range marks {
-		fmt.Printf("mark: %#v\n", m)
-	}
 	marks, err = dbPack.GetMarksByDiscipline(db.Connection, 6)
 	if err != nil {
 		fmt.Printf("GetMarksByDiscipline: %s\n", err)
-	}
-	for _, m := range marks {
-		fmt.Printf("mark: %#v\n", m)
 	}
 	marks, err = dbPack.GetMarksByDiscipline(db.Connection, 7)
 	if err != nil {
 		fmt.Printf("GetMarksByDiscipline: %s\n", err)
 	}
-	for _, m := range marks {
-		fmt.Printf("mark: %#v\n", m)
-	}
 	marks, err = dbPack.GetMarksByDiscipline(db.Connection, 8)
 	if err != nil {
 		fmt.Printf("GetMarksByDiscipline: %s\n", err)
-	}
-	for _, m := range marks {
-		fmt.Printf("mark: %#v\n", m)
 	}
 	marks, err = dbPack.GetMarksByDiscipline(db.Connection, 9)
 	if err != nil {
 		fmt.Printf("GetMarksByDiscipline: %s\n", err)
 	}
-	for _, m := range marks {
-		fmt.Printf("mark: %#v\n", m)
-	}
-	marks, err = dbPack.GetMarksByDiscipline(db.Connection, 10)
+	_, err = dbPack.GetMarksByDiscipline(db.Connection, 10)
 	if err != nil {
 		fmt.Printf("GetMarksByDiscipline: %s\n", err)
 	}
-	for _, m := range marks {
-		fmt.Printf("mark: %#v\n", m)
+
+	var la dbPack.LoadSemester
+	la, err = dbPack.GetLoadSemesterById(db.Connection, 1)
+	if err != nil {
+		fmt.Printf("err getById: %s\n", err)
+		return
 	}
+	fmt.Printf("%#v\n", la)
+
+	la.Name = "renamed semester"
+	err = la.Update(db.Connection)
+
+	if err != nil {
+		fmt.Printf("err update: %s\n", err)
+		return
+	}
+
+	var newLs dbPack.LoadSemester
+	newLs.Name = "test"
+	newLs.Start = 0
+	newLs.End = 1
+	_, err = newLs.Insert(db.Connection)
+	if err != nil {
+		fmt.Printf("err update: %s\n", err)
+		return
+	}
+	err = dbPack.DeleteLoadSemester(db.Connection, 5)
+	if err != nil {
+		fmt.Printf("err DeleteLoadsSenester: %s", err)
+		return
+	}
+
+	ls, err := dbPack.GetAllLoadsSemester(db.Connection)
+	if err != nil {
+		fmt.Printf("err GetAllLoadsSemester: %s", err)
+		return
+	}
+	for _, l := range ls {
+		fmt.Printf("%#v\n", l)
+	}
+
+	dls, err := dbPack.GetLoadSemesterById(db.Connection, 5)
+	if err != nil {
+		fmt.Printf("err GetLoadSemesterById: %s", err)
+		return
+	}
+	fmt.Printf("%#v\n", dls)
 
 	fmt.Printf("Ok!\n")
 	return

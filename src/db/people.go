@@ -622,6 +622,8 @@ func (p *People) GetPeopleByEmailV2(db *sql.DB, email string) error {
 	return nil
 }
 
+//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
+
 func (p *People) GetPeopleByIdV2(db *sql.DB, id int) error {
 	var studentIdPeople sql.NullInt64
 	var dateAdmission sql.NullString
@@ -644,7 +646,6 @@ func (p *People) GetPeopleByIdV2(db *sql.DB, id int) error {
 		&studentIdPeople, &dateAdmission, &isFullTime, &isCut, &studentGroupId, &studentGroupEmployeeId, &studentGroupName, &studentGroupIdDirection, &studentSemester,
 		&employeeIdPeople, &employeeDateInvite, &employeeRankId, &employeeRankName, &employeeCathedraId, &employeeCathedraName, &employeeCathedraIdFaculty,
 		&p.Accession.EditAccess, &p.Accession.SetAbsence, &p.Accession.GetAbsence, &p.Accession.SetMark, &p.Accession.SetEvent, &p.Accession.GetSensitive, &p.Accession.SetSensitive, &p.Accession.ManageLoad, &p.Accession.ManageAcadem,
-		//&p.SensitiveData.PassportCode, &p.SensitiveData.Rntrs, &p.SensitiveData.RegAddress, &p.SensitiveData.MilitaryId,
 		&p.Status.Id, &p.Status.Name)
 	if err != nil {
 		return err
