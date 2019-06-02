@@ -748,7 +748,7 @@ func UpdatePeopleData(db *sql.DB, idPeople int, updateData map[string]string) er
 	delete(updateData, "table")
 	lenData := len(updateData)
 	if lenData == 0 {
-		return errors.New("Нету параметров для замены! ")
+		return nil
 	}
 	sqlScript := fmt.Sprintf("UPDATE people, %s SET", tableName)
 	var i int
