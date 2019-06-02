@@ -758,7 +758,6 @@ func UpdatePeopleData(db *sql.DB, idPeople int, updateData map[string]string) er
 		i++
 	}
 	sqlScript += fmt.Sprintf(" WHERE people.id = ? AND %s.id_people = people.id;", tableName)
-	fmt.Printf(sqlScript + "\n")
 	_, err := db.Exec(sqlScript, idPeople)
 	if err != nil {
 		return err
