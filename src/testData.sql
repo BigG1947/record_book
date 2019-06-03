@@ -697,6 +697,9 @@ VALUES (1, 12, 9, 75, "задовільно", 0, 3, "2018-12-09");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
 VALUES (1, 13, 12, 60, "задовільно", 1, 3, "2018-12-12");
 
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (1, 10, 6, 60, "задовільно", 1, 4, "2019-06-01");
+
 
 
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
@@ -731,6 +734,11 @@ INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value,
 VALUES (2, 12, 9, 75, "задовільно", 0, 3, "2018-12-09");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
 VALUES (2, 13, 12, 60, "задовільно", 1, 3, "2018-12-12");
+
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (2, 10, 6, 60, "задовільно", 1, 4, "2019-06-01");
+
+
 
 
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
@@ -767,6 +775,10 @@ VALUES (4, 12, 9, 75, "задовільно", 0, 3, "2018-12-09");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
 VALUES (4, 13, 12, 60, "задовільно", 1, 3, "2018-12-12");
 
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (4, 10, 6, 60, "задовільно", 1, 4, "2019-06-01");
+
+
 
 
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
@@ -801,6 +813,10 @@ INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value,
 VALUES (5, 12, 9, 75, "задовільно", 0, 3, "2018-12-09");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
 VALUES (5, 13, 12, 60, "задовільно", 1, 3, "2018-12-12");
+
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (5, 10, 6, 60, "задовільно", 1, 4, "2019-06-01");
+
 
 
 
@@ -838,6 +854,9 @@ VALUES (7, 12, 9, 75, "задовільно", 0, 3, "2018-12-09");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
 VALUES (7, 13, 12, 60, "задовільно", 1, 3, "2018-12-12");
 
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (7, 10, 6, 60, "задовільно", 1, 4, "2019-06-01");
+
 
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
 VALUES (8, 1, 9, 75, "задовільно", 0, 1, "2017-12-05");
@@ -863,7 +882,6 @@ INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value,
 VALUES (8, 3, 6, 64, "задовільно", 0, 2, "2017-12-09");
 
 
-
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
 VALUES (8, 6, 6, 75, "задовільно", 0, 3, "2018-12-05");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
@@ -872,6 +890,10 @@ INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value,
 VALUES (8, 12, 9, 75, "задовільно", 0, 3, "2018-12-09");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
 VALUES (8, 13, 12, 60, "задовільно", 1, 3, "2018-12-12");
+
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (8, 10, 6, 60, "задовільно", 1, 4, "2019-06-01");
+
 
 
 
@@ -908,6 +930,9 @@ VALUES (10, 12, 9, 75, "задовільно", 0, 3, "2018-12-09");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
 VALUES (10, 13, 12, 60, "задовільно", 1, 3, "2018-12-12");
 
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (10, 10, 6, 60, "задовільно", 1, 4, "2019-06-01");
+
 
 
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
@@ -943,6 +968,10 @@ INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value,
 VALUES (11, 12, 9, 75, "задовільно", 0, 3, "2018-12-09");
 INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
 VALUES (11, 13, 12, 60, "задовільно", 1, 3, "2018-12-12");
+
+
+INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
+VALUES (11, 10, 6, 60, "задовільно", 1, 4, "2019-06-01");
 
 
 # INSERT INTO marks(id_student, id_discipline, id_employee, value, national_value, is_exam, semester, date)
