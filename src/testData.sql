@@ -591,11 +591,11 @@ INSERT INTO discipline(name)
 VALUES ("ЕС");
 
 INSERT INTO loads_semester(start, end, name)
-VALUES (1546263600, 1546293600, "1 семестр 2017-2018 року");
+VALUES (1546259500, 1546260500, "1 семестр 2017-2018 року");
 INSERT INTO loads_semester(start, end, name)
-VALUES (1546263600, 1546293600, "2 семестр 2017-2018 року");
+VALUES (1546260600, 1546261600, "2 семестр 2017-2018 року");
 INSERT INTO loads_semester(start, end, name)
-VALUES (1546263600, 1546293600, "1 семестр 2018-2019 року");
+VALUES (1546262600, 1546293500, "1 семестр 2018-2019 року");
 INSERT INTO loads_semester(start, end, name)
 VALUES (1546293600, 1562446800, "2 семестр 2018-2019 року");
 
