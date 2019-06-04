@@ -67,6 +67,8 @@ func (bc *BlockChain) AddBlock(data string, employeeId int, mark int, timestamp 
 	}
 	bc.Tip = newFeedBack.Hash
 	bc.length++
+	bc.hash = sha256.Sum256(bytes.Join([][]byte{bc.hash[:], newFeedBack.Hash}, []byte{}))
+	log.Printf("Block insert into BlockChain!\nBC Lenght: %d\nBC Hash: %x\n", bc.length, bc.hash)
 	return nil
 }
 
@@ -77,6 +79,8 @@ func (bc *BlockChain) AddBlockWithOutSum(block *Block) error {
 	}
 	bc.Tip = block.Hash
 	bc.length++
+	bc.hash = sha256.Sum256(bytes.Join([][]byte{bc.hash[:], block.Hash}, []byte{}))
+	log.Printf("Block insert into BlockChain!\nBC Lenght: %d\nBC Hash: %x\n", bc.length, bc.hash)
 	return nil
 }
 
@@ -100,10 +104,15 @@ func InitBlockChain(db *sql.DB) (*BlockChain, error) {
 		return &BlockChain{}, err
 	}
 
-	err = db.QueryRow("SELECT hash, COUNT(hash) FROM feedbacks WHERE timestamp = (SELECT max(timestamp) FROM feedbacks);").Scan(&tip, &length)
+	err = db.QueryRow("SELECT hash FROM feedbacks WHERE timestamp = (SELECT max(timestamp) FROM feedbacks);").Scan(&tip)
 	if err != nil {
 		log.Printf("Error in initialization blockchain: %s", err)
 	}
+	err = db.QueryRow("SELECT COUNT(hash) FROM feedbacks;").Scan(&length)
+	if err != nil {
+		log.Printf("Error in initialization blockchain: %s", err)
+	}
+	fmt.Printf("Length: %d\n", length)
 	if len(tip) == 0 {
 		genesis := NewBlock("Genesis", -1, 0, []byte{}, 1)
 		_, err := db.Exec("INSERT INTO feedbacks(hash, prev_hash, nonce, timestamp, data, id_employee, mark) VALUES (?,?,?,?,?,?,?)", genesis.Hash, genesis.PrevFeedBackHash, genesis.Nonce, genesis.TimeStamp, genesis.Data, genesis.EmployeeId, genesis.Mark)
@@ -291,7 +300,6 @@ func (bc *BlockChain) Check() {
 	defer bc.mutex.Unlock()
 	for true {
 		bc.mutex.Lock()
-		var finalHash []byte
 		bci := bc.Iterator()
 		bc.broken = false
 		for true {
@@ -308,11 +316,9 @@ func (bc *BlockChain) Check() {
 				bc.broken = true
 				break
 			}
-			finalHash = bytes.Join([][]byte{finalHash, fb.Hash}, []byte{})
 		}
 		if !bc.broken && bc.matched {
 			log.Printf("BlockChain is Ok!\n")
-			bc.hash = sha256.Sum256(finalHash)
 		} else if bc.broken {
 			log.Printf("BlockChain is Broken\n")
 			bc.repair()
