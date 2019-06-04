@@ -115,7 +115,7 @@ func InitBlockChain(db *sql.DB) (*BlockChain, error) {
 	}
 
 	err = db.QueryRow("SELECT hash FROM feedbacks WHERE timestamp = (SELECT max(timestamp) FROM feedbacks);").Scan(&tip)
-	if err != nil {
+	if err != nil && err != sql.ErrNoRows {
 		bc.logger.Printf("Error in initialization blockchain: %s", err)
 	}
 	err = db.QueryRow("SELECT COUNT(hash) FROM feedbacks;").Scan(&length)

@@ -7,8 +7,25 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 )
+
+func getBlockChainLog(w http.ResponseWriter, r *http.Request) {
+	file, err := os.OpenFile("blockchain_log.txt", os.O_RDONLY, 0666)
+	if err != nil {
+		fmt.Fprintf(w, "%s\n", err)
+		return
+	}
+	loggs, err := ioutil.ReadAll(file)
+	if err != nil {
+		fmt.Fprintf(w, "%s\n", err)
+		return
+	}
+	w.WriteHeader(200)
+	w.Write(loggs)
+	return
+}
 
 func getValidBlockChain(w http.ResponseWriter, r *http.Request) {
 	bci := bc.Iterator()

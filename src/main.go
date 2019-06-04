@@ -265,6 +265,7 @@ func main() {
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	r.PathPrefix("/templates/").Handler(http.StripPrefix("/templates/", http.FileServer(http.Dir("templates"))))
 
+	r.HandleFunc("/blockchain/log", getBlockChainLog)
 	r.HandleFunc("/blockchain/checkActivity", checkActivity).Methods("GET")
 	r.HandleFunc("/blockchain/checkActivity", checkActivity)
 	// CRUD routes
