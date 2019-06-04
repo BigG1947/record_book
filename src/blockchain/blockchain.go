@@ -10,6 +10,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -24,6 +25,7 @@ type BlockChain struct {
 	hash     [32]byte
 	broken   bool
 	matched  bool
+	logger   *log.Logger
 	mutex    *sync.Mutex
 }
 
@@ -96,21 +98,29 @@ func (bci *Iterator) Next() (*Block, error) {
 }
 
 func InitBlockChain(db *sql.DB) (*BlockChain, error) {
+	var bc BlockChain
 	var tip []byte
 	var length int
 
-	_, err := db.Exec("CREATE TABLE IF NOT EXISTS feedbacks(hash VARBINARY(256) PRIMARY KEY, prev_hash VARBINARY(256), nonce INT, timestamp INT, data TEXT, id_employee INT, mark INT);")
+	bcLogFile, err := os.OpenFile("blockchain_log.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		return &BlockChain{}, err
+	}
+
+	bc.logger = log.New(bcLogFile, "", log.LstdFlags|log.Lshortfile)
+
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS feedbacks(hash VARBINARY(256) PRIMARY KEY, prev_hash VARBINARY(256), nonce INT, timestamp INT, data TEXT, id_employee INT, mark INT);")
 	if err != nil {
 		return &BlockChain{}, err
 	}
 
 	err = db.QueryRow("SELECT hash FROM feedbacks WHERE timestamp = (SELECT max(timestamp) FROM feedbacks);").Scan(&tip)
 	if err != nil {
-		log.Printf("Error in initialization blockchain: %s", err)
+		bc.logger.Printf("Error in initialization blockchain: %s", err)
 	}
 	err = db.QueryRow("SELECT COUNT(hash) FROM feedbacks;").Scan(&length)
 	if err != nil {
-		log.Printf("Error in initialization blockchain: %s", err)
+		bc.logger.Printf("Error in initialization blockchain: %s", err)
 	}
 	fmt.Printf("Length: %d\n", length)
 	if len(tip) == 0 {
@@ -122,7 +132,11 @@ func InitBlockChain(db *sql.DB) (*BlockChain, error) {
 		tip = genesis.Hash
 		length = 1
 	}
-	bc := BlockChain{tip, false, db, length, GetNodeList(), [32]byte{}, false, false, &sync.Mutex{}}
+	bc.Tip = tip
+	bc.db = db
+	bc.length = length
+	bc.listNode = GetNodeList()
+	bc.mutex = &sync.Mutex{}
 	bc.hash, err = bc.GetFinalHash()
 	if err != nil {
 		return &BlockChain{}, err
@@ -279,14 +293,14 @@ func (bc *BlockChain) CheckNodesInNetWork() {
 			var err error
 			bc.Status, err = bc.CheckNodesLive(bc.listNode)
 			if err != nil {
-				log.Printf("Error in CheckNodesLive:\n%s\n", err)
+				bc.logger.Printf("Error in CheckNodesLive:\n%s\n", err)
 				return
 			}
 			if bc.matched == false {
 				break
 			}
 			if bc.Status == true && bc.matched == true {
-				log.Printf("BlockChain is work!")
+				bc.logger.Printf("BlockChain is work!")
 				break
 			}
 			time.Sleep(10 * time.Second)
@@ -308,22 +322,22 @@ func (bc *BlockChain) Check() {
 				break
 			}
 			if err != nil {
-				log.Printf("Error in BlockChain.Check method: %s\n", err)
+				bc.logger.Printf("Error in BlockChain.Check method: %s\n", err)
 			}
 			pow := NewProofOfWork(fb)
 			if !pow.Validate() {
-				log.Printf("Broken Block:\nHash: %x\nTimestamp: %d\n", fb.Hash, fb.TimeStamp)
+				bc.logger.Printf("Broken Block:\nHash: %x\nTimestamp: %d\n", fb.Hash, fb.TimeStamp)
 				bc.broken = true
 				break
 			}
 		}
 		if !bc.broken && bc.matched {
-			log.Printf("BlockChain is Ok!\n")
+			bc.logger.Printf("BlockChain is Ok!\n")
 		} else if bc.broken {
-			log.Printf("BlockChain is Broken\n")
+			bc.logger.Printf("BlockChain is Broken\n")
 			bc.repair()
 		} else if bc.matched == false {
-			log.Printf("BlockChain is not math to other blockChain nodes\n")
+			bc.logger.Printf("BlockChain is not math to other blockChain nodes\n")
 			bc.repair()
 		}
 		fmt.Printf("Matched: %v\nBroken: %v\nStatus: %v\nHash: %x\n", bc.matched, bc.broken, bc.Status, bc.hash)
@@ -333,7 +347,7 @@ func (bc *BlockChain) Check() {
 }
 
 func (bc *BlockChain) repair() {
-	log.Printf("Start repair blockchain...\n")
+	bc.logger.Printf("Start repair blockchain...\n")
 	mapLengthNode := make(map[int][]Node)
 	for _, node := range bc.listNode {
 		mapLengthNode[node.length] = append(mapLengthNode[node.length], node)
@@ -346,42 +360,42 @@ func (bc *BlockChain) repair() {
 	}
 	blocks, err := getValidBlockChain(&mapLengthNode[maxLength][0])
 	if err != nil {
-		log.Printf("Repair blockchain is failed!\nErr: %s", err)
+		bc.logger.Printf("Repair blockchain is failed!\nErr: %s", err)
 		return
 	}
 	tx, err := bc.db.Begin()
 	if err != nil {
-		log.Printf("BlockChain.repair. Error in begin transaction: %s\n", err)
+		bc.logger.Printf("BlockChain.repair. Error in begin transaction: %s\n", err)
 		return
 	}
 	defer tx.Rollback()
 	_, err = bc.db.Exec("DELETE FROM feedbacks;")
 	if err != nil {
-		log.Printf("Error in delete broken blockchain!\nErr: %s\n", err)
+		bc.logger.Printf("Error in delete broken blockchain!\nErr: %s\n", err)
 		return
 	}
 	stmt, err := tx.Prepare("INSERT INTO feedbacks(hash, prev_hash, nonce, timestamp, data, id_employee, mark) VALUES (?,?,?,?,?,?,?)")
 	if err != nil {
-		log.Printf("BlockChain.repair. Error in prepared query: %s\n", err)
+		bc.logger.Printf("BlockChain.repair. Error in prepared query: %s\n", err)
 		return
 	}
 	defer stmt.Close()
 	for i := range blocks {
 		_, err = stmt.Exec(blocks[i].Hash, blocks[i].PrevFeedBackHash, blocks[i].Nonce, blocks[i].TimeStamp, blocks[i].Data, blocks[i].EmployeeId, blocks[i].Mark)
 		if err != nil {
-			log.Printf("BlockChain.repair. Error in execute query: %s\n", err)
+			bc.logger.Printf("BlockChain.repair. Error in execute query: %s\n", err)
 			return
 		}
 	}
 	err = tx.Commit()
 	if err != nil {
-		log.Printf("BlockChain.repair. Error in commit transaction: %s\n", err)
+		bc.logger.Printf("BlockChain.repair. Error in commit transaction: %s\n", err)
 		return
 	}
 	bc.length = mapLengthNode[maxLength][0].length
 	bc.hash = mapLengthNode[maxLength][0].hash
 	bc.Tip = blocks[0].Hash[:]
-	log.Printf("Repair is success!")
+	bc.logger.Printf("Repair is success!")
 }
 
 func (bc *BlockChain) GetHash() [32]byte {

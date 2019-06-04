@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"math"
 	"net/http"
 	"strings"
@@ -53,7 +52,7 @@ func (bc *BlockChain) CheckNodesLive(list []Node) (bool, error) {
 		resp, err := client.Do(req)
 		if err != nil {
 			list[i].status = false
-			log.Printf("Node: %s:%d don`t active!\n", list[i].ip, list[i].port)
+			bc.logger.Printf("Node: %s:%d don`t active!\n", list[i].ip, list[i].port)
 			continue
 		}
 		if resp.StatusCode == http.StatusOK {
@@ -65,7 +64,7 @@ func (bc *BlockChain) CheckNodesLive(list []Node) (bool, error) {
 			}{}
 			err = json.Unmarshal(body, &responseStruct)
 			if err != nil {
-				log.Printf("Node: %s:%d\nError: %s\n", list[i].ip, list[i].port, err)
+				bc.logger.Printf("Node: %s:%d\nError: %s\n", list[i].ip, list[i].port, err)
 				return false, nil
 			}
 			list[i].length = responseStruct.Length
@@ -73,9 +72,9 @@ func (bc *BlockChain) CheckNodesLive(list []Node) (bool, error) {
 			countActiveNode++
 			if bc.length != list[i].length || !bytes.Equal(bc.hash[:], list[i].hash[:]) {
 				noMatchNode++
-				log.Printf("Node: %s:%d No match len or hash\n", list[i].ip, list[i].port)
+				bc.logger.Printf("Node: %s:%d No match len or hash\n", list[i].ip, list[i].port)
 			}
-			log.Printf("Node: %s:%d have status OK!\n", list[i].ip, list[i].port)
+			bc.logger.Printf("Node: %s:%d have status OK!\n", list[i].ip, list[i].port)
 		}
 	}
 	if noMatchNode > int(math.Round(float64(len(list))/2.0)) {
@@ -86,7 +85,7 @@ func (bc *BlockChain) CheckNodesLive(list []Node) (bool, error) {
 	}
 
 	if countActiveNode < 2 || countActiveNode%2 != 0 {
-		log.Printf("Not enough nodes in Network, must be 3 and more!\n")
+		bc.logger.Printf("Not enough nodes in Network, must be 3 and more!\n")
 		return false, nil
 	}
 	return true, nil
